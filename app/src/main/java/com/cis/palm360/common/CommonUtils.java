@@ -24,9 +24,6 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.TelephonyManager;
 import android.text.Html;
 import android.text.TextUtils;
@@ -98,6 +95,10 @@ import java.util.zip.ZipOutputStream;
 import es.dmoral.toasty.Toasty;
 
 import static com.cis.palm360.common.CommonConstants.COUNT_OF_TREES;
+
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 // Commonly used methods are written here
 public class CommonUtils {
@@ -856,6 +857,8 @@ public class CommonUtils {
     //We are calling this method to check the permission status
     public static boolean areAllPermissionsAllowedNew(final Context context, final String[] permissions) {
         boolean isAllPermissionsGranted = true;
+        Log.d("areAllPermissionsAllowedNew", "Yes");
+
         for (String permission : permissions) {
             int result = ContextCompat.checkSelfPermission(context, permission);
             if (result != PackageManager.PERMISSION_GRANTED) {
@@ -877,16 +880,16 @@ public class CommonUtils {
  //return deviceId;
 //        return "f42807d71bb918c7";
         //return "351558072968326";// KA User(AnandGoud)
-return "358525086163783"; //AR & CH State User(Roja)
+//return "358525086163783"; //AR & CH State User(Roja)
 //return  "9feb311d3675d000";
-//return "351558072434071"; //NikHil
+return "351558072434071"; //NikHil
       //return "87846711fe3fac40"; //Assam User
      // return "8c36dbcb47dcef24"; //Live Data issue
 
 //return "351558072360896";//Arun
         //return "64f99459df5aef74";// Arun UAT user
         //return "04eef79c34f0aec6";//Live Registration not working
-        //return "351558072736715";//Srihari sir Live
+        //return "351558072736715";//Srihari sir Live  
         //return "351558072998505";//SrihariTEST UAT
     //    return "60d90ac7141aa139";//ArunUAT
         //return "97f872887b58f047";

@@ -9,7 +9,7 @@
 
 6-  Conversion potential logic .(It will get 10 on selection YES by default)
 
-7-  Add Google Map for Current Location to Farmer field Location.
+7-  Add Google Map for Current Location to Growerfield Location.
 
 8- Sapling count of  issue are resolved.
 
@@ -30,7 +30,7 @@
 
 16 - Notification icon  and Sync option add at the top right corner of dashboard.
 
-17-  New columns in plot and farmer tables as part of plot split and partial uprootment                 
+17-  New columns in plot and Growertables as part of plot split and partial uprootment
 enhancements.
 
 18-Issues mention in Google Sheet by Divya is Done.

@@ -1,13 +1,14 @@
 package com.cis.palm360.common;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.Log;

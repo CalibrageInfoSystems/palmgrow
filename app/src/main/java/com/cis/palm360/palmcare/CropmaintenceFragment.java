@@ -9,12 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -26,6 +20,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.ApplicationThread;
@@ -222,13 +223,31 @@ ProgressBar.showProgressBar(getActivity(), "Please wait...");
     @Override
     public void onResume() {
         super.onResume();
-        getContext().registerReceiver(mNotificationReceiver, new IntentFilter("KEY"));
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            getContext().registerReceiver(
+                    mNotificationReceiver,
+                    new IntentFilter("KEY"),
+                    Context.RECEIVER_NOT_EXPORTED
+            );
+        } else {
+            getContext().registerReceiver(
+                    mNotificationReceiver,
+                    new IntentFilter("KEY")
+            );
+        }
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        getContext().unregisterReceiver(mNotificationReceiver);
+        try {
+            getContext().unregisterReceiver(mNotificationReceiver);
+        } catch (IllegalArgumentException e) {
+            // Receiver was not registered
+            e.printStackTrace();
+        }
     }
+
     // Other fragment methods and logic
 }

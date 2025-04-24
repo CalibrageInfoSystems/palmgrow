@@ -2,14 +2,16 @@ package com.cis.palm360.areaextension;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.ApplicationThread;
@@ -125,126 +127,117 @@ public class RegistrationFlowScreen extends OilPalmBaseActivity implements Updat
     //OnClick Listeners
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
 
-            case R.id.personalDetailsBtn:
+        int id = view.getId();
+
+            if (id == R.id.personalDetailsBtn) {
                 personalDetailsFragment = new PersonalDetailsFragment();
                 personalDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(personalDetailsFragment);
+            }
 
-                break;
-            case R.id.idProofBtn:
+        if (id == R.id.idProofBtn) {
 
-                Farmer f1 = (Farmer) DataManager.getInstance().getDataFromManager(DataManager.FARMER_PERSONAL_DETAILS);
+            Farmer f1 = (Farmer) DataManager.getInstance().getDataFromManager(DataManager.FARMER_PERSONAL_DETAILS);
 
-                if(f1 !=null)
-                {
-                    final DataAccessHandler dataAccessHandlerObj = new DataAccessHandler(this);
-                    boolean recordExistedid = dataAccessHandlerObj.checkValueExistedInDatabase(Queries.getInstance().checkRecordStatusInIDTable(DatabaseKeys.TABLE_IDENTITYPROOF, "FarmerCode", CommonConstants.FARMER_CODE));
-                    if (recordExistedid) {
-                        Bundle idproofsBundle = new Bundle();
-                        idproofsBundle.putString("whichScreen", "conversionidproofshomepage");
-                        ConversionIDProofFragment conversionIDProofFragment = new ConversionIDProofFragment();
-                        conversionIDProofFragment.setUpdateUiListener(this);
-                        replaceFragment(conversionIDProofFragment, idproofsBundle);
+            if (f1 != null) {
+                final DataAccessHandler dataAccessHandlerObj = new DataAccessHandler(this);
+                boolean recordExistedid = dataAccessHandlerObj.checkValueExistedInDatabase(Queries.getInstance().checkRecordStatusInIDTable(DatabaseKeys.TABLE_IDENTITYPROOF, "FarmerCode", CommonConstants.FARMER_CODE));
+                if (recordExistedid) {
+                    Bundle idproofsBundle = new Bundle();
+                    idproofsBundle.putString("whichScreen", "conversionidproofshomepage");
+                    ConversionIDProofFragment conversionIDProofFragment = new ConversionIDProofFragment();
+                    conversionIDProofFragment.setUpdateUiListener(this);
+                    replaceFragment(conversionIDProofFragment, idproofsBundle);
                     //    replaceFragment(new CropMaintanenceIdProofsDetails());
+                } else {
+                    Bundle idproofsBundle = new Bundle();
+                    idproofsBundle.putString("whichScreen", "conversionidproofshomepage");
+                    ConversionIDProofFragment conversionIDProofFragment = new ConversionIDProofFragment();
+                    conversionIDProofFragment.setUpdateUiListener(this);
+                    replaceFragment(conversionIDProofFragment, idproofsBundle);
+                }
+            } else {
+                UiUtils.showCustomToastMessage("Please Take Personal Details Data", RegistrationFlowScreen.this, 1);
+            }
+
+        }
+                if (id == R.id.bankDetailsBtn) {
+                    Farmer f2 = (Farmer) DataManager.getInstance().getDataFromManager(DataManager.FARMER_PERSONAL_DETAILS);
+
+                    if (f2 != null) {
+                        final DataAccessHandler dataAccessHandler = new DataAccessHandler(this);
+                        boolean recordExisted = dataAccessHandler.checkValueExistedInDatabase(Queries.getInstance().checkRecordStatusInTable(DatabaseKeys.TABLE_FARMERBANK, "FarmerCode", CommonConstants.FARMER_CODE));
+                        if (recordExisted) {
+                            replaceFragment(new BankDetailsFragment());
+                        } else {
+                            Bundle bankBundle = new Bundle();
+                            bankBundle.putString("whichScreen", "conversionBankhomepage");
+                            ConversionBankDetailsFragment conversionBankDetailsFragment = new ConversionBankDetailsFragment();
+                            conversionBankDetailsFragment.setUpdateUiListener(this);
+                            replaceFragment(conversionBankDetailsFragment, bankBundle);
+                        }
                     } else {
-                        Bundle idproofsBundle = new Bundle();
-                        idproofsBundle.putString("whichScreen", "conversionidproofshomepage");
-                        ConversionIDProofFragment conversionIDProofFragment = new ConversionIDProofFragment();
-                        conversionIDProofFragment.setUpdateUiListener(this);
-                        replaceFragment(conversionIDProofFragment, idproofsBundle);
+                        UiUtils.showCustomToastMessage("Please Take Personal Details Data", RegistrationFlowScreen.this, 1);
+
                     }
                 }
-                else {
-                    UiUtils.showCustomToastMessage("Please Take Personal Details Data", RegistrationFlowScreen.this, 1);
-                }
-
-                break;
-            case R.id.bankDetailsBtn:
-
-
-                Farmer f2 = (Farmer) DataManager.getInstance().getDataFromManager(DataManager.FARMER_PERSONAL_DETAILS);
-
-                if(f2 !=null) {
-                    final DataAccessHandler dataAccessHandler = new DataAccessHandler(this);
-                    boolean recordExisted = dataAccessHandler.checkValueExistedInDatabase(Queries.getInstance().checkRecordStatusInTable(DatabaseKeys.TABLE_FARMERBANK, "FarmerCode", CommonConstants.FARMER_CODE));
-                    if (recordExisted) {
-                        replaceFragment(new BankDetailsFragment());
-                    } else {
-                        Bundle bankBundle = new Bundle();
-                        bankBundle.putString("whichScreen", "conversionBankhomepage");
-                        ConversionBankDetailsFragment conversionBankDetailsFragment = new ConversionBankDetailsFragment();
-                        conversionBankDetailsFragment.setUpdateUiListener(this);
-                        replaceFragment(conversionBankDetailsFragment, bankBundle);
-                    }
-                }
-                else {
-                    UiUtils.showCustomToastMessage("Please Take Personal Details Data", RegistrationFlowScreen.this, 1);
-
-                }
-                break;
-            case R.id.plotDetailsBtn:
+            if (id == R.id.plotDetailsBtn) {
 
                 Farmer f = (Farmer) DataManager.getInstance().getDataFromManager(DataManager.FARMER_PERSONAL_DETAILS);
 
-               if(f !=null)
-                {
+                if (f != null) {
                     PlotDetailsFragment plotDetailsFragment = new PlotDetailsFragment();
                     plotDetailsFragment.setUpdateUiListener(this);
                     replaceFragment(plotDetailsFragment);
-                }
-                else {
+                } else {
                     UiUtils.showCustomToastMessage("Please Take Personal Details Data", RegistrationFlowScreen.this, 1);
                 }
-                break;
+            }
 
-            case R.id.wspBtn:
+            if (id == R.id.wspBtn) {
 //                replaceFragment(new WSPDetailsFragment());
                 FragmentManager fm = getSupportFragmentManager();
                 WaterSoilTypeDialogFragment mWaterSoilTypeDialogFragment = new WaterSoilTypeDialogFragment();
                 mWaterSoilTypeDialogFragment.setOnTypeSelected(this);
                 mWaterSoilTypeDialogFragment.show(fm, "fragment_edit_name");
-                break;
+            }
 
-            case R.id.plotGeoTagBtn:
+            if (id == R.id.plotGeoTagBtn) {
                 GeoTagFragment geoTagFragment = new GeoTagFragment();
                 geoTagFragment.setUpdateUiListener(this);
                 replaceFragment(geoTagFragment);
-                break;
+            }
 
-            case R.id.cpBtn:
+            if (id == R.id.cpBtn) {
                 conversionPotentialFragment = new ConversionPotentialFragment();
                 conversionPotentialFragment.setUpdateUiListener(this);
                 replaceFragment(conversionPotentialFragment);
-                break;
+            }
 
-            case R.id.referalsBtn:
+            if (id == R.id.referalsBtn) {
                 ReferralsFragment referralsFragment = new ReferralsFragment();
                 referralsFragment.setUpdateUiListener(this);
                 replaceFragment(referralsFragment);
-                break;
+            }
 
-            case R.id.marketSurveyBtn:
+            if (id == R.id.marketSurveyBtn) {
                 startActivity(new Intent(RegistrationFlowScreen.this, MarketSurveyScreen.class));
-                break;
+            }
 
-            case R.id.finishBtn:
-                    if(CommonUiUtils.checkforIdentityDetails(this) ){
-                        UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please provide Aadhaar details.", RegistrationFlowScreen.this, 1);
-                    }
-              else if(CommonUiUtils.checkBankDetails(this)){
+            if (id == R.id.finishBtn) {
+                if (CommonUiUtils.checkforIdentityDetails(this)) {
+                    UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please provide Aadhaar details.", RegistrationFlowScreen.this, 1);
+                } else if (CommonUiUtils.checkBankDetails(this)) {
                     UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please Take BankDetails", RegistrationFlowScreen.this, 1);
                 } else if (CommonUiUtils.checkForGeoTag(this)) {
                     UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please Take GeoTag", RegistrationFlowScreen.this, 1);
-                } else if (CommonUiUtils.checkForWaterSoilPowerDetails(this)){
+                } else if (CommonUiUtils.checkForWaterSoilPowerDetails(this)) {
                     UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please Take Water Soil Power Details", RegistrationFlowScreen.this, 1);
-                }else  if(CommonUiUtils.checkHorticultureAndLandType(this))
-                {
+                } else if (CommonUiUtils.checkHorticultureAndLandType(this)) {
                     UiUtils.showCustomToastMessage("Farmer is Ready To Convert , So Please Select  Land Type in Plot Details Screen", RegistrationFlowScreen.this, 1);
-                }
-                else {
-                    ProgressBar.showProgressBar(RegistrationFlowScreen.this,"Please wait data is Inserting in DataBase.....");
+                } else {
+                    ProgressBar.showProgressBar(RegistrationFlowScreen.this, "Please wait data is Inserting in DataBase.....");
 
                     DataSavingHelper.saveFarmerAddressData(this, new ApplicationThread.OnComplete<String>() {
                         @Override
@@ -259,9 +252,7 @@ public class RegistrationFlowScreen extends OilPalmBaseActivity implements Updat
                         }
                     });
                 }
-                break;
-        }
-
+            }
     }
 
     @Override

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     >
 
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp">
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="0.5"
-                    android:text="Farmer Code"
+                    android:text="GrowerCode"
                     style="@style/header_h1_text_title_list_item"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="0.5"
-                    android:text="Farmer Name"
+                    android:text="GrowerName"
                     style="@style/header_h1_text_title_list_item"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -431,5 +431,5 @@ android:visibility="gone"
 
             </LinearLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 </LinearLayout>

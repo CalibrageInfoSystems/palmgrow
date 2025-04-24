@@ -10,8 +10,6 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +74,11 @@ import static com.cis.palm360.common.CommonUiUtils.isGandermaDatacheck;
 import static com.cis.palm360.common.CommonUiUtils.isNDdata;
 import static com.cis.palm360.common.CommonUiUtils.ispestdata;
 
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+
 //Crop maintenance home screen modules
+
 public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements TypeChooserDialog.typeChooser, UpdateUiListener, WaterSoilTypeDialogFragment.onTypeSelected {
 
     public static Bitmap userImageData;
@@ -166,7 +168,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
         farmerIdBtn = (Button) findViewById(R.id.farmerIdBtn);
         geoTagsBtn = (Button) findViewById(R.id.geoTagsBtn);
         scrollViewLayout = (ScrollView) findViewById(R.id.mainScroll);
-         checkView = findViewById(R.id.check);
+        checkView = findViewById(R.id.check);
 
         if (CommonUtils.isFromCropMaintenance()){
             if (null != DataManager.getInstance().getDataFromManager(DataManager.FARMER_PERSONAL_DETAILS)) {
@@ -188,7 +190,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
         Log.v(CropMaintenanceHomeScreen.class.getCanonicalName(), "#### check "+isFarmerMandatoryDataEntered());
 
         calendar = Calendar.getInstance();
-        final FiscalDate fiscalDate = new com.cis.palm360.common.FiscalDate(calendar);
+        final FiscalDate fiscalDate = new FiscalDate(calendar);
         final String financialYear = fiscalDate.getFinancialYearr(calendar);
 
         currentYearStr = financialYear + "";
@@ -232,87 +234,94 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
     //On click listeners for each module in crop maintenance
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
 
-            case R.id.viewSnapShotBtn:
+        int id = view.getId();
+
+            if (id == R.id.viewSnapShotBtn) {
                 replaceFragment(new SnapShotFragment());
-                break;
 
-            case R.id.personalDetailsBtn:
+            }
+
+           else if (id ==  R.id.personalDetailsBtn) {
                 PersonalDetailsFragment personalDetailsFragment = new PersonalDetailsFragment();
                 personalDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(personalDetailsFragment);
-                break;
+            }
 
-            case R.id.plotDetailsBtn:
+            else if (id ==  R.id.plotDetailsBtn) {
                 PlotDetailsFragment plotDetailsFragment = new PlotDetailsFragment();
                 plotDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(plotDetailsFragment);
-                break;
+            }
 
-            case R.id.wspBtn:
+            else  if (id ==  R.id.wspBtn) {
                 FragmentManager fm = getSupportFragmentManager();
                 WaterSoilTypeDialogFragment mWaterSoilTypeDialogFragment = new WaterSoilTypeDialogFragment();
                 mWaterSoilTypeDialogFragment.setOnTypeSelected(this);
                 mWaterSoilTypeDialogFragment.show(fm, "fragment_edit_name");
-                break;
+            }
 
-            case R.id.plantationBtn:
+            else if (id ==  R.id.plantationBtn) {
                 CropPlantationFragment cropPlantationFragment = new CropPlantationFragment();
                 cropPlantationFragment.setUpdateUiListener(this);
                 replaceFragment(cropPlantationFragment);
-                break;
-            case R.id.currentPlantation:
+            }
+
+            else if (id ==  R.id.currentPlantation) {
                 CurrentPlantationFragment currentPlantationFragment = new CurrentPlantationFragment();
                 currentPlantationFragment.setUpdateUiListener(this);
                 replaceFragment(currentPlantationFragment);
-                break;
+            }
 
-            case R.id.interCropDetailsBtn:
+            else if (id ==  R.id.interCropDetailsBtn) {
                 InterCropDetailsFragment interCropDetailsFragment = new InterCropDetailsFragment();
                 interCropDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(interCropDetailsFragment, null);
-                break;
-            case R.id.fertilizer_detailsBtn:
+            }
+
+            else  if (id ==  R.id.fertilizer_detailsBtn) {
                 FertilizerFragment mFertilizerFragment = new FertilizerFragment();
                 mFertilizerFragment.setUpdateUiListener(this);
                 replaceFragment(mFertilizerFragment);
-                break;
-            case R.id.fertilizerBtn:
+            }
+
+            else  if (id ==  R.id.fertilizerBtn) {
                 NDScreen ndScreen = new NDScreen();
                 ndScreen.setUpdateUiListener(this);
                 replaceFragment(ndScreen);
-                break;
-            case R.id.Recom_fertilizer_detailsBtn:
+            }
+
+        else if (id ==  R.id.Recom_fertilizer_detailsBtn) {
                 RecomndFertilizerFragment recomndFertilizerFragment = new RecomndFertilizerFragment();
                 recomndFertilizerFragment.setUpdateUiListener(this);
                 replaceFragment(recomndFertilizerFragment);
-                break;
+            }
 
-            case R.id.pestBtn:
+            else if (id ==  R.id.pestBtn) {
                 PestDetailsFragment mPestDetailsFragment = new PestDetailsFragment();
                 mPestDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(mPestDetailsFragment);
-                break;
+            }
 
-            case R.id.ganodermaInfestation:
+            else if (id ==  R.id.ganodermaInfestation) {
                 GanodermaInfestationFragment mGanodermaInfestationFragment = new GanodermaInfestationFragment();
                 mGanodermaInfestationFragment.setUpdateUiListener(this);
                 replaceFragment(mGanodermaInfestationFragment);
-                break;
+            }
 
-            case R.id.diseaseBtn:
+            else if (id ==  R.id.diseaseBtn) {
                 DiseaseDetailsFragment mDiseaseDetailsFragment = new DiseaseDetailsFragment();
                 mDiseaseDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(mDiseaseDetailsFragment);
-                break;
+            }
 
-            case R.id.weedManagementBtn:
+            else if (id ==  R.id.weedManagementBtn) {
                 WMODetailsFragment mWMODetailsFragment = new WMODetailsFragment();
                 mWMODetailsFragment.setUpdateUiListener(this);
                 replaceFragment(mWMODetailsFragment);
-                break;
-            case R.id.hopBtn:
+            }
+
+            else if (id ==  R.id.hopBtn) {
                 bindImageClass = "HealthOfPlantationDetailsFragment";
                    if (!isNDdata(this)) {
                 UiUtils.showCustomToastMessage("Please Add Nutrient Deficiencies Data", CropMaintenanceHomeScreen.this, 0);
@@ -345,134 +354,131 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
                     replaceFragment(mHealthOfPlantationDetailsFragment);
                }
 
-                break;
-            case R.id.harvestDetailsBtn:
+                }
+
+            if (id ==  R.id.harvestDetailsBtn) {
                 FFB_HarvestDetailsFragment mFFB_HarvestDetailsFragment = new FFB_HarvestDetailsFragment();
                 mFFB_HarvestDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(mFFB_HarvestDetailsFragment);
-                break;
-            case R.id.complaintsBtn:
+            }
+
+            if (id ==  R.id.complaintsBtn) {
                 bindImageClass = "ComplaintDetailsFragment";
 //                ComplaintDetailsFragment mComplaintDetailsFragment = new ComplaintDetailsFragment();
 //                mComplaintDetailsFragment.setUpdateUiListener(this);
 //                replaceFragment(mComplaintDetailsFragment);
-                startActivity(new Intent(CropMaintenanceHomeScreen.this, ComplaintsScreenActivity.class).putExtra("plot",true));
-                break;
-            case R.id.referralsBtn:
+                startActivity(new Intent(CropMaintenanceHomeScreen.this, ComplaintsScreenActivity.class).putExtra("plot", true));
+            }
+
+            if (id ==  R.id.referralsBtn) {
                 ReferralsFragment mReferralsFragment = new ReferralsFragment();
                 mReferralsFragment.setUpdateUiListener(this);
                 replaceFragment(mReferralsFragment);
-                break;
+            }
 
-            case R.id.marketSurveyBtn:
-                break;
+            if (id ==  R.id.marketSurveyBtn) {
+            }
 
-            case R.id.farmerBankBtn:
+            if (id ==  R.id.farmerBankBtn) {
                 replaceFragment(new BankDetailsFragment());
-                break;
-            case R.id.farmerIdBtn:
+            }
+
+            if (id ==  R.id.farmerIdBtn) {
                 replaceFragment(new CropMaintanenceIdProofsDetails());
-                break;
-            case R.id.geoTagsBtn:
+            }
+
+            if (id ==  R.id.geoTagsBtn) {
                 GeoTagFragment geoTagFragment = new GeoTagFragment();
                 replaceFragment(geoTagFragment);
                 geoTagFragment.setUpdateUiListener(this);
-                break;
-            case R.id.whiteFlyBtn:
+            }
+
+            if (id ==  R.id.whiteFlyBtn) {
                 WhiteFlyFragment witeFlyFragment = new WhiteFlyFragment();
                 witeFlyFragment.setUpdateUiListener(this);
                 replaceFragment(witeFlyFragment);
-                break;
-            case R.id.yieldBtn:
+                }
+            if (id ==  R.id.yieldBtn) {
                 YieldFragment yieldFragment = new YieldFragment();
                 yieldFragment.setUpdateUiListener(this);
                 replaceFragment(yieldFragment);
-                break;
-                case R.id.finishBtn:
-                     PlotDistrictId = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getPlotDistrictId());
-                     secondPreviousFYWhiteFlyList = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getsecondpreviousyearWhiteFlyCount(secondpreviousYearStr));
-                     previousFYWhiteFlyList = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getpreviousyearWhiteFlyCount(previousYearStr));
-                    Log.e("PLOT_SoilType_DATA",DataManager.getInstance().getDataFromManager(DataManager.SoilType)+"");
-                    Log.e("PLOT_SOURCE_OF_WATER_PAIR",DataManager.getInstance().getDataFromManager(DataManager.SOURCE_OF_WATER)+"");
+            }
+
+                if (id ==  R.id.finishBtn) {
+                    PlotDistrictId = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getPlotDistrictId());
+                    secondPreviousFYWhiteFlyList = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getsecondpreviousyearWhiteFlyCount(secondpreviousYearStr));
+                    previousFYWhiteFlyList = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getpreviousyearWhiteFlyCount(previousYearStr));
+                    Log.e("PLOT_SoilType_DATA", DataManager.getInstance().getDataFromManager(DataManager.SoilType) + "");
+                    Log.e("PLOT_SOURCE_OF_WATER_PAIR", DataManager.getInstance().getDataFromManager(DataManager.SOURCE_OF_WATER) + "");
                     Calendar c = Calendar.getInstance();
-                    int month = c.get(Calendar.MONTH) ;
+                    int month = c.get(Calendar.MONTH);
                     int year = c.get(Calendar.YEAR);
-                    int Quater = month<=2 ? 1 : month<=5 ? 2 : month<=8 ? 3 : 4;
+                    int Quater = month <= 2 ? 1 : month <= 5 ? 2 : month <= 8 ? 3 : 4;
 
-                    if(month>=0 && month<=2){
-                        year=year-1;
+                    if (month >= 0 && month <= 2) {
+                        year = year - 1;
 
-                        pmindate=String.valueOf(year)+"-09-01";
-                        pmaxdate=String.valueOf(year)+"-12-31";
-                    }else if (month>=3 && month<=5){
+                        pmindate = String.valueOf(year) + "-09-01";
+                        pmaxdate = String.valueOf(year) + "-12-31";
+                    } else if (month >= 3 && month <= 5) {
 
-                        pmindate=String.valueOf(year)+"-01-01";
-                        pmaxdate=String.valueOf(year)+"-03-31";
-                    }else if (month>=6 && month<=8){
+                        pmindate = String.valueOf(year) + "-01-01";
+                        pmaxdate = String.valueOf(year) + "-03-31";
+                    } else if (month >= 6 && month <= 8) {
 
-                        pmindate=String.valueOf(year)+"-01-01";
-                        pmaxdate=String.valueOf(year)+"-03-31";
-                    }else if (month>=9 && month<=11){
+                        pmindate = String.valueOf(year) + "-01-01";
+                        pmaxdate = String.valueOf(year) + "-03-31";
+                    } else if (month >= 9 && month <= 11) {
 
-                        pmindate=String.valueOf(year)+"-01-01";
-                        pmaxdate=String.valueOf(year)+"-03-31";
+                        pmindate = String.valueOf(year) + "-01-01";
+                        pmaxdate = String.valueOf(year) + "-03-31";
                     }
-                    Qtrfertilizer = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getFertilizerQtrCMCnt(year,Quater,CommonConstants.PLOT_CODE,pmindate,pmaxdate));
+                    Qtrfertilizer = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getFertilizerQtrCMCnt(year, Quater, CommonConstants.PLOT_CODE, pmindate, pmaxdate));
                     cocaintercrop = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getCocaInterCropCnt());
-                Log.v("@@@raring","pest "+CommonConstants.perc_tree_pest+" nutrint "+CommonConstants.perc_tree+" diseases "+CommonConstants.perc_tree_disease);
-                Plot enteredPlot = (Plot) DataManager.getInstance().getDataFromManager(DataManager.PLOT_DETAILS);
+                    Log.v("@@@raring", "pest " + CommonConstants.perc_tree_pest + " nutrint " + CommonConstants.perc_tree + " diseases " + CommonConstants.perc_tree_disease);
+                    Plot enteredPlot = (Plot) DataManager.getInstance().getDataFromManager(DataManager.PLOT_DETAILS);
                     Log.d("GanodermaCheck", "Ganoderma infestation visibility: " + (ganodermaInfestation.getVisibility() == View.VISIBLE));
                     Log.d("GanodermaCheck", "Ganoderma data entered: " + isGandermaDatacheck());
-                if (DisplayPlotsFragment.plotCode.equalsIgnoreCase(enteredPlot.getCode())){
+                    if (DisplayPlotsFragment.plotCode.equalsIgnoreCase(enteredPlot.getCode())) {
 
-                    if (!isFarmerMandatoryDataEntered()) {
-                        UiUtils.showCustomToastMessage("Please Enter Mandatory Data For Farmer Income/ Guardian", CropMaintenanceHomeScreen.this, 0);
-                    } else if(!issecondpreviousFYWhiteFly() && CommonConstants.CURRENT_TREE>0){
-                        UiUtils.showCustomToastMessage("Please Enter White Fly Data For" + secondpreviousFYStr +"Year", CropMaintenanceHomeScreen.this, 0);
-                    }
-                    else if(!ispreviousFYWhiteFly() && CommonConstants.CURRENT_TREE>0){
-                        UiUtils.showCustomToastMessage("Please Enter White Fly Data For" + previousFYStr +" Year", CropMaintenanceHomeScreen.this, 0);
-                    }
-                    else if(!iscurrentFYWhiteFly() && CommonConstants.CURRENT_TREE>0){
-                        UiUtils.showCustomToastMessage("Please Enter White Fly Data For" + currentFYStr +" Year", CropMaintenanceHomeScreen.this, 0);
-                    }
-                    else if (!ispestdata(this) && CommonConstants.CURRENT_TREE>0) {
-                        UiUtils.showCustomToastMessage("Please Add Pest Data", CropMaintenanceHomeScreen.this, 0);
-                    }
-                    else if (!isDISEASEdata(this) && CommonConstants.CURRENT_TREE>0) {
-                        UiUtils.showCustomToastMessage("Please Add Disease Data", CropMaintenanceHomeScreen.this, 0);
-                    }
-                    else if (!isNDdata(this) && CommonConstants.CURRENT_TREE>0) {
-                        UiUtils.showCustomToastMessage("Please Add Nutrient Deficiencies Data", CropMaintenanceHomeScreen.this, 0);
-                    }
-                    else if (!CommonUiUtils.isConversionPlotAddressDataEntered()) {
-                        UiUtils.showCustomToastMessage("Please Enter Mandatory Data For Plot", CropMaintenanceHomeScreen.this, 0);
-                    }else if (!CommonUiUtils.isPlotDataEntered()) {
-                        UiUtils.showCustomToastMessage("Please Enter OwnerShip And Caretaker Details Of Plot", CropMaintenanceHomeScreen.this, 0);
-                    } else  if (!isPlantationData()) {
-                        UiUtils.showCustomToastMessage("Please Enter Plantation Data", CropMaintenanceHomeScreen.this, 0);
-                    } else if (!iswater()) {
-                        UiUtils.showCustomToastMessage("Please Enter Water Details", CropMaintenanceHomeScreen.this, 0);
-                    }
-                    else if (!issoilpower()) {
-                        UiUtils.showCustomToastMessage("Please Enter Soil Details", CropMaintenanceHomeScreen.this, 0);
-                    }
-                    else  if (!isInterCrop() && CommonConstants.CURRENT_TREE > 0) {
-                        UiUtils.showCustomToastMessage("Please Enter Inter Crop Data", CropMaintenanceHomeScreen.this, 0);
-                    }
+                        if (!isFarmerMandatoryDataEntered()) {
+                            UiUtils.showCustomToastMessage("Please Enter Mandatory Data For Farmer Income/ Guardian", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!issecondpreviousFYWhiteFly() && CommonConstants.CURRENT_TREE > 0) {
+                            UiUtils.showCustomToastMessage("Please Enter White Fly Data For" + secondpreviousFYStr + "Year", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!ispreviousFYWhiteFly() && CommonConstants.CURRENT_TREE > 0) {
+                            UiUtils.showCustomToastMessage("Please Enter White Fly Data For" + previousFYStr + " Year", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!iscurrentFYWhiteFly() && CommonConstants.CURRENT_TREE > 0) {
+                            UiUtils.showCustomToastMessage("Please Enter White Fly Data For" + currentFYStr + " Year", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!ispestdata(this) && CommonConstants.CURRENT_TREE > 0) {
+                            UiUtils.showCustomToastMessage("Please Add Pest Data", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!isDISEASEdata(this) && CommonConstants.CURRENT_TREE > 0) {
+                            UiUtils.showCustomToastMessage("Please Add Disease Data", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!isNDdata(this) && CommonConstants.CURRENT_TREE > 0) {
+                            UiUtils.showCustomToastMessage("Please Add Nutrient Deficiencies Data", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!CommonUiUtils.isConversionPlotAddressDataEntered()) {
+                            UiUtils.showCustomToastMessage("Please Enter Mandatory Data For Plot", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!CommonUiUtils.isPlotDataEntered()) {
+                            UiUtils.showCustomToastMessage("Please Enter OwnerShip And Caretaker Details Of Plot", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!isPlantationData()) {
+                            UiUtils.showCustomToastMessage("Please Enter Plantation Data", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!iswater()) {
+                            UiUtils.showCustomToastMessage("Please Enter Water Details", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!issoilpower()) {
+                            UiUtils.showCustomToastMessage("Please Enter Soil Details", CropMaintenanceHomeScreen.this, 0);
+                        } else if (!isInterCrop() && CommonConstants.CURRENT_TREE > 0) {
+                            UiUtils.showCustomToastMessage("Please Enter Inter Crop Data", CropMaintenanceHomeScreen.this, 0);
+                        }
 
 
-                //    else if (ganodermaInfestation.getVisibility() == View.VISIBLE) {
-                    else  if (!isGandermaDatacheck() && ganodermaInfestation.getVisibility() == View.VISIBLE) {
+                        //    else if (ganodermaInfestation.getVisibility() == View.VISIBLE) {
+                        else if (!isGandermaDatacheck() && ganodermaInfestation.getVisibility() == View.VISIBLE) {
                             UiUtils.showCustomToastMessage(
                                     "Please Enter Ganoderma Infestation Data",
                                     CropMaintenanceHomeScreen.this,
                                     0
                             );
-                        }
-
-                    else {
-                        ProgressBar.showProgressBar(CropMaintenanceHomeScreen.this,"Please wait data is Updating in DataBase.....");
+                        } else {
+                            ProgressBar.showProgressBar(CropMaintenanceHomeScreen.this, "Please wait data is Updating in DataBase.....");
 //                        DataSavingHelper.saveFarmerAddressData(this, new ApplicationThread.OnComplete<String>() {
 //                            @Override
 //                            public void execute(boolean success, String result, String msg) {
@@ -497,67 +503,64 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
 //                            }
 //                        });
 
-                        Boolean dataUpdated = (Boolean) DataManager.getInstance().getDataFromManager(DataManager.IS_PLOTS_DATA_UPDATED);
-                        if (dataUpdated == true){
-                            DataSavingHelper.saveFarmerAddressData(this, new ApplicationThread.OnComplete<String>() {
-                                @Override
-                                public void execute(boolean success, String result, String msg) {
-                                    if (success) {
-                                        ProgressBar.hideProgressBar();
+                            Boolean dataUpdated = (Boolean) DataManager.getInstance().getDataFromManager(DataManager.IS_PLOTS_DATA_UPDATED);
+                            if (dataUpdated == true) {
+                                DataSavingHelper.saveFarmerAddressData(this, new ApplicationThread.OnComplete<String>() {
+                                    @Override
+                                    public void execute(boolean success, String result, String msg) {
+                                        if (success) {
+                                            ProgressBar.hideProgressBar();
 
-                                        UiUtils.showCustomToastMessage("Crop Maintenance Details Data updated successfully", CropMaintenanceHomeScreen.this, 0);
-                                        scrollViewLayout.setVisibility(View.GONE);
-                                        checkView.check();
-                                        new Timer().schedule(new TimerTask(){
-                                            public void run() {
-                                                startActivity(new Intent(CropMaintenanceHomeScreen.this, HomeScreen.class));
-                                                finishAffinity();
-                                                Log.d("MainActivity:", "onCreate: waiting 2 seconds for MainActivity... loading PrimaryActivity.class1");
-                                            }
-                                        }, 2000 );
-                                    } else {
-                                        // ProgressBar.hideProgressBar();
-                                        Log.v("@@@","data saving failed.....");
-                                        UiUtils.showCustomToastMessage("Data saving failed", CropMaintenanceHomeScreen.this, 0);
+                                            UiUtils.showCustomToastMessage("Crop Maintenance Details Data updated successfully", CropMaintenanceHomeScreen.this, 0);
+                                            scrollViewLayout.setVisibility(View.GONE);
+                                            checkView.check();
+                                            new Timer().schedule(new TimerTask() {
+                                                public void run() {
+                                                    startActivity(new Intent(CropMaintenanceHomeScreen.this, HomeScreen.class));
+                                                    finishAffinity();
+                                                    Log.d("MainActivity:", "onCreate: waiting 2 seconds for MainActivity... loading PrimaryActivity.class1");
+                                                }
+                                            }, 2000);
+                                        } else {
+                                            // ProgressBar.hideProgressBar();
+                                            Log.v("@@@", "data saving failed.....");
+                                            UiUtils.showCustomToastMessage("Data saving failed", CropMaintenanceHomeScreen.this, 0);
+                                        }
                                     }
-                                }
-                            });
-                        }else {
-                            DataSavingHelper.saveCropMaintenanceHistoryData(this, new ApplicationThread.OnComplete<String>() {
-                                @Override
-                                public void execute(boolean success, String result, String msg) {
-                                    if (success) {
-                                        ProgressBar.hideProgressBar();
+                                });
+                            } else {
+                                DataSavingHelper.saveCropMaintenanceHistoryData(this, new ApplicationThread.OnComplete<String>() {
+                                    @Override
+                                    public void execute(boolean success, String result, String msg) {
+                                        if (success) {
+                                            ProgressBar.hideProgressBar();
 
-                                        UiUtils.showCustomToastMessage("Crop Maintenance Details Data updated successfully", CropMaintenanceHomeScreen.this, 0);
-                                        scrollViewLayout.setVisibility(View.GONE);
-                                        checkView.check();
-                                        new Timer().schedule(new TimerTask(){
-                                            public void run() {
-                                                startActivity(new Intent(CropMaintenanceHomeScreen.this, HomeScreen.class));
-                                                finishAffinity();
-                                                Log.d("MainActivity:", "onCreate: waiting 2 seconds for MainActivity... loading PrimaryActivity.class2");
-                                            }
-                                        }, 2000 );
+                                            UiUtils.showCustomToastMessage("Crop Maintenance Details Data updated successfully", CropMaintenanceHomeScreen.this, 0);
+                                            scrollViewLayout.setVisibility(View.GONE);
+                                            checkView.check();
+                                            new Timer().schedule(new TimerTask() {
+                                                public void run() {
+                                                    startActivity(new Intent(CropMaintenanceHomeScreen.this, HomeScreen.class));
+                                                    finishAffinity();
+                                                    Log.d("MainActivity:", "onCreate: waiting 2 seconds for MainActivity... loading PrimaryActivity.class2");
+                                                }
+                                            }, 2000);
+                                        } else {
+                                            // ProgressBar.hideProgressBar();
+                                            Log.v("@@@", "data saving failed.....");
+                                            UiUtils.showCustomToastMessage("Data saving failed", CropMaintenanceHomeScreen.this, 0);
+                                        }
                                     }
-                                    else {
-                                        // ProgressBar.hideProgressBar();
-                                        Log.v("@@@","data saving failed.....");
-                                        UiUtils.showCustomToastMessage("Data saving failed", CropMaintenanceHomeScreen.this, 0);
-                                    }
-                                }
-                            });
+                                });
+                            }
                         }
+                    } else {
+
+                        UiUtils.showCustomToastMessage("PLOT CODE IS NOT MATCHED", CropMaintenanceHomeScreen.this, 0);
+
                     }
-                }
-                else {
-
-                    UiUtils.showCustomToastMessage("PLOT CODE IS NOT MATCHED", CropMaintenanceHomeScreen.this, 0);
 
                 }
-
-                break;
-        }
     }
 
 
@@ -567,7 +570,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
 
         Plantation msPlantationModel = (Plantation) dataAccessHandler.getPlantationDataset(Queries.getInstance().getPlantatiobData(CommonConstants.PLOT_CODE), 0);
         if (null != msPlantationModel || DataManager.getInstance().getDataFromManager(DataManager.CURRENT_PLANTATION)!= null) {
-           return  true;
+            return  true;
         }
         return  false;
     }
@@ -630,7 +633,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
 //        }
 //    }
 
-   private boolean issoilpower()
+    private boolean issoilpower()
     {
         Log.e("PLOT_SoilType_DATA",DataManager.getInstance().getDataFromManager(DataManager.SoilType)+"");
         Log.e("PLOT_SOURCE_OF_WATER_PAIR",DataManager.getInstance().getDataFromManager(DataManager.SOURCE_OF_WATER)+"");
@@ -638,8 +641,8 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
         if (DataManager.getInstance().getDataFromManager(DataManager.SoilType) != null) {
             return true;
         }
-            else
-                return false;
+        else
+            return false;
 
 
     }
@@ -660,9 +663,9 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
     }
 
 
-//what happens when 2018 whitefly is selected
+    //what happens when 2018 whitefly is selected
     private boolean issecondpreviousFYWhiteFly() {
-            boolean s=true;
+        boolean s=true;
         if (secondPreviousFYWhiteFlyList.length() > 0){
             if (Integer.parseInt(secondPreviousFYWhiteFlyList) == 0) {
 //                List<WhiteFlyAssessment>  whiteFlyList = (List<WhiteFlyAssessment>) DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY_18);
@@ -670,7 +673,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
                 if ( (DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY_18) != null)  ) {
                     List<WhiteFlyAssessment> whiteFlyAssessmentList18 = (List<WhiteFlyAssessment>) DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY_18);
                     if(null != whiteFlyAssessmentList18 && !whiteFlyAssessmentList18.isEmpty())
-                    s= true;
+                        s= true;
                 }
                 else{
                     if(PlotDistrictId.length()>0){
@@ -682,8 +685,8 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
                     }
                 }
             }
-         }
-       return s;
+        }
+        return s;
 
     }
 
@@ -698,7 +701,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
                 if ( (DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY_19) != null)  ) {
                     List<WhiteFlyAssessment> whiteFlyAssessmentList19 = (List<WhiteFlyAssessment>) DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY_19);
                     if(null != whiteFlyAssessmentList19 && !whiteFlyAssessmentList19.isEmpty())
-                    s= true;
+                        s= true;
                 }
                 else{
                     if(PlotDistrictId.length()>0){
@@ -722,10 +725,10 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
 //        List<WhiteFlyAssessment>  whiteFlyList = (List<WhiteFlyAssessment>) DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY);
 //        if ( whiteFlyList.size()>0  ) {
 
-            if ( (DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY) != null)  ) {
-                List<WhiteFlyAssessment> whiteFlyAssessmentList = (List<WhiteFlyAssessment>) DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY);
-                if(null != whiteFlyAssessmentList && !whiteFlyAssessmentList.isEmpty() )
-            s= true;
+        if ( (DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY) != null)  ) {
+            List<WhiteFlyAssessment> whiteFlyAssessmentList = (List<WhiteFlyAssessment>) DataManager.getInstance().getDataFromManager(DataManager.WHITE_FLY);
+            if(null != whiteFlyAssessmentList && !whiteFlyAssessmentList.isEmpty() )
+                s= true;
         }
         else{
             if(PlotDistrictId.length()>0){
@@ -741,7 +744,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
 
 
 
-//on Activity result
+    //on Activity result
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (null == data) return;
@@ -1130,7 +1133,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
     @Override
     protected void onResume() {
         super.onResume();
-        uiRefresh();
+       // uiRefresh();
     }
 
     @Override
@@ -1143,31 +1146,35 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
     }
 
 
-//on back pressed
+    //on back pressed
     @SuppressLint("SetTextI18n")
     @Override
     public void onBackPressed() {
+
         FragmentManager fm = getSupportFragmentManager();
         int count = fm.getBackStackEntryCount();
+
         if (count > 0) {
-            fm.popBackStack();
+            super.onBackPressed();
+            fm.popBackStack(); // Go back to the previous fragment
         } else {
             if (doubleback) {
                 finish();
-//                    finishAffinity();
             } else {
                 doubleback = true;
-                // custom dialog
+
                 final Dialog dialog = new Dialog(CropMaintenanceHomeScreen.this);
                 dialog.setContentView(R.layout.custom_alert_dailog);
-                Button yesDialogButton = (Button) dialog.findViewById(R.id.Yes);
-                Button noDialogButton = (Button) dialog.findViewById(R.id.No);
-                TextView msg = (TextView) dialog.findViewById(R.id.test);
+                Button yesDialogButton = dialog.findViewById(R.id.Yes);
+                Button noDialogButton = dialog.findViewById(R.id.No);
+                TextView msg = dialog.findViewById(R.id.test);
                 msg.setText(getResources().getString(R.string.Message));
-                // if button is clicked, close the custom dialog
+
                 yesDialogButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
+                        // Clear all necessary data
                         DataManager.getInstance().deleteData(DataManager.CURRENT_PLANTATION);
                         DataManager.getInstance().deleteData(DataManager.FARMER_ADDRESS_DETAILS);
                         DataManager.getInstance().deleteData(DataManager.PLOT_DETAILS);
@@ -1202,31 +1209,28 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
                         DataManager.getInstance().deleteData(DataManager.SOURCE_OF_WATER);
                         DataManager.getInstance().deleteData(DataManager.SoilType);
                         DataManager.getInstance().deleteData(DataManager.GANODERMA_DETAILS);
-                      DataManager.getInstance().deleteData(DataManager.TypeOfIrrigation);
+                        DataManager.getInstance().deleteData(DataManager.TypeOfIrrigation);
 //                        DataManager.getInstance().deleteData(DataManager.PLOT_INTER_CROP_DATA);
-                    //    DataManager.getInstance().deleteData(DataManager);
+                        //    DataManager.getInstance().deleteData(DataManager);
                         CommonConstants.fertilizerapplydate = "";
-
-                        finish();
-//                        Toast.makeText(getApplicationContext(),"Dismissed..!!",Toast.LENGTH_SHORT).show();
+                        finish(); // Exit the app
                     }
                 });
-                dialog.show();
+
                 noDialogButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();
-//                        Toast.makeText(getApplicationContext(),"Dismissed..!!",Toast.LENGTH_SHORT).show();
                     }
                 });
 
-     new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        doubleback = false;
-                    }
-                }, 2000);
+                dialog.show();
+
+                new Handler().postDelayed(() -> doubleback = false, 2000);
             }
         }
     }
+
 }
+
+

@@ -17,17 +17,18 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -517,8 +518,8 @@ public class ViewmapsActivity extends AppCompatActivity implements OnMapReadyCal
                 TextView dateofplantation = infoWindow.findViewById(R.id.dateofplantation);
                 TextView status = infoWindow.findViewById(R.id.status);
 
-                gpsarea.setText(Html.fromHtml("<font color='#000000'>Plot Area as per GPS (in Ha):</font> <b>" + plotinfo.getGpsPlotArea() + "</b>"));
-                farmername.setText(Html.fromHtml("Farmer Name: <b>" + plotinfo.getFarmerName() + "</b>"));
+                gpsarea.setText(Html.fromHtml("<font color='#000000'>Field Area as per GPS (in Ha):</font> <b>" + plotinfo.getGpsPlotArea() + "</b>"));
+                farmername.setText(Html.fromHtml("Grower Name: <b>" + plotinfo.getFarmerName() + "</b>"));
                 arealeftout.setText(Html.fromHtml("Area Left Out (in Ha): <b>" + plotinfo.getLeftOutArea() + "</b>"));
                 villagename.setText(Html.fromHtml("Village Name: <b>" + plotinfo.getVillageName() + "</b>"));
                 Districtname.setText(Html.fromHtml("District Name: <b>" + plotinfo.getDistrictName() + "</b>"));
@@ -526,9 +527,9 @@ public class ViewmapsActivity extends AppCompatActivity implements OnMapReadyCal
                 mandalname.setText(Html.fromHtml("Mandal Name: <b>" + plotinfo.getMandalName() + "</b>"));
                 statename.setText(Html.fromHtml("State Name: <b>" + plotinfo.getStateName() + "</b>"));
                 landarea.setText(Html.fromHtml("Land Area (in Ha): <b>" + plotinfo.getTotalPlotArea() + "</b>"));
-                plotid.setText(Html.fromHtml("Plot Code: <b>" + plotinfo.getPlotCode() + "</b>"));
+                plotid.setText(Html.fromHtml("Field Code: <b>" + plotinfo.getPlotCode() + "</b>"));
                 status.setText(Html.fromHtml("Status: <b>" + plotinfo.getStatus() + "</b>"));
-                plotdiff.setText(Html.fromHtml("Plot Difference (in Ha): <b>" + plotinfo.getPlotDifference() + "</b>"));
+                plotdiff.setText(Html.fromHtml("Field Difference (in Ha): <b>" + plotinfo.getPlotDifference() + "</b>"));
 
                 if (plotinfo.getDateOfPlanting() != null && !plotinfo.getDateOfPlanting().equalsIgnoreCase("null")) {
                     dateofplantation.setVisibility(View.VISIBLE);
@@ -686,6 +687,7 @@ public class ViewmapsActivity extends AppCompatActivity implements OnMapReadyCal
     }
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         Intent intent = new Intent(ViewmapsActivity.this, FiltermapsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);

@@ -4,13 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +13,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.Log;
@@ -262,11 +263,11 @@ public class SoilTypeFragment extends Fragment implements SoilTypeAdapter.OnCart
         );
         android.util.Log.e("lastVisitCode", lastVisitCode + "");
         SoilResourcelastvisitdatamap = (ArrayList<SoilResource>) dataAccessHandler.getSoilResourceData(Queries.getInstance().getRecommndCropMaintenanceHistoryData(lastVisitCode, DatabaseKeys.TABLE_SOILRESOURCE), 1);
-        android.util.Log.e("lastVisitCode SoilResource query", Queries.getInstance().getRecommndCropMaintenanceHistoryData(lastVisitCode, DatabaseKeys.TABLE_SOILRESOURCE)+ "");
+        android.util.Log.e("lastVisitSoilResource", Queries.getInstance().getRecommndCropMaintenanceHistoryData(lastVisitCode, DatabaseKeys.TABLE_SOILRESOURCE)+ "");
 
 //        if (lastVisitCode != null) {
             msoilTypeIrrigationModelList = (ArrayList<PlotIrrigationTypeXref>) dataAccessHandler.getPlotIrrigationXRefData(Queries.getInstance().getRecommndCropMaintenanceHistoryData(lastVisitCode, DatabaseKeys.TABLE_PLOTIRRIGATIONTYPEXREF), 1);
-        android.util.Log.e("lastVisitCode Irrigation query", Queries.getInstance().getRecommndCropMaintenanceHistoryData(lastVisitCode, DatabaseKeys.TABLE_PLOTIRRIGATIONTYPEXREF)+ "");
+        android.util.Log.e("lastVisitIrrigation", Queries.getInstance().getRecommndCropMaintenanceHistoryData(lastVisitCode, DatabaseKeys.TABLE_PLOTIRRIGATIONTYPEXREF)+ "");
             msoilTypeModel = (SoilResource) dataAccessHandler.getSoilResourceData(
                     Queries.getInstance().getSoilResourceBinding(CommonConstants.PLOT_CODE), 0
             );

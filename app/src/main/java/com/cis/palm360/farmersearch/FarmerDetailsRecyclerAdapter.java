@@ -2,14 +2,15 @@ package com.cis.palm360.farmersearch;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.Log;
@@ -96,14 +97,15 @@ public class FarmerDetailsRecyclerAdapter extends RecyclerView.Adapter<FarmerDet
             if (photoFiles != null) {
                 uri = Uri.fromFile(new File(item.getPhotoLocation()));
                 if (uri != null) {
-                    Picasso.with(context).load(uri).into(holder.userImage, new Callback() {
+                    Picasso.get()
+                            .load(uri).into(holder.userImage, new Callback() {
                         @Override
                         public void onSuccess() {
 
                         }
 
                         @Override
-                        public void onError() {
+                        public void onError(Exception e) {
 //                            holder.userImage.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_launcher));
 
                             renderImage(imageUrl, holder.userImage);
@@ -159,7 +161,7 @@ public class FarmerDetailsRecyclerAdapter extends RecyclerView.Adapter<FarmerDet
 
     public void renderImage(String imageUrl, ImageView imageView) {
         if (imageUrl != null) {
-            Picasso.with(context)
+            Picasso.get()
                     .load(imageUrl)
                     .into(imageView, new Callback() {
                         @Override
@@ -169,14 +171,14 @@ public class FarmerDetailsRecyclerAdapter extends RecyclerView.Adapter<FarmerDet
                         }
 
                         @Override
-                        public void onError() {
+                        public void onError(Exception e) {
                             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.famer_profile));
                         }
                     });
 
         }
         else {
-            Picasso.with(context)
+            Picasso.get()
                     .load(R.mipmap.ic_launcher)
                     .into(imageView, new Callback() {
                         @Override
@@ -185,7 +187,7 @@ public class FarmerDetailsRecyclerAdapter extends RecyclerView.Adapter<FarmerDet
                         }
 
                         @Override
-                        public void onError() {
+                        public void onError(Exception e) {
                             imageView.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.ic_launcher));
                         }
                     });

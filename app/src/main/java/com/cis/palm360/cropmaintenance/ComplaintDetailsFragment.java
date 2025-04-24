@@ -11,18 +11,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -74,6 +62,19 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getKey;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 //This class used for raising Complaints
 public class ComplaintDetailsFragment extends Fragment implements View.OnClickListener, ComplaintsAudioFragment.RecordingFinishedListener {
     public static final int REQUEST_CAM_PERMISSIONS = 2;
@@ -121,7 +122,7 @@ public class ComplaintDetailsFragment extends Fragment implements View.OnClickLi
     private int dbStatusId;
     private TextView recordTxtMsg;
     private String audioFileName = "";
-    private  Toolbar toolbar;
+    private Toolbar toolbar;
     private ActionBar actionBar;
 
     public ComplaintDetailsFragment() {
@@ -271,45 +272,49 @@ public class ComplaintDetailsFragment extends Fragment implements View.OnClickLi
     //on click listeners
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.saveBtn:
-                CommonUtilsNavigation.hideKeyBoard(getActivity());
-                if (validateFields()) {
 
-                    if (newComplaint) {
-                        ComplaintTypeXref complaintTypeXref = new ComplaintTypeXref();
-                        complaintTypeXref.setComplaintCode("");
-                        complaintTypeXref.setComplaintTypeId(Integer.parseInt(CommonUtilsNavigation.getKey(complaint_typeDataMap, complaint_typeSpinner.getSelectedItem().toString())));
-                        DataManager.getInstance().addData(DataManager.NEW_COMPLAINT_TYPE, complaintTypeXref);
-                        saveComplaintStatusHistory(CommonConstants.COMPLAINT_CODE);
-                        saveComplaints();
-                        saveComplaintRepository();
-                    }
+        int id = v.getId();
 
-                    if (!newComplaint) {
-                        saveComplaintStatusHistoryFromEdit(complaintStatusHistory.getComplaintCode());
-                        DataSavingHelper.saveComplaintHistoryDataEditMode(getActivity(), new ApplicationThread.OnComplete<String>() {
-                            @Override
-                            public void execute(boolean success, String result, String msg) {
-                                if (success) {
-                                    UiUtils.showCustomToastMessage((CommonUtils.isNewRegistration()) ? "Data inserted successfully" : "Data updated successfully", getActivity(), 0);
-                                    updateUiListener.updateUserInterface(0);
-                                    getFragmentManager().popBackStack();
-                                } else {
-                                    UiUtils.showCustomToastMessage("Data saving failed", getActivity(), 0);
-                                }
-                                CommonUtilsNavigation.hideKeyBoard(getActivity());
-                                getFragmentManager().popBackStack();
-                            }
-                        });
-                    } else {
-                        updateUiListener.updateUserInterface(0);
+
+        if (id == R.id.saveBtn){
+
+        CommonUtilsNavigation.hideKeyBoard(getActivity());
+        if (validateFields()) {
+
+            if (newComplaint) {
+                ComplaintTypeXref complaintTypeXref = new ComplaintTypeXref();
+                complaintTypeXref.setComplaintCode("");
+                complaintTypeXref.setComplaintTypeId(Integer.parseInt(CommonUtilsNavigation.getKey(complaint_typeDataMap, complaint_typeSpinner.getSelectedItem().toString())));
+                DataManager.getInstance().addData(DataManager.NEW_COMPLAINT_TYPE, complaintTypeXref);
+                saveComplaintStatusHistory(CommonConstants.COMPLAINT_CODE);
+                saveComplaints();
+                saveComplaintRepository();
+            }
+
+            if (!newComplaint) {
+                saveComplaintStatusHistoryFromEdit(complaintStatusHistory.getComplaintCode());
+                DataSavingHelper.saveComplaintHistoryDataEditMode(getActivity(), new ApplicationThread.OnComplete<String>() {
+                    @Override
+                    public void execute(boolean success, String result, String msg) {
+                        if (success) {
+                            UiUtils.showCustomToastMessage((CommonUtils.isNewRegistration()) ? "Data inserted successfully" : "Data updated successfully", getActivity(), 0);
+                            updateUiListener.updateUserInterface(0);
+                            getFragmentManager().popBackStack();
+                        } else {
+                            UiUtils.showCustomToastMessage("Data saving failed", getActivity(), 0);
+                        }
                         CommonUtilsNavigation.hideKeyBoard(getActivity());
                         getFragmentManager().popBackStack();
                     }
-                }
-                break;
-            case R.id.sec_rel:
+                });
+            } else {
+                updateUiListener.updateUserInterface(0);
+                CommonUtilsNavigation.hideKeyBoard(getActivity());
+                getFragmentManager().popBackStack();
+            }
+        }
+    }
+        if (id == R.id.sec_rel){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (!CommonUtils.isPermissionAllowed(getActivity(), Manifest.permission.CAMERA))) {
                     android.util.Log.v("LOG_TAG", "Camera Permissions Not Granted");
                     ActivityCompat.requestPermissions(
@@ -320,71 +325,71 @@ public class ComplaintDetailsFragment extends Fragment implements View.OnClickLi
                 } else {
                     dispatchTakePictureIntent(CAMERA_REQUEST);
                 }
-                break;
-            case R.id.secondImageRel:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (!CommonUtils.isPermissionAllowed(getActivity(), Manifest.permission.CAMERA))) {
-                    android.util.Log.v("LOG_TAG", "Camera Permissions Not Granted");
-                    ActivityCompat.requestPermissions(
-                            getActivity(),
-                            PERMISSIONS_STORAGE,
-                            REQUEST_CAM_PERMISSIONS
-                    );
-                } else {
-                    dispatchTakePictureIntent(CAMERA_REQUEST_2);
-                }
-                break;
-            case R.id.farmer_audio1:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (!CommonUtils.isPermissionAllowed(getActivity(), Manifest.permission.RECORD_AUDIO))) {
-                    android.util.Log.v("LOG_TAG", "Camera Permissions Not Granted");
-                    ActivityCompat.requestPermissions(
-                            getActivity(),
-                            PERMISSIONS_EXTERNAL_STORAGE, RequestPermissionCode
-                    );
-                } else {
-                    if (newComplaint && !modePlay) {
-                        FragmentManager fm = getActivity().getSupportFragmentManager();
-                        Bundle bundle = new Bundle();
-                        try {
-                            bundle.putString("filePath", createFile(1).getAbsolutePath());
-                            ComplaintsAudioFragment complaintsAudioFragment = new ComplaintsAudioFragment();
-                            complaintsAudioFragment.setRecordingFinishedListener(this);
-                            complaintsAudioFragment.setArguments(bundle);
-                            complaintsAudioFragment.show(fm, "recording screen");
+        }
+        if (id == R.id.secondImageRel) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (!CommonUtils.isPermissionAllowed(getActivity(), Manifest.permission.CAMERA))) {
+                android.util.Log.v("LOG_TAG", "Camera Permissions Not Granted");
+                ActivityCompat.requestPermissions(
+                        getActivity(),
+                        PERMISSIONS_STORAGE,
+                        REQUEST_CAM_PERMISSIONS
+                );
+            } else {
+                dispatchTakePictureIntent(CAMERA_REQUEST_2);
+            }
+        }
+        if (id == R.id.farmer_audio1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (!CommonUtils.isPermissionAllowed(getActivity(), Manifest.permission.RECORD_AUDIO))) {
+                android.util.Log.v("LOG_TAG", "Camera Permissions Not Granted");
+                ActivityCompat.requestPermissions(
+                        getActivity(),
+                        PERMISSIONS_EXTERNAL_STORAGE, RequestPermissionCode
+                );
+            } else {
+                if (newComplaint && !modePlay) {
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    Bundle bundle = new Bundle();
+                    try {
+                        bundle.putString("filePath", createFile(1).getAbsolutePath());
+                        ComplaintsAudioFragment complaintsAudioFragment = new ComplaintsAudioFragment();
+                        complaintsAudioFragment.setRecordingFinishedListener(this);
+                        complaintsAudioFragment.setArguments(bundle);
+                        complaintsAudioFragment.show(fm, "recording screen");
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+
+                    if (audioFileRepo == null) {
+                        audioFileName = CommonConstants.COMPLAINT_CODE;
+                    } else {
+                        audioFileName = audioFileRepo.getFileName();
+                    }
+                    if (CommonUtils.isFileExisted(CommonUtils.getAudioFilePath(audioFileName + ".mp3"))) {
+                        RecordingItem recordingItem = new RecordingItem();
+                        recordingItem.setFilePath(audioFilePath);
+                        recordingItem.setName(audioFileName);
+                        try {
+                            PlaybackFragment playbackFragment =
+                                    new PlaybackFragment().newInstance(recordingItem);
+
+                            FragmentTransaction transaction = ((FragmentActivity) mContext)
+                                    .getSupportFragmentManager()
+                                    .beginTransaction();
+
+                            playbackFragment.show(transaction, "dialog_playback");
+
+                        } catch (Exception e) {
+                            Log.e(LOG_TAG, "exception", e);
                         }
                     } else {
-
-                        if (audioFileRepo == null) {
-                            audioFileName = CommonConstants.COMPLAINT_CODE;
-                        } else {
-                            audioFileName = audioFileRepo.getFileName();
-                        }
-                        if (CommonUtils.isFileExisted(CommonUtils.getAudioFilePath(audioFileName + ".mp3"))) {
-                            RecordingItem recordingItem = new RecordingItem();
-                            recordingItem.setFilePath(audioFilePath);
-                            recordingItem.setName(audioFileName);
-                            try {
-                                PlaybackFragment playbackFragment =
-                                        new PlaybackFragment().newInstance(recordingItem);
-
-                                FragmentTransaction transaction = ((FragmentActivity) mContext)
-                                        .getSupportFragmentManager()
-                                        .beginTransaction();
-
-                                playbackFragment.show(transaction, "dialog_playback");
-
-                            } catch (Exception e) {
-                                Log.e(LOG_TAG, "exception", e);
-                            }
-                        } else {
-                            new DownAudioloadFile().execute();
-                        }
+                        new DownAudioloadFile().execute();
                     }
                 }
-                break;
+            }
         }
+
     }
 
     //save data into complaint repo
@@ -720,7 +725,7 @@ public class ComplaintDetailsFragment extends Fragment implements View.OnClickLi
         if (null != complaintRepository) {
             final String imageUrl = CommonUtils.getImageUrl(complaintRepository);
 
-            Picasso.with(getActivity())
+            Picasso.get()
                     .load(imageUrl)
                     .into(imageViewToUpdate, new Callback() {
                         @Override
@@ -729,6 +734,11 @@ public class ComplaintDetailsFragment extends Fragment implements View.OnClickLi
                         }
 
                         @Override
+                        public void onError(Exception e) {
+
+                        }
+
+
                         public void onError() {
                             if (getActivity() != null && !getActivity().isFinishing()) {
                                 Glide.with(getActivity())

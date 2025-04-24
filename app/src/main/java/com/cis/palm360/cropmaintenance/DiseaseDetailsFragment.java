@@ -5,13 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -53,10 +46,14 @@ import static com.cis.palm360.common.CommonUtils.spinnerSelect;
 import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.adapterSetFromHashmap;
 import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getKey;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 
 //Used to diseases found while crop maintenance visit
 public class DiseaseDetailsFragment extends Fragment implements View.OnClickListener, PalmDetailsEditListener, UpdateUiListener, OnPageChangeListener, OnLoadCompleteListener {
@@ -82,10 +79,8 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
     AdapterView.OnItemSelectedListener spinListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            switch (parent.getId())
-            {
 
-                case R.id.diseaseNameSpin:
+                if(view.getId() == R.id.diseaseNameSpin) {
                     if (position == 0) {
                         nameOfChemicalUsedSpin.setSelection(0);
                         nameOfChemicalUsedSpin.setEnabled(false);
@@ -138,12 +133,6 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
                         saveBtn.setEnabled(true);
                         saveBtn.setAlpha(1.0f);
                     }
-
-                    break;
-                case R.id.percOfTreeSpin:
-
-
-                    break;
             }
 //            {
 //
@@ -576,8 +565,8 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
     }
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.saveBtn:
+
+            if (v.getId() == R.id.saveBtn) {
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
                 String selectedDiseaseName = diseaseNameSpin.getSelectedItem().toString();
 
@@ -586,7 +575,6 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
                 for (Disease existingModel : mDiseaseModelArray) {
                     if (existingModel.getDiseaseid() == Integer.parseInt(getKey(diseaseNameDataMap, selectedDiseaseName))) {
                         isDuplicate = true;
-                        break;
                     }
                 }
 
@@ -632,12 +620,14 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
                         mDiseaseModelArray.add(mDiseaseModel);
                         addingValues();
                         diseaseNameSpin.setSelection(0);
+                        nameOfChemicalUsedSpin.setSelection(0);
                         nameOfChemicalUsedSpinRecmnd.setSelection(0);
                         percOfTreeSpin.setSelection(0);
                         controlMeasureSpin.setSelection(0);
                         rcmnduomSpin.setSelection(0);
                         rcmnduomperSpin.setSelection(0);
                         rcmndosageEdt.setText("");
+                        observationsEdt.setText("");
                         DataManager.getInstance().addData(DataManager.DISEASE_DETAILS, mDiseaseModelArray);
 
                         diseaseDataAdapter.notifyDataSetChanged();
@@ -646,7 +636,6 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
                     }
                 }
                 CommonUtilsNavigation.hideKeyBoard(getActivity());
-                break;
 //            case R.id.historyBtn:
 //                CropMaintainanceHistoryFragment newFragment = new CropMaintainanceHistoryFragment();
 //                Bundle bundle = new Bundle();

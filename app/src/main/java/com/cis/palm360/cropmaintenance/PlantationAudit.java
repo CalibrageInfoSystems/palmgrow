@@ -1,7 +1,6 @@
 package com.cis.palm360.cropmaintenance;
 
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.ApplicationThread;

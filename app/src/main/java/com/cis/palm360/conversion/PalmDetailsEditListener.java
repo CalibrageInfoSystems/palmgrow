@@ -5,4 +5,8 @@ package com.cis.palm360.conversion;
  */
 public interface PalmDetailsEditListener {
     void onEditClicked(int position);
+
+    void loadComplete(int nbPages);
+
+    void onPageChanged(int page, int pageCount);
 }

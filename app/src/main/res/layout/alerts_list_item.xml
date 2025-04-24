@@ -1,4 +1,4 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Plot Code"
+                        android:text="Field Code"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -75,7 +75,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Farmer Code"
+                        android:text="Grower Code"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -108,7 +108,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Farmer name"
+                        android:text="Grower name"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -176,7 +176,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Plot mandal"
+                        android:text="Field mandal"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -210,7 +210,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Plot village"
+                        android:text="Field village"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -276,7 +276,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Plot Score"
+                        android:text="Field Score"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -408,7 +408,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Plot Prioritization"
+                        android:text="Field Prioritization"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -482,4 +482,4 @@
     </LinearLayout>
 
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

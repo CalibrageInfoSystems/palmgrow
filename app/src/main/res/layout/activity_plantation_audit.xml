@@ -29,7 +29,7 @@
             android:layout_width="0dp"
             android:layout_weight="0.4"
             android:layout_height="wrap_content"
-            android:text="Farmer Name" />
+            android:text="Grower Name" />
 
         <TextView
             android:id="@+id/nameofthegrower"
@@ -51,7 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.4"
                 android:layout_height="wrap_content"
-                android:text="Farmer Code" />
+                android:text="Grower Code" />
 
             <TextView
                 android:id="@+id/fcode"
@@ -59,7 +59,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.6"
                 android:layout_height="wrap_content"
-                android:text="Farmer Code"/>
+                android:text="Grower Code"/>
         </LinearLayout>
 
         <LinearLayout
@@ -73,7 +73,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.4"
                 android:layout_height="wrap_content"
-                android:text="Plot Code" />
+                android:text="Field Code" />
 
             <TextView
                 android:id="@+id/pcode"
@@ -81,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="0.6"
                 android:layout_height="wrap_content"
-                android:text="Plot Code"/>
+                android:text="Field Code"/>
         </LinearLayout>
 
 

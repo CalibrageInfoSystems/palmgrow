@@ -2,13 +2,14 @@ package com.cis.palm360.areaextension;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+
+import androidx.fragment.app.DialogFragment;
 
 import com.cis.palm360.R;
 

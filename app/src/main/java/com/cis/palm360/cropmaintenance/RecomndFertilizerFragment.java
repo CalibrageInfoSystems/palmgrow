@@ -5,11 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,10 +34,12 @@ import static com.cis.palm360.common.CommonUtils.edittextEampty;
 import static com.cis.palm360.common.CommonUtils.spinnerSelect;
 import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getKey;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 
 //Used to display recommended fertilizers
 //public class RecomndFertilizerFragment extends Fragment implements View.OnClickListener, PalmDetailsEditListener, UpdateUiListener {
@@ -380,36 +377,32 @@ public class RecomndFertilizerFragment extends Fragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.rcmndsave:
-                mFertilizerModelArray = new ArrayList<>();
-                if (validateUI()) {
-                    RecommndFertilizer mFertilizerModel=new RecommndFertilizer();
-                    mFertilizerModel.setRecommendFertilizerProviderId((Integer.parseInt(getKey(fertilizerTypeDataMap, rcmndfertilizerProductNameSpin.getSelectedItem().toString()))));
-                    mFertilizerModel.setRecommendUOMId(Integer.parseInt(getKey(uomDataMap, rcmnduomSpin.getSelectedItem().toString())));
-                    mFertilizerModel.setRecommendDosage(TextUtils.isEmpty(rcmndosageEdt.getText().toString())==true? 0.0:Double.parseDouble(rcmndosageEdt.getText().toString()));
+        int id = v.getId();
 
-                    mFertilizerModel.setComments(rcmndedtcmment.getText().toString());
-                    mFertilizerModelArray.clear();
-                    mFertilizerModelArray.add(mFertilizerModel);
-                    DataManager.getInstance().addData(DataManager.RECMND_FERTILIZER, mFertilizerModelArray);
-                    getFragmentManager().popBackStack();
-                    clearFields();
-                    //     fertilizerDataAdapter.notifyDataSetChanged();
+        if (id == R.id.rcmndsave) {
+            mFertilizerModelArray = new ArrayList<>();
+            if (validateUI()) {
+                RecommndFertilizer mFertilizerModel = new RecommndFertilizer();
+                mFertilizerModel.setRecommendFertilizerProviderId((Integer.parseInt(getKey(fertilizerTypeDataMap, rcmndfertilizerProductNameSpin.getSelectedItem().toString()))));
+                mFertilizerModel.setRecommendUOMId(Integer.parseInt(getKey(uomDataMap, rcmnduomSpin.getSelectedItem().toString())));
+                mFertilizerModel.setRecommendDosage(TextUtils.isEmpty(rcmndosageEdt.getText().toString()) == true ? 0.0 : Double.parseDouble(rcmndosageEdt.getText().toString()));
 
-                }
-                CommonUtilsNavigation.hideKeyBoard(getActivity());
-                break;
+                mFertilizerModel.setComments(rcmndedtcmment.getText().toString());
+                mFertilizerModelArray.clear();
+                mFertilizerModelArray.add(mFertilizerModel);
+                DataManager.getInstance().addData(DataManager.RECMND_FERTILIZER, mFertilizerModelArray);
+                getFragmentManager().popBackStack();
+                clearFields();
+                //     fertilizerDataAdapter.notifyDataSetChanged();
 
-            case R.id.historyBtn:
-//                CropMaintainanceHistoryFragment newFragment = new CropMaintainanceHistoryFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("screen", RECOM_FERTILIZER_DATA);
-//                newFragment.setArguments(bundle);
-//                newFragment.show(getActivity().getFragmentManager(), "history");
+            }
+            CommonUtilsNavigation.hideKeyBoard(getActivity());
+        }
 
-                showDialog(getContext());
-                break;
+        if (id == R.id.historyBtn) {
+
+            showDialog(getContext());
+
         }
     }
 
@@ -495,6 +488,17 @@ public class RecomndFertilizerFragment extends Fragment implements View.OnClickL
 
         fertilizerDataAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void loadComplete(int nbPages) {
+
+    }
+
+    @Override
+    public void onPageChanged(int page, int pageCount) {
+
+    }
+
     private boolean validateUI() {
         return spinnerSelect(rcmndfertilizerProductNameSpin, "Fertilizer Product Name", mContext)
                 && edittextEampty(rcmndosageEdt, "Dosage given", mContext) && spinnerSelect(rcmnduomSpin, "UOM", mContext);

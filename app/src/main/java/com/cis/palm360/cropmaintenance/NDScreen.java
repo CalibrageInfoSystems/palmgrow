@@ -4,13 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +41,14 @@ import static com.cis.palm360.R.id.diaseaseList;
 import static com.cis.palm360.R.id.saveBtn;
 import static com.cis.palm360.common.CommonUtils.spinnerSelect;
 import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getKey;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 //Used to enter nutrient deficiency details during crop maintenance
 public class NDScreen extends Fragment implements View.OnClickListener, PalmDetailsEditListener, UpdateUiListener, OnPageChangeListener, OnLoadCompleteListener {
@@ -391,8 +392,8 @@ public class NDScreen extends Fragment implements View.OnClickListener, PalmDeta
     @Override
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.saveBtn:
+        int id =  v.getId();
+            if (id == R.id.saveBtn) {
                 String selectedNutrientName = nutritionSpin.getSelectedItem().toString();
 
                 // Loop through existing records to check for duplicates
@@ -411,8 +412,8 @@ public class NDScreen extends Fragment implements View.OnClickListener, PalmDeta
                 }
                 Nutrient mNutrientModel = new Nutrient();
 
-                if(nutritionSpin.getSelectedItem().toString().equals("No Nutrient Deficiency")){
-                    if(validateFields1()) {
+                if (nutritionSpin.getSelectedItem().toString().equals("No Nutrient Deficiency")) {
+                    if (validateFields1()) {
                         mNutrientModel.setNutrientid(nutritionSpin.getSelectedItemPosition() == 0 ? 0 : Integer.parseInt(getKey(nutritionDataMap, nutritionSpin.getSelectedItem().toString())));
                         mNutrientModel.setComments(commentsEdt.getText().toString());
                         mNutrientModel.setCreateddate(CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
@@ -429,7 +430,7 @@ public class NDScreen extends Fragment implements View.OnClickListener, PalmDeta
 
                     }
                     Log.v("@@@ adda value357", "" + ratingList.size());
-                }else {
+                } else {
                     if (validateFields()) {
                         mNutrientModel.setNutrientid(nutritionSpin.getSelectedItemPosition() == 0 ? 0 : Integer.parseInt(getKey(nutritionDataMap, nutritionSpin.getSelectedItem().toString())));
                         mNutrientModel.setChemicalid(nameOfChemicalUsedSpin.getSelectedItemPosition() == 0 ? 0 : Integer.parseInt(getKey(chemicalNameDataMap, nameOfChemicalUsedSpin.getSelectedItem().toString())));
@@ -464,17 +465,7 @@ public class NDScreen extends Fragment implements View.OnClickListener, PalmDeta
                     Log.v("@@@ adda value 390", "" + ratingList.size());
                 }
 
-                break;
-//            case R.id.historyBtn:
-//                CropMaintainanceHistoryFragment newFragment = new CropMaintainanceHistoryFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("screen", NUTRIENT_DATA);
-//                newFragment.setArguments(bundle);
-//                newFragment.show(getActivity().getFragmentManager(), "history");
-//
-//                break;
-
-        }
+            }
     }
 
     public boolean validateFields() {
@@ -492,10 +483,8 @@ public class NDScreen extends Fragment implements View.OnClickListener, PalmDeta
     AdapterView.OnItemSelectedListener spinListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            switch (parent.getId())
 
-            {
-                case R.id.nutritionSpin:
+                if (parent.getId() == R.id.nutritionSpin){
                     if (position == 0) {
                         nameOfChemicalUsedSpin.setSelection(0);
                         nameOfChemicalUsedSpin.setEnabled(false);
@@ -543,7 +532,6 @@ public class NDScreen extends Fragment implements View.OnClickListener, PalmDeta
                         saveBtn.setAlpha(1.0f);
                     }
 
-                    break;
 //                case R.id.percOfTreeSpin:
 //
 //

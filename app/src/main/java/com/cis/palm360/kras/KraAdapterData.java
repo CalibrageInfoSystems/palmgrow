@@ -1,6 +1,7 @@
 package com.cis.palm360.kras;
 
-import android.support.v4.util.SparseArrayCompat;
+
+import androidx.collection.SparseArrayCompat;
 
 import com.cis.palm360.R;
 import com.cis.palm360.dbmodels.AnnualTagetsKRA;
@@ -56,4 +57,9 @@ public class KraAdapterData<T> implements IViewBinderProvider, LayoutItemType {
         }
         return list;
     }
+
+//    @Override
+//    public IViewBinder provideViewBinder(StickyHeaderViewAdapter adapter, SparseArrayCompat<? extends IViewBinder> viewBinderPool, int position) {
+//        return null;
+//    }
 }

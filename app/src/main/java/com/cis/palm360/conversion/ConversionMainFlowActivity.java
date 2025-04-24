@@ -1,14 +1,16 @@
 package com.cis.palm360.conversion;
 
+import static com.cis.palm360.common.CommonUiUtils.isDISEASEdata;
+import static com.cis.palm360.common.CommonUiUtils.isFarmerMandatoryDataEntered;
+import static com.cis.palm360.common.CommonUiUtils.isGandermaDatacheck;
+import static com.cis.palm360.common.CommonUiUtils.isNDdata;
+import static com.cis.palm360.common.CommonUiUtils.ispestdata;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +20,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.cis.palm360.R;
 import com.cis.palm360.areacalculator.PreViewAreaCalScreen;
 import com.cis.palm360.areaextension.AreaWaterTypeFragment;
+import com.cis.palm360.areaextension.GeoTagFragment;
 import com.cis.palm360.areaextension.PersonalDetailsFragment;
 import com.cis.palm360.areaextension.PlotDetailsFragment;
 import com.cis.palm360.areaextension.ReferralsFragment;
@@ -35,20 +43,41 @@ import com.cis.palm360.common.CommonUtils;
 import com.cis.palm360.common.OilPalmException;
 import com.cis.palm360.cropmaintenance.BankDetailsFragment;
 import com.cis.palm360.cropmaintenance.CropMaintanenceIdProofsDetails;
+import com.cis.palm360.cropmaintenance.CropMaintenanceHomeScreen;
+import com.cis.palm360.cropmaintenance.CropPlantationFragment;
+import com.cis.palm360.cropmaintenance.CurrentPlantationFragment;
+import com.cis.palm360.cropmaintenance.DiseaseDetailsFragment;
+import com.cis.palm360.cropmaintenance.FFB_HarvestDetailsFragment;
+import com.cis.palm360.cropmaintenance.FertilizerFragment;
+import com.cis.palm360.cropmaintenance.GanodermaInfestationFragment;
+import com.cis.palm360.cropmaintenance.HealthOfPlantationDetailsFragment;
+import com.cis.palm360.cropmaintenance.NDScreen;
+import com.cis.palm360.cropmaintenance.PestDetailsFragment;
+import com.cis.palm360.cropmaintenance.RecomndFertilizerFragment;
+import com.cis.palm360.cropmaintenance.SnapShotFragment;
+import com.cis.palm360.cropmaintenance.WMODetailsFragment;
+import com.cis.palm360.cropmaintenance.WhiteFlyFragment;
+import com.cis.palm360.cropmaintenance.YieldFragment;
 import com.cis.palm360.database.DataAccessHandler;
 import com.cis.palm360.database.DataSavingHelper;
 import com.cis.palm360.database.DatabaseKeys;
 import com.cis.palm360.database.Queries;
 import com.cis.palm360.datasync.helpers.DataManager;
 import com.cis.palm360.dbmodels.IdentityProof;
+import com.cis.palm360.dbmodels.Plot;
 import com.cis.palm360.farmersearch.DisplayPlotsFragment;
 import com.cis.palm360.dbmodels.CropModel;
+import com.cis.palm360.ui.ComplaintsScreenActivity;
+import com.cis.palm360.ui.HomeScreen;
 import com.cis.palm360.ui.OilPalmBaseActivity;
 import com.cis.palm360.uihelper.ProgressBar;
 import com.cis.palm360.utils.UiUtils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 //Conversion flow modules
@@ -127,16 +156,22 @@ public class ConversionMainFlowActivity extends OilPalmBaseActivity implements U
         actionBar.setTitle(title);
     }
 
+
     //On Click Listeners
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.personalDetailsBtn:
+
+        @Override
+        public void onClick(View view) {
+
+            int id = view.getId();
+
+
+
+            if (id == R.id.personalDetailsBtn) {
                 PersonalDetailsFragment personalDetailsFragment = new PersonalDetailsFragment();
                 personalDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(personalDetailsFragment);
-                break;
-            case R.id.conversionidproofdetailsBtn:
+            }
+            else if (id == R.id.conversionidproofdetailsBtn) {
                 final DataAccessHandler dataAccessHandlerObj = new DataAccessHandler(this);
                 boolean recordExistedid = dataAccessHandlerObj.checkValueExistedInDatabase(Queries.getInstance().checkRecordStatusInIDTable(DatabaseKeys.TABLE_IDENTITYPROOF, "FarmerCode", CommonConstants.FARMER_CODE));
                 if (recordExistedid) {
@@ -148,8 +183,8 @@ public class ConversionMainFlowActivity extends OilPalmBaseActivity implements U
                     conversionIDProofFragment.setUpdateUiListener(this);
                     replaceFragment(conversionIDProofFragment, idproofsBundle);
                 }
-                break;
-            case R.id.conversionbankdetailsBtn:
+            }
+            else if (id == R.id.conversionbankdetailsBtn) {
                 final DataAccessHandler dataAccessHandler = new DataAccessHandler(this);
                 boolean recordExisted = dataAccessHandler.checkValueExistedInDatabase(Queries.getInstance().checkRecordStatusInTable(DatabaseKeys.TABLE_FARMERBANK, "FarmerCode", CommonConstants.FARMER_CODE));
                 if (recordExisted) {
@@ -161,45 +196,46 @@ public class ConversionMainFlowActivity extends OilPalmBaseActivity implements U
                     conversionBankDetailsFragment.setUpdateUiListener(this);
                     replaceFragment(conversionBankDetailsFragment, bankBundle);
                 }
-                break;
-            case R.id.plotDetailsBtn:
+            }
+            else  if(id == R.id.plotDetailsBtn) {
                 PlotDetailsFragment plotDetailsFragment = new PlotDetailsFragment();
                 plotDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(plotDetailsFragment);
-                break;
-            case R.id.plantationdetailsBtn:
-                if (null == DataManager.getInstance().getDataFromManager(DataManager.PLOT_DETAILS)){
+            }
+            else if (id == R.id.plantationdetailsBtn) {
+                if (null == DataManager.getInstance().getDataFromManager(DataManager.PLOT_DETAILS)) {
                     UiUtils.showCustomToastMessage("First Fill the Plot Details", ConversionMainFlowActivity.this, 1);
-                }else {
+                } else {
                     ConversionPlantationFragment conversionPlantationFragment = new ConversionPlantationFragment();
                     conversionPlantationFragment.setUpdateUiListener(this);
                     Bundle plantationBundle = new Bundle();
                     plantationBundle.putString("whichScreen", "conversionPlothomepage");
                     replaceFragment(conversionPlantationFragment, plantationBundle);
                 }
-                break;
-            case R.id.wspBtn:
+            }
+            else if (id == R.id.wspBtn) {
 //                replaceFragment(new WSPDetailsFragment());
                 FragmentManager fm = getSupportFragmentManager();
                 WaterSoilTypeDialogFragment mWaterSoilTypeDialogFragment = new WaterSoilTypeDialogFragment();
                 mWaterSoilTypeDialogFragment.setOnTypeSelected(this);
                 mWaterSoilTypeDialogFragment.show(fm, "fragment_edit_name");
-                break;
-            case R.id.plotGeoTagBtn:
-                if (null == DataManager.getInstance().getDataFromManager(DataManager.PLANTATION_CON_DATA)){
-                    UiUtils.showCustomToastMessage("First Fill The Plot Details And Plantation Details", ConversionMainFlowActivity.this, 1);
-                }else {
+            }
+            else if (id == R.id.plotGeoTagBtn) {
+                if (null == DataManager.getInstance().getDataFromManager(DataManager.PLANTATION_CON_DATA)) {
+                    UiUtils.showCustomToastMessage("First Fill The Field Details And Plantation Details", ConversionMainFlowActivity.this, 1);
+                } else {
                     startActivity(new Intent(ConversionMainFlowActivity.this, PreViewAreaCalScreen.class));
                 }
 
                 //startActivity(new Intent(ConversionMainFlowActivity.this, PreViewAreaCalScreen.class));
-                break;
-            case R.id.interCropDetailsBtn:
+            }
+            else if (id == R.id.interCropDetailsBtn) {
                 InterCropDetailsFragment interCropDetailsFragment = new InterCropDetailsFragment();
                 interCropDetailsFragment.setUpdateUiListener(this);
                 replaceFragment(interCropDetailsFragment);
-                break;
-            case R.id.digitalcontractBtn:
+            }
+
+            else  if (id == R.id.digitalcontractBtn) {
 //                if (null == DataManager.getInstance().getDataFromManager(DataManager.PLOT_GEO_TAG)){
 //                    UiUtils.showCustomToastMessage("Please Take the Plot Boundaries", ConversionMainFlowActivity.this, 1);
 //                }else {
@@ -207,22 +243,22 @@ public class ConversionMainFlowActivity extends OilPalmBaseActivity implements U
                 conversionDigitalContractFragment.setUpdateUiListener(this);
                 replaceFragment(conversionDigitalContractFragment);
 //            }
-                break;
-            case R.id.referalsBtn:
+               }
+            else if (id == R.id.referalsBtn) {
                 ReferralsFragment referralsFragment = new ReferralsFragment();
                 referralsFragment.setUpdateUiListener(this);
                 replaceFragment(referralsFragment);
-                break;
-            case R.id.finishBtn:
+            }
+              if (id == R.id.finishBtn) {
 
                 if (!CommonUiUtils.isFarmerPhotoTaken(ConversionMainFlowActivity.this)) {
-                    UiUtils.showCustomToastMessage("Please Take Farmer Picture", ConversionMainFlowActivity.this, 1);
+                    UiUtils.showCustomToastMessage("Please Take Grower Picture", ConversionMainFlowActivity.this, 1);
                 } else if (!CommonUiUtils.isConversionPlotDataEntered()) {
                     UiUtils.showCustomToastMessage("Please Enter Required Plot Details", ConversionMainFlowActivity.this, 1);
                 } else if (!CommonUiUtils.isWSPowerDataEntered(ConversionMainFlowActivity.this)) {
                     UiUtils.showCustomToastMessage("Please Enter Water Soil Details", ConversionMainFlowActivity.this, 1);
                 } else {
-                    ProgressBar.showProgressBar(ConversionMainFlowActivity.this,"Please wait data is Updating in DataBase.....");
+                    ProgressBar.showProgressBar(ConversionMainFlowActivity.this, "Please wait data is Updating in DataBase.....");
                     DataSavingHelper.saveFarmerAddressData(this, new ApplicationThread.OnComplete<String>() {
                         @Override
                         public void execute(boolean success, String result, String msg) {
@@ -234,14 +270,13 @@ public class ConversionMainFlowActivity extends OilPalmBaseActivity implements U
                             } else {
                                 DisplayPlotsFragment.plotCode = "";
                                 ProgressBar.hideProgressBar();
-                                Log.pushExceptionToCrashlytics(new OilPalmException("Data saving failed in conversion "+msg+"-"+result));
-                                UiUtils.showCustomToastMessage("Data saving failed "+msg+"-"+result, ConversionMainFlowActivity.this, 1);
+                                // Log.pushExceptionToCrashlytics(new OilPalmException("Data saving failed in conversion "+msg+"-"+result));
+                                UiUtils.showCustomToastMessage("Data saving failed " + msg + "-" + result, ConversionMainFlowActivity.this, 1);
                             }
                         }
                     });
                 }
 
-                break;
         }
     }
 
@@ -334,14 +369,17 @@ public class ConversionMainFlowActivity extends OilPalmBaseActivity implements U
     //What should happen on back click
     @Override
     public void onBackPressed() {
-      List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         if (fragmentList != null) {
             uiRefresh();
         }
         FragmentManager fm = getSupportFragmentManager();
         int count = fm.getBackStackEntryCount();
         if (count > 0) {
+            super.onBackPressed();
             fm.popBackStack();
+
         } else {
             if (doubleback) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

@@ -1,10 +1,11 @@
 package com.cis.palm360.kras;
 
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.cis.palm360.R;
 import com.cis.palm360.dbmodels.MonthlyTagetsKRA;
@@ -24,6 +25,7 @@ public class KraItemViewBinder extends ViewBinder<KraAdapterData<MonthlyTagetsKR
     public KraItemViewBinder.ViewHolder provideViewHolder(View itemView) {
         return new KraItemViewBinder.ViewHolder(itemView);
     }
+
 
     @Override
     public void bindView(StickyHeaderViewAdapter adapter,

@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.cis.palm360.uihelper.slidedatetimepicker.SlidingTabLayout
-        android:id="@+id/slidingTabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+<!--    <com.cis.palm360.uihelper.slidedatetimepicker.SlidingTabLayout-->
+<!--        android:id="@+id/slidingTabLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
 
-    <com.cis.palm360.uihelper.slidedatetimepicker.CustomViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+<!--    <com.cis.palm360.uihelper.slidedatetimepicker.CustomViewPager-->
+<!--        android:id="@+id/viewPager"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1" />-->
 
     <!--
         The horizontal separator that runs across the top of

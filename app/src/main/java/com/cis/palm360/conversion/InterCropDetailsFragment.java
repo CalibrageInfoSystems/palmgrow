@@ -5,14 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +15,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.areaextension.EditEntryDialogFragment;
@@ -44,10 +45,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 
 //Used to add Intercrop details
 public class InterCropDetailsFragment extends Fragment implements View.OnClickListener, MultiEntryDialogFragment.onDataSelectedListener, GenericListItemClickListener, EditEntryDialogFragment.OnDataEditChangeListener {
@@ -289,15 +286,14 @@ public class InterCropDetailsFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.saveBtn:
+
+            if (v.getId() == R.id.saveBtn){
                 if(interCropPair!=null )
                 DataManager.getInstance().addData(DataManager.PLOT_INTER_CROP_DATA_PAIR, interCropPair);
                 if(interCropList!=null )
                 DataManager.getInstance().addData(DataManager.PLOT_INTER_CROP_DATA, interCropList);
                 updateUiListener.updateUserInterface(0);
                 getFragmentManager().popBackStack();
-                break;
 //            case R.id.historyBtn:
 //                CropMaintainanceHistoryFragment newFragment = new CropMaintainanceHistoryFragment();
 //                Bundle bundle = new Bundle();

@@ -6,16 +6,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,6 +48,17 @@ import java.util.List;
 import java.util.Map;
 
 import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getKey;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -1711,9 +1712,8 @@ public class FertilizerFragment extends Fragment implements View.OnClickListener
     AdapterView.OnItemSelectedListener spinListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            switch (parent.getId()) {
 
-                case R.id.fertilizerProductNameSpin:
+                if (parent.getId() ==  R.id.fertilizerProductNameSpin){
                     if (fertilizerProductNameSpin.getSelectedItem().toString().equalsIgnoreCase(getString(R.string.other))) {
 //                        dialog.show();
                         otherLay.setVisibility(View.VISIBLE);
@@ -1721,7 +1721,6 @@ public class FertilizerFragment extends Fragment implements View.OnClickListener
                         otherLay.setVisibility(View.GONE);
                     }
 
-                    break;
             }
         }
 
@@ -2625,59 +2624,6 @@ public class FertilizerFragment extends Fragment implements View.OnClickListener
             }
         });
 
-//        pfertilizerapplied.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-//
-//                if (pfertilizerapplied.getSelectedItemPosition() == 2){
-//
-//                    pMonthyear.setEnabled(false);
-//                    psourceName.setEnabled(false);
-//                    psourceOfertilizerSpin.setSelection(0);
-//                    psourceOfertilizerSpin.setEnabled(false);
-//                    pcomments.setEnabled(false);
-//                    papptype.setSelection(0);
-//                    papptype.setEnabled(false);
-//                    lastAppliedDateEdt.setEnabled(false);
-//                    lastAppliedDateEdt1.setEnabled(false);
-//                    lastAppliedDateEdt2.setEnabled(false);
-//                    lastAppliedDateEdt3.setEnabled(false);
-//                    lastAppliedDateEdt4.setEnabled(false);
-//                    lastAppliedDateEdt5.setEnabled(false);
-//                    lastAppliedDateEdt6.setEnabled(false);
-//                    lastAppliedDateEdt7.setEnabled(false);
-//                    lastAppliedDateEdt8.setEnabled(false);
-//                }
-//
-//                if (pfertilizerapplied.getSelectedItemPosition() == 1){
-//
-//                    pMonthyear.setEnabled(true);
-//                    psourceName.setEnabled(true);
-//                    psourceOfertilizerSpin.setSelection(0);
-//                    psourceOfertilizerSpin.setEnabled(true);
-//                    pcomments.setEnabled(true);
-//                    papptype.setSelection(0);
-//                    papptype.setEnabled(true);
-//                    lastAppliedDateEdt.setEnabled(true);
-//                    lastAppliedDateEdt1.setEnabled(true);
-//                    lastAppliedDateEdt2.setEnabled(true);
-//                    lastAppliedDateEdt3.setEnabled(true);
-//                    lastAppliedDateEdt4.setEnabled(true);
-//                    lastAppliedDateEdt5.setEnabled(true);
-//                    lastAppliedDateEdt6.setEnabled(true);
-//                    lastAppliedDateEdt7.setEnabled(true);
-//                    lastAppliedDateEdt8.setEnabled(true);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-
-// Example spinner setup with duplicate check logic
         bioFertilizerSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -2780,9 +2726,7 @@ public class FertilizerFragment extends Fragment implements View.OnClickListener
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-    
 
-        // fetchprevqtr();
     }
 
     private boolean isDuplicateSelected(String selected, String... others) {
@@ -2797,610 +2741,358 @@ public class FertilizerFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.saveBtn:
+
+        int id = v.getId();
+
+            if (id == R.id.saveBtn) {
 
                 mFertilizerModelArray = new ArrayList<Fertilizer>();
                 DataManager.getInstance().deleteData(DataManager.FERTILIZER);
 
 
-               // if(spinnerSelect(fertilizerapplied, "Fertilizer Applied", mContext)){
+                // if(spinnerSelect(fertilizerapplied, "Fertilizer Applied", mContext)){
 //                if (DataManager.getInstance().getDataFromManager(DataManager.RECMND_FERTILIZER) != null)
-                    if (validateUI()) {
-                        Date date;
-                        String lastAppliedDate = "";
-                        String outputDate;
+                if (validateUI()) {
+                    Date date;
+                    String lastAppliedDate = "";
+                    String outputDate;
 
-                        for (int k = 0; k < 12; k++) {
-                            Fertilizer mFertilizerModel = new Fertilizer();
-                            Fertilizer mFertilizerModelp = new Fertilizer();
-                            switch (k) {
-                                case 0:
-                                    if (dosageGivenEdt.getText().toString().length() > 0 && dosageGivenEdt.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        mFertilizerModel.setFertilizerid(59);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-
-//                                    if (lastAppliedDateEdt.getText().toString().length() > 0 && lastAppliedDateEdt.isEnabled()) {
-//                                        CommonConstants.Prev_Fertilizer_CMD = "Done";
-//                                        mFertilizerModelp.setFertilizerid(59);
-//                                        mFertilizerModelp.setDosage(Double.parseDouble(lastAppliedDateEdt.getText().toString()));
-//                                        mFertilizerModelp.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, psourceOfertilizerSpin.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setSourceName(psourceName.getText().toString());
-//                                        mFertilizerModelp.setComments(pcomments.getText().toString());
-//                                        mFertilizerModelp.setUomid(1);
-//                                        mFertilizerModelp.setApplicationType(getKey(AppTypeDataMap, papptype.getSelectedItem().toString()));
-//                                        mFertilizerModelp.setApplicationMonth(pMonth);
-//                                        mFertilizerModelp.setApplicationYear(pYear);
-//                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setIsFertilizerApplied(1);
-//                                        mFertilizerModelp.setQuarter(pQuater);
-//
-//                                        mFertilizerModelp.setLastapplieddate(papplydate);
-//                                        mFertilizerModelp.setApplyfertilizerfrequencytypeid(null);
-//                                        mFertilizerModelArray.add(mFertilizerModelp);
-//                                    }
-                                    break;
-                                case 1:
-                                    if (dosageGivenEdt1.getText().toString().length() > 0 && dosageGivenEdt1.getText().toString() != "0") {
-                                       // CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        mFertilizerModel.setFertilizerid(61);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt1.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-//                                    if (lastAppliedDateEdt1.getText().toString().length() > 0 && lastAppliedDateEdt1.isEnabled()) {
-//                                        CommonConstants.Prev_Fertilizer_CMD = "Done";
-//                                        mFertilizerModelp.setFertilizerid(61);
-//                                        mFertilizerModelp.setDosage(Double.parseDouble(lastAppliedDateEdt1.getText().toString()));
-//                                        mFertilizerModelp.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, psourceOfertilizerSpin.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setSourceName(psourceName.getText().toString());
-//                                        mFertilizerModelp.setComments(pcomments.getText().toString());
-//                                        mFertilizerModelp.setUomid(1);
-//                                        mFertilizerModelp.setApplicationType(getKey(AppTypeDataMap, papptype.getSelectedItem().toString()));
-//                                        mFertilizerModelp.setApplicationMonth(pMonth);
-//                                        mFertilizerModelp.setApplicationYear(pYear);
-//                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setIsFertilizerApplied(1);
-//                                        mFertilizerModelp.setQuarter(pQuater);
-//
-//                                        mFertilizerModelp.setLastapplieddate(papplydate);
-//                                        mFertilizerModelp.setApplyfertilizerfrequencytypeid(null);
-//                                        mFertilizerModelArray.add(mFertilizerModelp);
-//                                    }
-                                    break;
-
-                                case 2:
-                                    if (dosageGivenEdt2.getText().toString().length() > 0 && dosageGivenEdt2.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        mFertilizerModel.setFertilizerid(60);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt2.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-//                                    if (lastAppliedDateEdt2.getText().toString().length() > 0 && lastAppliedDateEdt2.isEnabled()) {
-//                                        CommonConstants.Prev_Fertilizer_CMD = "Done";
-//                                        mFertilizerModelp.setFertilizerid(60);
-//                                        mFertilizerModelp.setDosage(Double.parseDouble(lastAppliedDateEdt2.getText().toString()));
-//                                        mFertilizerModelp.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, psourceOfertilizerSpin.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setSourceName(psourceName.getText().toString());
-//                                        mFertilizerModelp.setComments(pcomments.getText().toString());
-//                                        mFertilizerModelp.setUomid(1);
-//                                        mFertilizerModelp.setApplicationType(getKey(AppTypeDataMap, papptype.getSelectedItem().toString()));
-//                                        mFertilizerModelp.setApplicationMonth(pMonth);
-//                                        mFertilizerModelp.setApplicationYear(pYear);
-//                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setIsFertilizerApplied(1);
-//                                        mFertilizerModelp.setQuarter(pQuater);
-//
-//                                        mFertilizerModelp.setLastapplieddate(papplydate);
-//                                        mFertilizerModelp.setApplyfertilizerfrequencytypeid(null);
-//                                        mFertilizerModelArray.add(mFertilizerModelp);
-//                                    }
-                                    break;
-
-                                case 3:
-                                    if (dosageGivenEdt3.getText().toString().length() > 0 && dosageGivenEdt3.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        mFertilizerModel.setFertilizerid(63);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt3.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-//                                    if (lastAppliedDateEdt3.getText().toString().length() > 0 && lastAppliedDateEdt3.isEnabled()) {
-//                                        CommonConstants.Prev_Fertilizer_CMD = "Done";
-//                                        mFertilizerModelp.setFertilizerid(63);
-//                                        mFertilizerModelp.setDosage(Double.parseDouble(lastAppliedDateEdt3.getText().toString()));
-//                                        mFertilizerModelp.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, psourceOfertilizerSpin.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setSourceName(psourceName.getText().toString());
-//                                        mFertilizerModelp.setComments(pcomments.getText().toString());
-//                                        mFertilizerModelp.setUomid(1);
-//                                        mFertilizerModelp.setApplicationType(getKey(AppTypeDataMap, papptype.getSelectedItem().toString()));
-//                                        mFertilizerModelp.setApplicationMonth(pMonth);
-//                                        mFertilizerModelp.setApplicationYear(pYear);
-//                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setIsFertilizerApplied(1);
-//                                        mFertilizerModelp.setQuarter(pQuater);
-//
-//                                        mFertilizerModelp.setLastapplieddate(papplydate);
-//                                        mFertilizerModelp.setApplyfertilizerfrequencytypeid(null);
-//                                        mFertilizerModelArray.add(mFertilizerModelp);
-//                                    }
-                                    break;
-
-                                case 4:
-                                    if (dosageGivenEdt4.getText().toString().length() > 0 && dosageGivenEdt4.getText().toString() != "0") {
-                                       // CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        mFertilizerModel.setFertilizerid(64);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt4.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        // mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-//                                    if (lastAppliedDateEdt4.getText().toString().length() > 0 && lastAppliedDateEdt4.isEnabled()) {
-//                                        CommonConstants.Prev_Fertilizer_CMD = "Done";
-//                                        mFertilizerModelp.setFertilizerid(64);
-//                                        mFertilizerModelp.setDosage(Double.parseDouble(lastAppliedDateEdt4.getText().toString()));
-//                                        mFertilizerModelp.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, psourceOfertilizerSpin.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setSourceName(psourceName.getText().toString());
-//                                        mFertilizerModelp.setComments(pcomments.getText().toString());
-//                                        mFertilizerModelp.setUomid(1);
-//                                        mFertilizerModelp.setApplicationType(getKey(AppTypeDataMap, papptype.getSelectedItem().toString()));
-//                                        mFertilizerModelp.setApplicationMonth(pMonth);
-//                                        mFertilizerModelp.setApplicationYear(pYear);
-//                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setIsFertilizerApplied(1);
-//                                        mFertilizerModelp.setQuarter(pQuater);
-//
-//                                        mFertilizerModelp.setLastapplieddate(papplydate);
-//                                        mFertilizerModelp.setApplyfertilizerfrequencytypeid(null);
-//                                        mFertilizerModelArray.add(mFertilizerModelp);
-//                                    }
-                                    break;
-
-                                case 5:
-                                    if (dosageGivenEdt5.getText().toString().length() > 0 && dosageGivenEdt5.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        mFertilizerModel.setFertilizerid(58);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt5.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        // mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-//                                    if (lastAppliedDateEdt5.getText().toString().length() > 0 && lastAppliedDateEdt5.isEnabled()) {
-//                                        CommonConstants.Prev_Fertilizer_CMD = "Done";
-//                                        mFertilizerModelp.setFertilizerid(58);
-//                                        mFertilizerModelp.setDosage(Double.parseDouble(lastAppliedDateEdt5.getText().toString()));
-//                                        mFertilizerModelp.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, psourceOfertilizerSpin.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setSourceName(psourceName.getText().toString());
-//                                        mFertilizerModelp.setComments(pcomments.getText().toString());
-//                                        mFertilizerModelp.setUomid(1);
-//                                        mFertilizerModelp.setApplicationType(getKey(AppTypeDataMap, papptype.getSelectedItem().toString()));
-//                                        mFertilizerModelp.setApplicationMonth(pMonth);
-//                                        mFertilizerModelp.setApplicationYear(pYear);
-//                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setIsFertilizerApplied(1);
-//                                        mFertilizerModelp.setQuarter(pQuater);
-//
-//                                        mFertilizerModelp.setLastapplieddate(papplydate);
-//                                        mFertilizerModelp.setApplyfertilizerfrequencytypeid(null);
-//                                        mFertilizerModelArray.add(mFertilizerModelp);
-//                                    }
-                                    break;
-
-                                case 6:
-                                    if (dosageGivenEdt6.getText().toString().length() > 0 && dosageGivenEdt6.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        mFertilizerModel.setFertilizerid(229);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt6.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-//                                    if (lastAppliedDateEdt6.getText().toString().length() > 0 && lastAppliedDateEdt6.isEnabled()) {
-//                                        CommonConstants.Prev_Fertilizer_CMD = "Done";
-//                                        mFertilizerModelp.setFertilizerid(229);
-//                                        mFertilizerModelp.setDosage(Double.parseDouble(lastAppliedDateEdt6.getText().toString()));
-//                                        mFertilizerModelp.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, psourceOfertilizerSpin.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setSourceName(psourceName.getText().toString());
-//                                        mFertilizerModelp.setComments(pcomments.getText().toString());
-//                                        mFertilizerModelp.setUomid(1);
-//                                        mFertilizerModelp.setApplicationType(getKey(AppTypeDataMap, papptype.getSelectedItem().toString()));
-//                                        mFertilizerModelp.setApplicationMonth(pMonth);
-//                                        mFertilizerModelp.setApplicationYear(pYear);
-//                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setIsFertilizerApplied(1);
-//                                        mFertilizerModelp.setQuarter(pQuater);
-//
-//                                        mFertilizerModelp.setLastapplieddate(papplydate);
-//                                        mFertilizerModelp.setApplyfertilizerfrequencytypeid(null);
-//                                        mFertilizerModelArray.add(mFertilizerModelp);
-//                                    }
-                                    break;
-                                case 7:
-
-
-                                    if (bioFertilizerSpin.getSelectedItemPosition() != 0 && dosageGivenEdt7.getText().toString().length() > 0 && dosageGivenEdt7.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        mFertilizerModel.setFertilizerid(232);
-                                        mFertilizerModel.setBioFertilizerId(bioFertilizerId);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt7.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-
-                                    }
-
-//                                    if (lastAppliedDateEdt7.getText().toString().length() > 0 && lastAppliedDateEdt7.isEnabled() && bioFertilizerSpin.getSelectedItemPosition() != 0) {
-//                                        CommonConstants.Prev_Fertilizer_CMD = "Done";
-//                                        mFertilizerModelp.setFertilizerid(232);
-//                                        mFertilizerModelp.setBioFertilizerId(bioFertilizerId);
-//                                        mFertilizerModelp.setDosage(Double.parseDouble(lastAppliedDateEdt7.getText().toString()));
-//                                        mFertilizerModelp.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, psourceOfertilizerSpin.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setSourceName(psourceName.getText().toString());
-//                                        mFertilizerModelp.setComments(pcomments.getText().toString());
-//                                        mFertilizerModelp.setUomid(1);
-//                                        mFertilizerModelp.setApplicationType(getKey(AppTypeDataMap, papptype.getSelectedItem().toString()));
-//                                        mFertilizerModelp.setApplicationMonth(pMonth);
-//                                        mFertilizerModelp.setApplicationYear(pYear);
-//                                        //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-//                                        mFertilizerModelp.setIsFertilizerApplied(1);
-//                                        mFertilizerModelp.setQuarter(pQuater);
-//
-//                                        mFertilizerModelp.setLastapplieddate(papplydate);
-//                                        mFertilizerModelp.setApplyfertilizerfrequencytypeid(null);
-//                                        mFertilizerModelArray.add(mFertilizerModelp);
-//                                    }
-                                    break;
-                                case 8:
-                                    if (bioFertilizerSpin2.getSelectedItemPosition() != 0 && dosageGivenEdt8.getText().toString().length() > 0 && dosageGivenEdt8.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        Log.d("Selected Item Id2", bioFertilizerId2+ "");
-
-                                        mFertilizerModel.setFertilizerid(232);
-                                        mFertilizerModel.setBioFertilizerId(bioFertilizerId2);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt8.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-                                    break;
-                                case 9:
-                                    if (bioFertilizerSpin3.getSelectedItemPosition() != 0 && dosageGivenEdt31.getText().toString().length() > 0 && dosageGivenEdt31.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        Log.d("Selected Item Id 3", bioFertilizerId3 + "");
-
-                                        mFertilizerModel.setFertilizerid(232);
-                                        mFertilizerModel.setBioFertilizerId(bioFertilizerId3);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt31.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-                                    break;
-                                case 10:
-                                    if (bioFertilizerSpin4.getSelectedItemPosition() != 0 && dosageGivenEdt41.getText().toString().length() > 0 && dosageGivenEdt41.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        Log.d("Selected Item Id 4", bioFertilizerId4 + "");
-                                        mFertilizerModel.setFertilizerid(232);
-                                        mFertilizerModel.setBioFertilizerId(bioFertilizerId4);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt41.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-                                    break;
-                                case 11:
-                                    if (bioFertilizerSpin5.getSelectedItemPosition() != 0 && dosageGivenEdt51.getText().toString().length() > 0 && dosageGivenEdt51.getText().toString() != "0") {
-                                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                                        Log.d("Selected Item Id 5", bioFertilizerId5+ "");
-                                        mFertilizerModel.setFertilizerid(232);
-                                        mFertilizerModel.setBioFertilizerId(bioFertilizerId5);
-                                        mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt51.getText().toString()));
-                                        lastAppliedDate = applydate;
-                                        mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
-                                        mFertilizerModel.setSourceName(sourceName.getText().toString());
-                                        mFertilizerModel.setComments(comments.getText().toString());
-                                        mFertilizerModel.setUomid(1);
-                                        mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
-                                        mFertilizerModel.setApplicationMonth(Month);
-                                        mFertilizerModel.setApplicationYear(Year);
-                                        //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                                        mFertilizerModel.setIsFertilizerApplied(1);
-                                        mFertilizerModel.setQuarter(Quater);
-                                        mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
-                                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                                        mFertilizerModelArray.add(mFertilizerModel);
-                                    }
-                                    break;
-                            }
-
-
-                        }
+                    for (int k = 0; k < 12; k++) {
                         Fertilizer mFertilizerModel = new Fertilizer();
                         Fertilizer mFertilizerModelp = new Fertilizer();
-                        if (Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())) == 0) {
-                            //CommonConstants.Prev_Fertilizer_CMD = "Done";
-                            mFertilizerModel.setFertilizerid(234);
-                            mFertilizerModel.setDosage(0.00);
-                            lastAppliedDate = applydate;
-                            mFertilizerModel.setFertilizersourcetypeid(155);
-                            mFertilizerModel.setSourceName("");
-                            mFertilizerModel.setComments("");
-                            mFertilizerModel.setUomid(1);
+                        switch (k) {
+                            case 0:
+                                if (dosageGivenEdt.getText().toString().length() > 0 && dosageGivenEdt.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    mFertilizerModel.setFertilizerid(59);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
 
-                            mFertilizerModel.setApplicationMonth("");
-                            mFertilizerModel.setApplicationYear(cy);
-                            //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-                            mFertilizerModel.setIsFertilizerApplied(0);
-                            mFertilizerModel.setQuarter(cq);
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+                            case 1:
+                                if (dosageGivenEdt1.getText().toString().length() > 0 && dosageGivenEdt1.getText().toString() != "0") {
+                                    // CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    mFertilizerModel.setFertilizerid(61);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt1.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
 
-                            mFertilizerModel.setLastapplieddate(cmindate+" 00:00:00");
-                            mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
-                            mFertilizerModelArray.clear();
-                            mFertilizerModelArray.add(mFertilizerModel);
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+
+                            case 2:
+                                if (dosageGivenEdt2.getText().toString().length() > 0 && dosageGivenEdt2.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    mFertilizerModel.setFertilizerid(60);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt2.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+
+                            case 3:
+                                if (dosageGivenEdt3.getText().toString().length() > 0 && dosageGivenEdt3.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    mFertilizerModel.setFertilizerid(63);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt3.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+
+                            case 4:
+                                if (dosageGivenEdt4.getText().toString().length() > 0 && dosageGivenEdt4.getText().toString() != "0") {
+                                    // CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    mFertilizerModel.setFertilizerid(64);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt4.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    // mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+
+                            case 5:
+                                if (dosageGivenEdt5.getText().toString().length() > 0 && dosageGivenEdt5.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    mFertilizerModel.setFertilizerid(58);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt5.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    // mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+
+                            case 6:
+                                if (dosageGivenEdt6.getText().toString().length() > 0 && dosageGivenEdt6.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    mFertilizerModel.setFertilizerid(229);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt6.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+                            case 7:
+
+
+                                if (bioFertilizerSpin.getSelectedItemPosition() != 0 && dosageGivenEdt7.getText().toString().length() > 0 && dosageGivenEdt7.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    mFertilizerModel.setFertilizerid(232);
+                                    mFertilizerModel.setBioFertilizerId(bioFertilizerId);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt7.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+
+                                }
+                                break;
+                            case 8:
+                                if (bioFertilizerSpin2.getSelectedItemPosition() != 0 && dosageGivenEdt8.getText().toString().length() > 0 && dosageGivenEdt8.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    Log.d("Selected Item Id2", bioFertilizerId2 + "");
+
+                                    mFertilizerModel.setFertilizerid(232);
+                                    mFertilizerModel.setBioFertilizerId(bioFertilizerId2);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt8.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+                            case 9:
+                                if (bioFertilizerSpin3.getSelectedItemPosition() != 0 && dosageGivenEdt31.getText().toString().length() > 0 && dosageGivenEdt31.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    Log.d("Selected Item Id 3", bioFertilizerId3 + "");
+
+                                    mFertilizerModel.setFertilizerid(232);
+                                    mFertilizerModel.setBioFertilizerId(bioFertilizerId3);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt31.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+                            case 10:
+                                if (bioFertilizerSpin4.getSelectedItemPosition() != 0 && dosageGivenEdt41.getText().toString().length() > 0 && dosageGivenEdt41.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    Log.d("Selected Item Id 4", bioFertilizerId4 + "");
+                                    mFertilizerModel.setFertilizerid(232);
+                                    mFertilizerModel.setBioFertilizerId(bioFertilizerId4);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt41.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
+                            case 11:
+                                if (bioFertilizerSpin5.getSelectedItemPosition() != 0 && dosageGivenEdt51.getText().toString().length() > 0 && dosageGivenEdt51.getText().toString() != "0") {
+                                    //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                                    Log.d("Selected Item Id 5", bioFertilizerId5 + "");
+                                    mFertilizerModel.setFertilizerid(232);
+                                    mFertilizerModel.setBioFertilizerId(bioFertilizerId5);
+                                    mFertilizerModel.setDosage(Double.parseDouble(dosageGivenEdt51.getText().toString()));
+                                    lastAppliedDate = applydate;
+                                    mFertilizerModel.setFertilizersourcetypeid(Integer.parseInt(getKey(fertilizerDataMap, sourceOfertilizerSpin.getSelectedItem().toString())));
+                                    mFertilizerModel.setSourceName(sourceName.getText().toString());
+                                    mFertilizerModel.setComments(comments.getText().toString());
+                                    mFertilizerModel.setUomid(1);
+                                    mFertilizerModel.setApplicationType(getKey(AppTypeDataMap, apptype.getSelectedItem().toString()));
+                                    mFertilizerModel.setApplicationMonth(Month);
+                                    mFertilizerModel.setApplicationYear(Year);
+                                    //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                                    mFertilizerModel.setIsFertilizerApplied(1);
+                                    mFertilizerModel.setQuarter(Quater);
+                                    mFertilizerModel.setLastapplieddate(CommonConstants.fertilizerapplydate);
+                                    mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                                    mFertilizerModelArray.add(mFertilizerModel);
+                                }
+                                break;
                         }
-//                        if (Integer.parseInt(getKey(IsAppliedDataMap, pfertilizerapplied.getSelectedItem().toString())) == 0) {
-//                            CommonConstants.Prev_Fertilizer_CMD = "Done";
-//                            mFertilizerModelp.setFertilizerid(234);
-//                            mFertilizerModelp.setDosage(0.00);
-//                            lastAppliedDate = applydate;
-//                            mFertilizerModelp.setFertilizersourcetypeid(155);
-//                            mFertilizerModelp.setSourceName("");
-//                            mFertilizerModelp.setComments("");
-//                            mFertilizerModelp.setUomid(1);
-//
-//                            mFertilizerModelp.setApplicationMonth("");
-//                            mFertilizerModelp.setApplicationYear(py);
-//                            //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
-//                            mFertilizerModelp.setIsFertilizerApplied(0);
-//                            mFertilizerModelp.setQuarter(pq);
-//
-//                            mFertilizerModelp.setLastapplieddate(pmindate+" 00:00:00");
-//                            mFertilizerModelp.setApplyfertilizerfrequencytypeid(null);
-//                            mFertilizerModelArray.add(mFertilizerModelp);
-//                        }
 
-                        DataManager.getInstance().addData(DataManager.FERTILIZER, mFertilizerModelArray);
-                        mFertilizerModelArray = (ArrayList<Fertilizer>) DataManager.getInstance().getDataFromManager(DataManager.FERTILIZER);
-                        Log.d("Monthyearsecondsave", mFertilizerModelArray.get(0).getApplicationMonth() + "");
-
-
-                        getFragmentManager().popBackStack();
-                        CommonUtilsNavigation.hideKeyBoard(getActivity());
-                        clearFields();
-                        //     fertilizerDataAdapter.notifyDataSetChanged();
-
-                        updateUiListener.updateUserInterface(0);
 
                     }
+                    Fertilizer mFertilizerModel = new Fertilizer();
+                    Fertilizer mFertilizerModelp = new Fertilizer();
+                    if (Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())) == 0) {
+                        //CommonConstants.Prev_Fertilizer_CMD = "Done";
+                        mFertilizerModel.setFertilizerid(234);
+                        mFertilizerModel.setDosage(0.00);
+                        lastAppliedDate = applydate;
+                        mFertilizerModel.setFertilizersourcetypeid(155);
+                        mFertilizerModel.setSourceName("");
+                        mFertilizerModel.setComments("");
+                        mFertilizerModel.setUomid(1);
+
+                        mFertilizerModel.setApplicationMonth("");
+                        mFertilizerModel.setApplicationYear(cy);
+                        //  mFertilizerModel.setIsFertilizerApplied(Integer.parseInt(getKey(IsAppliedDataMap, fertilizerapplied.getSelectedItem().toString())));
+                        mFertilizerModel.setIsFertilizerApplied(0);
+                        mFertilizerModel.setQuarter(cq);
+
+                        mFertilizerModel.setLastapplieddate(cmindate + " 00:00:00");
+                        mFertilizerModel.setApplyfertilizerfrequencytypeid(null);
+                        mFertilizerModelArray.clear();
+                        mFertilizerModelArray.add(mFertilizerModel);
+                    }
+
+                    DataManager.getInstance().addData(DataManager.FERTILIZER, mFertilizerModelArray);
+                    mFertilizerModelArray = (ArrayList<Fertilizer>) DataManager.getInstance().getDataFromManager(DataManager.FERTILIZER);
+                    Log.d("Monthyearsecondsave", mFertilizerModelArray.get(0).getApplicationMonth() + "");
+
+
+                    getFragmentManager().popBackStack();
+                    CommonUtilsNavigation.hideKeyBoard(getActivity());
+                    clearFields();
+                    //     fertilizerDataAdapter.notifyDataSetChanged();
+
+                    updateUiListener.updateUserInterface(0);
+
+                }
 
                 CommonUtilsNavigation.hideKeyBoard(getActivity());
-                break;
+            }
 
 
-
-//            case R.id.lastAppliedDateEdt:
-//                cal=0;
-//                DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), date, myCalendar
-//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH));  //date is dateSetListener as per your code in question
-//                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog.show();
-//                break;
-//
-//            case R.id.lastAppliedDateEdt1:
-//                cal=1;
-//                DatePickerDialog datePickerDialog1 = new DatePickerDialog(getActivity(), date, myCalendar
-//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH));  //date is dateSetListener as per your code in question
-//                datePickerDialog1.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog1.show();
-//                break;
-//            case R.id.lastAppliedDateEdt2:
-//                cal=2;
-//                DatePickerDialog datePickerDialog2 = new DatePickerDialog(getActivity(), date, myCalendar
-//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH));  //date is dateSetListener as per your code in question
-//                datePickerDialog2.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog2.show();
-//                break;
-//            case R.id.lastAppliedDateEdt3:
-//                cal=3;
-//                DatePickerDialog datePickerDialog3 = new DatePickerDialog(getActivity(), date, myCalendar
-//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH));  //date is dateSetListener as per your code in question
-//                datePickerDialog3.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog3.show();
-//                break;
-//            case R.id.lastAppliedDateEdt4:
-//                cal=4;
-//                DatePickerDialog datePickerDialog4 = new DatePickerDialog(getActivity(), date, myCalendar
-//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH));  //date is dateSetListener as per your code in question
-//                datePickerDialog4.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog4.show();
-//                break;
-//            case R.id.lastAppliedDateEdt5:
-//                cal=5;
-//                DatePickerDialog datePickerDialog5 = new DatePickerDialog(getActivity(), date, myCalendar
-//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH));  //date is dateSetListener as per your code in question
-//                datePickerDialog5.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog5.show();
-//                break;
-//            case R.id.lastAppliedDateEdt6:
-//                cal=6;
-//                DatePickerDialog datePickerDialog6 = new DatePickerDialog(getActivity(), date, myCalendar
-//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH));  //date is dateSetListener as per your code in question
-//                datePickerDialog6.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog6.show();
-//                break;
-//            case R.id.lastAppliedDateEdt7:
-//                cal=7;
-//                DatePickerDialog datePickerDialog7 = new DatePickerDialog(getActivity(), date, myCalendar
-//                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-//                        myCalendar.get(Calendar.DAY_OF_MONTH));  //date is dateSetListener as per your code in question
-//                datePickerDialog7.getDatePicker().setMaxDate(System.currentTimeMillis());
-//                datePickerDialog7.show();
-//                break;
-
-            case R.id.historyBtn:
-
-
-//                Log.d("HistoryBtn", "Clciked");
-//                cal=7;
-//                CropMaintainanceHistoryFragment newFragment = new CropMaintainanceHistoryFragment();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("screen", 1);
-//                newFragment.setArguments(bundle);
-//                newFragment.show(getActivity().getFragmentManager(), "history");
+            if (id == R.id.historyBtn) {
                 showDialog(getContext());
+            }
 
-                break;
-
-            case R.id.pdfBtn:
+            if (id == R.id.pdfBtn) {
                 showPDFDialog(getContext());
-                break;
-
-        }
+            }
 
     }
 

@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -21,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
@@ -234,19 +235,6 @@ public class ConversionDigitalContractFragment extends BaseFragment implements O
                         .onLoad(this)
                         .scrollHandle(new DefaultScrollHandle(getActivity()))
                         .load();
-
-//                try {
-//                    PdfReader reader = new PdfReader(String.valueOf(fileToDownLoad));
-//                    int n = reader.getNumberOfPages();
-//                    for (int i = 0; i <n ; i++) {
-//                        parsedText   = parsedText+ PdfTextExtractor.getTextFromPage(reader, i+1).trim()+"\n"; //Extracting the content from the different pages
-//                        Log.d("parsedText", parsedText + "");
-//                    }
-//                    System.out.println(parsedText);
-//                    reader.close();
-//                } catch (Exception e) {
-//                    System.out.println(e);
-//                }
             }
         }else{
 
@@ -255,16 +243,6 @@ public class ConversionDigitalContractFragment extends BaseFragment implements O
             contactlayout.setVisibility(View.GONE);
 
         }
-
-
-
-//            else {
-//               // String url = Config.image_url + "/" + digitalContract.getFileLocation() + "/" + digitalContract.getFILENAME() + digitalContract.getFileExtension();
-//                //new DownloadFileFromURL().execute(url);
-//                fileToDownLoad
-//            }
-        //    }
-
     }
 
     private void signature_popup() {
@@ -333,9 +311,12 @@ public class ConversionDigitalContractFragment extends BaseFragment implements O
         newpdfview =  dialog.findViewById(R.id.signedcontractpdfView);
         Button submitpdf = dialog.findViewById(R.id.signedcontractSaveBtn);
 
-        newrootDirectory = new File(CommonUtils.get3FFileRootPath() + "DigitalContract");
+  newrootDirectory = new File(CommonUtils.get3FFileRootPath() + "DigitalContract");
+       // newrootDirectory = new File(getContext().getExternalFilesDir(null), "DigitalContract");
+
         // newfileToLoad = new File(newrootDirectory +"/"+ CommonConstants.FARMER_CODE + ".pdf");
-        newfileToLoadd = new File(newrootDirectory +"/"+ CommonConstants.PLOT_CODE + ".pdf");
+     newfileToLoadd = new File(newrootDirectory +"/"+ CommonConstants.PLOT_CODE + ".pdf");
+      //  newfileToLoadd = new File(newrootDirectory, CommonConstants.PLOT_CODE + ".pdf");
 
         File dir = new File(String.valueOf(newrootDirectory));
         if(!dir.exists())
@@ -423,30 +404,6 @@ public class ConversionDigitalContractFragment extends BaseFragment implements O
                 .scrollHandle(new DefaultScrollHandle(getActivity()))
                 .load();
 
-
-
-//        Document doc = new Document();
-//        doc.open();
-//
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        signatureView.getSignatureBitmap().compress(Bitmap.CompressFormat.JPEG, 100 , stream);
-//        Image myImg = null;
-//        try {
-//            myImg = Image.getInstance(stream.toByteArray());
-//        } catch (BadElementException e) {
-//            e.printStackTrace();
-//        }
-//        myImg.setAlignment(Image.ALIGN_RIGHT);
-//        try {
-//            doc.add(myImg);
-//        } catch (DocumentException e) {
-//            e.printStackTrace();
-//        }
-//        doc.close();
-
-
-
-        // if button is clicked, close the custom dialog
         submitpdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -472,119 +429,6 @@ public class ConversionDigitalContractFragment extends BaseFragment implements O
 
         dialog.show();
     }
-
-
-   /* @RequiresApi(api = Build.VERSION_CODES.O)
-    private void newpdf_popup() throws IOException {
-        final Dialog dialog = new Dialog(getContext());
-
-        dialog.setContentView(R.layout.pdf_popup);
-        dialog.setCancelable(true);
-
-        newpdfview =  dialog.findViewById(R.id.signedcontractpdfView);
-        Button submitpdf = dialog.findViewById(R.id.signedcontractSaveBtn);
-
-        newrootDirectory = new File(CommonUtils.get3FFileRootPath() + "DigitalContract");
-           // newfileToLoad = new File(newrootDirectory +"/"+ CommonConstants.FARMER_CODE + ".pdf");
-        newfileToLoadd = new File(newrootDirectory +"/"+ CommonConstants.FARMER_CODE + ".pdf");
-
-        File dir = new File(String.valueOf(newrootDirectory));
-        if(!dir.exists())
-            dir.mkdirs();
-
-        PdfReader reader = new PdfReader(String.valueOf(fileToDownLoad));
-        PdfContentByte content = null;
-        PdfStamper stamper = null;
-        try {
-            stamper = new PdfStamper(reader, new FileOutputStream(String.valueOf(newfileToLoadd)));
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-       // content = stamper.getOverContent(1);
-        int n = reader.getNumberOfPages();
-        for(int i = 1;i<=n;i++) {
-            content = stamper.getOverContent(i);
-        }
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        signatureView.getSignatureBitmap().compress(Bitmap.CompressFormat.JPEG, 100 , stream);
-        Image myImg = null;
-        try {
-            myImg = Image.getInstance(stream.toByteArray());
-        } catch (BadElementException e) {
-            e.printStackTrace();
-        }
-
-        myImg.scaleAbsoluteHeight(100);
-        myImg.scaleAbsoluteWidth((myImg.getWidth() * 100) / myImg.getHeight());
-        myImg.setAbsolutePosition(submitpdf.getX() +230, submitpdf.getY() + 100);
-        try {
-            content.addImage(myImg);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-        try {
-            stamper.close();
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        }
-        newpdfview.fromFile(newfileToLoadd)
-                .defaultPage(0)
-                .enableAnnotationRendering(true)
-                .onPageChange(this)
-                .onLoad(this)
-                .scrollHandle(new DefaultScrollHandle(getActivity()))
-                .load();
-
-
-
-//        Document doc = new Document();
-//        doc.open();
-//
-//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//        signatureView.getSignatureBitmap().compress(Bitmap.CompressFormat.JPEG, 100 , stream);
-//        Image myImg = null;
-//        try {
-//            myImg = Image.getInstance(stream.toByteArray());
-//        } catch (BadElementException e) {
-//            e.printStackTrace();
-//        }
-//        myImg.setAlignment(Image.ALIGN_RIGHT);
-//        try {
-//            doc.add(myImg);
-//        } catch (DocumentException e) {
-//            e.printStackTrace();
-//        }
-//        doc.close();
-
-
-
-        // if button is clicked, close the custom dialog
-        submitpdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                isContractAgreed = true;
-                savedFarmerData.setFileName(CommonConstants.FARMER_CODE + ".pdf");
-                savedFarmerData.setFileLocation(newfileToLoadd + "");
-                savedFarmerData.setFileExtension(".pdf");
-
-                DataManager.getInstance().addData(DataManager.FARMER_PERSONAL_DETAILS, savedFarmerData);
-
-                if (isUpdateData) {
-                    DataManager.getInstance().addData(DataManager.IS_FARMER_DATA_UPDATED, true);
-                } else {
-                    DataManager.getInstance().addData(DataManager.IS_FARMER_DATA_UPDATED, false);
-                }
-                CommonConstants.Flags.isFarmersDataUpdated = true;
-
-                updateUiListener.updateUserInterface(0);
-                getFragmentManager().popBackStack();
-            }
-        });
-
-        dialog.show();
-    }*/
-
 
     //
     public void showDialog(Context activity, String msg) {
@@ -613,12 +457,10 @@ public class ConversionDigitalContractFragment extends BaseFragment implements O
     }
 
 
-    @Override
     public void loadComplete(int nbPages) {
 
     }
 
-    @Override
     public void onPageChanged(int page, int pageCount) {
 
     }
@@ -630,63 +472,4 @@ public class ConversionDigitalContractFragment extends BaseFragment implements O
     public void setUpdateUiListener(UpdateUiListener updateUiListener) {
         this.updateUiListener = updateUiListener;
     }
-
-//    class DownloadFileFromURL extends AsyncTask<String, String, String> {
-//
-//        public boolean downloadSuccess = false;
-//
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected String doInBackground(String... f_url) {
-//            int count;
-//            try {
-//                URL url = new URL(f_url[0]);
-//                URLConnection conection = url.openConnection();
-//                conection.connect();
-//
-//                InputStream input = new BufferedInputStream(url.openStream(),
-//                        8192);
-//
-//                OutputStream output = new FileOutputStream(rootDirectory + digitalContract.getFILENAME() + digitalContract.getFileExtension());
-//
-//                byte data[] = new byte[1024];
-//
-//                while ((count = input.read(data)) != -1) {
-//                    output.write(data, 0, count);
-//                }
-//                output.flush();
-//                output.close();
-//                input.close();
-//                downloadSuccess = true;
-//            } catch (Exception e) {
-//                Log.e("Error: ", e.getMessage());
-//                downloadSuccess = false;
-//            }
-//            return null;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String file_url) {
-//            if (downloadSuccess && !getActivity().isFinishing()) {
-//                fileToDownLoad = new File(rootDirectory + digitalContract.getFILENAME() + digitalContract.getFileExtension());
-//                if (null != fileToDownLoad && fileToDownLoad.exists()) {
-//                    dataView.fromFile(fileToDownLoad)
-//                            .defaultPage(0)
-//                            .enableAnnotationRendering(true)
-//                            .onPageChange(ConversionDigitalContractFragment.this)
-//                            .onLoad(ConversionDigitalContractFragment.this)
-//                            .scrollHandle(new DefaultScrollHandle(getActivity()))
-//                            .load();
-//                } else {
-//                    UiUtils.showCustomToastMessage("File not exist", getActivity(), 1);
-//                }
-//            }
-//
-//        }
-//    }
-
 }

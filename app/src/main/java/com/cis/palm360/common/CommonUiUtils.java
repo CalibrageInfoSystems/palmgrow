@@ -184,12 +184,12 @@ public class CommonUiUtils {
         );
 
         if (identityExists) {
-            Log.i("IdentityCheck", "Identity details already exist for Farmer Code: " + CommonConstants.FARMER_CODE);
+            Log.i("IdentityCheck", "Identity details already exist for GrowerCode: " + CommonConstants.FARMER_CODE);
 
             // Fetch follow-up data to confirm farmer's readiness to convert
             FollowUp followUp = (FollowUp) DataManager.getInstance().getDataFromManager(DataManager.PLOT_FOLLOWUP);
             if (followUp != null && followUp.getIsfarmerreadytoconvert() == 1) {
-                Log.d("IdentityCheck", "Farmer is ready to convert. Aadhaar verification required.");
+                Log.d("IdentityCheck", "Groweris ready to convert. Aadhaar verification required.");
 
                 // Retrieve identity proofs from database
                 List<IdentityProof> dbProofsList = (List<IdentityProof>) dataAccessHandler.getSelectedIdProofsData(
@@ -215,12 +215,12 @@ public class CommonUiUtils {
                     }
                 }
                 if (!hasAadhaar) {
-                    Log.e("IdentityCheck", "Farmer is ready to convert, but Aadhaar (Typecdid 60) is missing.");
+                    Log.e("IdentityCheck", "Groweris ready to convert, but Aadhaar (Typecdid 60) is missing.");
                     return true; // Missing Aadhaar
                 }
             }
 
-            Log.i("IdentityCheck", "Identity details and Aadhaar are valid for Farmer Code: " + CommonConstants.FARMER_CODE);
+            Log.i("IdentityCheck", "Identity details and Aadhaar are valid for GrowerCode: " + CommonConstants.FARMER_CODE);
             return false; // All checks passed
         }
 

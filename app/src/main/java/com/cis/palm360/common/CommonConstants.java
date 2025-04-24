@@ -110,7 +110,7 @@ public class CommonConstants {
     public static List<String> selectedPlotCode = new ArrayList<>();
 
     public static String REGISTRATION_SCREEN_FROM = "";
-    public static String REGISTRATION_SCREEN_FROM_NEW_FARMER = "registration_screen_from_new_farmer";
+    public static String REGISTRATION_SCREEN_FROM_NEW_FARMER= "registration_screen_from_new_farmer";
     public static String REGISTRATION_SCREEN_FROM_NEW_PLOT = "registration_screen_from_new_plot";
     public static String REGISTRATION_SCREEN_FROM_FOLLOWUP = "registration_screen_from_followup";
     public static String REGISTRATION_SCREEN_FROM_COMPLAINT = "registration_screen_from_complaint";

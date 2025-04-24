@@ -7,11 +7,6 @@ import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,8 +38,14 @@ import java.util.List;
 
 import static com.cis.palm360.common.CommonUiUtils.resetPrevRegData;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
-//Home Screen
+
+ //Home Screen
 public class HomeScreen extends AppCompatActivity {
 
     private android.widget.LinearLayout areaExtensionRel;

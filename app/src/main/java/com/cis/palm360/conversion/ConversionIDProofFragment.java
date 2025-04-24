@@ -10,11 +10,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -64,6 +59,12 @@ import java.util.List;
 import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by skasam on 1/11/2017.
@@ -204,7 +205,7 @@ public class ConversionIDProofFragment extends BaseFragment implements IdProofsL
 
                     // If Aadhaar is required but not present, show an error and do not proceed
                     if (!hasAadhaar) {
-                        UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please provide Aadhaar Details ", getActivity(), 1);
+                        UiUtils.showCustomToastMessage("Groweris Ready To Convert Yes So Please provide Aadhaar Details ", getActivity(), 1);
                         // Toast.makeText(getActivity(), "Aadhaar is mandatory for farmers with a potential score of 10", Toast.LENGTH_SHORT).show();
                         return;
                     }

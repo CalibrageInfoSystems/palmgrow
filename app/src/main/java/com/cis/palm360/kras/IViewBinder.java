@@ -1,7 +1,8 @@
 package com.cis.palm360.kras;
 
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Created by siva on 09/09/17.

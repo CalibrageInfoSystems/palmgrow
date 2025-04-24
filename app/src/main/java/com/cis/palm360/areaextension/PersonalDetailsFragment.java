@@ -9,17 +9,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -37,8 +31,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.cis.palm360.BuildConfig;
@@ -84,6 +79,16 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static android.app.Activity.RESULT_OK;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 //Used for Personal Details
@@ -161,7 +166,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
         //  Financial Year..............
         final Calendar calendar = Calendar.getInstance();
         final FiscalDate fiscalDate = new FiscalDate(calendar);
-         financialYear = fiscalDate.getFiscalYear();
+        financialYear = fiscalDate.getFiscalYear();
         final String financialStartingMonth = fiscalDate.financialYearDay(calendar);
 
         initializeUI();
@@ -170,7 +175,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
     }
 
 
-//Initializing the UI
+    //Initializing the UI
     public void initializeUI() {
 
         scrollBottomIndicator = rootView.findViewById(R.id.bottomScroll);
@@ -204,23 +209,23 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
         educationdetailsSpin = rootView.findViewById(R.id.educationdetailsSpin);
         secondLayout=rootView.findViewById(R.id.secondLayout);
 
-            @SuppressLint("SimpleDateFormat")
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-              String currentdate = CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_3);
-                String financalDate = "01/04/"+String.valueOf(financialYear);
-                Date date1 = dateFormat.parse(currentdate);
-                Date date2 = dateFormat.parse(financalDate);
-                long diff = date1.getTime() - date2.getTime();
-               String noOfDays = String.valueOf(TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS)+1);
-                days = StringUtils.leftPad(noOfDays,3,"0");
-               Log.v(LOG_TAG,"days -->"+days+financialYear+diff);
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            String currentdate = CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_3);
+            String financalDate = "01/04/"+String.valueOf(financialYear);
+            Date date1 = dateFormat.parse(currentdate);
+            Date date2 = dateFormat.parse(financalDate);
+            long diff = date1.getTime() - date2.getTime();
+            String noOfDays = String.valueOf(TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS)+1);
+            days = StringUtils.leftPad(noOfDays,3,"0");
+            Log.v(LOG_TAG,"days -->"+days+financialYear+diff);
 
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         if (CommonConstants.REGISTRATION_SCREEN_FROM.equalsIgnoreCase(CommonConstants.REGISTRATION_SCREEN_FROM_CP_MAINTENANCE)) {
-          secondLayout.setVisibility(View.GONE);
+            secondLayout.setVisibility(View.GONE);
         }else {
             secondLayout.setVisibility(View.VISIBLE);
         }
@@ -284,7 +289,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
                         Dialog dialog = new Dialog(getActivity());
                         dialog.setCancelable(false);
                         dialog.setContentView(R.layout.alertdilog_famer_number);
-                      //  dialog.getWindow().setLayout(500,500);
+                        //  dialog.getWindow().setLayout(500,500);
 
                         RecyclerView recyclerView =dialog.findViewById(R.id.recycler_alert_view);
                         Button cancel =dialog.findViewById(R.id.button_farmer);
@@ -313,7 +318,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
     }
 
 
-//Enable/Disabling the Fields based on Registration Type
+    //Enable/Disabling the Fields based on Registration Type
     private void handleViewsEnableAndDisable() {
         source_of_contact_spinner.setEnabled(false);
         source_of_contact_spinner.setFocusable(false);
@@ -340,20 +345,20 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
         caste_spinner.setEnabled(false);
         caste_spinner.setFocusable(false);
 
-//        if (CommonUiUtils.isFarmerPhotoTaken(getActivity()) ) {
-//            farmerImage.setEnabled(false);
-//            farmerImage.setFocusable(false);
-//        } else {
-//            farmerImage.setEnabled(true);
-//            farmerImage.setFocusable(true);
-//        }
+        if (CommonUiUtils.isFarmerPhotoTaken(getActivity()) ) {
+            farmerImage.setEnabled(false);
+            farmerImage.setFocusable(false);
+        } else {
+            farmerImage.setEnabled(true);
+            farmerImage.setFocusable(true);
+        }
 
     }
 
 
 
 
-//Binding Data to Spinners
+    //Binding Data to Spinners
     public void bindMasterData() {
         educationDatamap = dataAccessHandler.getGenericData(Queries.getInstance().getTypeCdDmtData("10"));
         source_of_contactDataMap = dataAccessHandler.getGenericData(Queries.getInstance().getsource_of_contactQuery());
@@ -438,6 +443,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
                         REQUEST_CAM_PERMISSIONS
                 );
             } else {
+                android.util.Log.v(LOG_TAG, "CAMERA_REQUEST  Permissions ");
                 dispatchTakePictureIntent(CAMERA_REQUEST);
             }
 
@@ -481,6 +487,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
 
     //Below methods are used to handle the Image
     private void dispatchTakePictureIntent(int actionCode) {
+        Log.e("=========>mCurrentPhotoPath","dispatchTakePictureIntent");
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         switch (actionCode) {
             case CAMERA_REQUEST:
@@ -489,6 +496,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
                 try {
                     f = setUpPhotoFile();
                     mCurrentPhotoPath = f.getAbsolutePath();
+                    Log.e("=========>mCurrentPhotoPath", mCurrentPhotoPath);
                     Uri photoURI = FileProvider.getUriForFile(getActivity(),
                             BuildConfig.APPLICATION_ID + ".provider",
                             f);
@@ -547,6 +555,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
     private void handleBigCameraPhoto() throws Exception {
 
         if (mCurrentPhotoPath != null) {
+            Log.e("=========>mCurrentPhotoPath558", mCurrentPhotoPath);
             setPic();
             galleryAddPic();
         }
@@ -555,39 +564,40 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
 
     private void setPic() throws Exception {
 
-		/* There isn't enough memory to open up more than a couple camera photos */
+        /* There isn't enough memory to open up more than a couple camera photos */
         /* So pre-scale the target bitmap into which the file is decoded */
 
-		/* Get the size of the ImageView */
+        /* Get the size of the ImageView */
         int targetW = farmerImage.getWidth();
         int targetH = farmerImage.getHeight();
 
-		/* Get the size of the image */
+        /* Get the size of the image */
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
         int photoW = bmOptions.outWidth;
         int photoH = bmOptions.outHeight;
 
-		/* Figure out which way needs to be reduced less */
+        /* Figure out which way needs to be reduced less */
         int scaleFactor = 1;
         if ((targetW > 0) || (targetH > 0)) {
             scaleFactor = Math.min(photoW / targetW, photoH / targetH);
         }
 
-		/* Set bitmap options to scale the image decode target */
+        /* Set bitmap options to scale the image decode target */
         bmOptions.inJustDecodeBounds = false;
         bmOptions.inSampleSize = scaleFactor;
         bmOptions.inPurgeable = true;
-
-		/* Decode the JPEG file into a Bitmap */
+        Log.e("=========>mCurrentPhotoPath591", mCurrentPhotoPath);
+        /* Decode the JPEG file into a Bitmap */
         Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
+        Log.e("=========>bitmap", bitmap.toString());
         getBytesFromBitmap(bitmap);
         bitmap = ImageUtility.rotatePicture(90, bitmap);
         farmerImage.setImageBitmap(bitmap);
 
-      //  farmerImage.setVisibility(View.VISIBLE);
-        //farmerIcon.setVisibility(View.GONE);
+        farmerImage.setVisibility(View.VISIBLE);
+        farmerIcon.setVisibility(View.GONE);
         isImage = true;
         farmerImage.invalidate();
     }
@@ -644,7 +654,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
         }
         Log.d("motherName", savedFarmerData.getMothername() + "");
 
-         //motherName.setText("" + savedFarmerData.getMothername());
+        //motherName.setText("" + savedFarmerData.getMothername());
         if(savedFarmerData.getContactnumber()!=null) {
             primary_contactno.setText("" + savedFarmerData.getContactnumber());
         }
@@ -708,7 +718,8 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
         }
         if (savedPictureData != null && savedPictureData.getPicturelocation() != null) {
             mCurrentPhotoPath = savedPictureData.getPicturelocation();
-            loadImageFromStorage(mCurrentPhotoPath);
+            Log.e("=======>", mCurrentPhotoPath);
+         //   loadImageFromStorage(mCurrentPhotoPath);
             farmerImage.invalidate();
         }
 
@@ -790,7 +801,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
         savedFarmerData.setUpdatedDate(CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
         DataManager.getInstance().addData(DataManager.FARMER_PERSONAL_DETAILS, savedFarmerData);
         if (CommonUiUtils.isFarmerPhotoSavedInDB(getActivity()) ) {
-          //  savePictureData();
+            //  savePictureData();
             updateUiListener.updateUserInterface(REQUEST_UPDATE_PERSONAL_DETAILS);
             if (isUpdateData) {
                 DataManager.getInstance().addData(DataManager.IS_FARMER_DATA_UPDATED, true);
@@ -848,18 +859,17 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
     public void onResume() {
         super.onResume();
         Log.v(LOG_TAG, "@@@ check on resume called");
-        loadImageFromStorage(mCurrentPhotoPath);
-          farmerImage.invalidate();
+     //   loadImageFromStorage(mCurrentPhotoPath);
+        farmerImage.invalidate();
     }
 
     //Loads Image from the storage onResume
     private void loadImageFromStorage(final String path) {
-        if (null != savedPictureData) {
-            if(CommonUtils.isNetworkAvailable(getActivity())) {
+        if (savedPictureData != null) {
+            if (CommonUtils.isNetworkAvailable(getActivity())) {
                 final String imageUrl = CommonUtils.getImageUrl(savedPictureData);
-
-
-                Picasso.with(getActivity())
+Log.e("imageUrl======865", imageUrl);
+                Picasso.get()
                         .load(imageUrl)
                         .networkPolicy(NetworkPolicy.OFFLINE)
                         .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
@@ -870,53 +880,43 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
                             }
 
                             @Override
-                            public void onError() {
+                            public void onError(Exception e) {
+                                // If failed to load from cache, try online
+                                Picasso.get()
+                                        .load(path)
+                                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                                        .into(farmerImage, new Callback() {
+                                            @Override
+                                            public void onSuccess() {
+                                                isImage = true;
+                                            }
 
-                                    Glide.with(getActivity())
-                                            .load(path)
-                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                            .skipMemoryCache(true)
-                                            .listener(new RequestListener<String, GlideDrawable>() {
-                                                @Override
-                                                public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
-                                                    return false;
-                                                }
-
-                                                @Override
-                                                public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-                                                    return false;
-                                                }
-                                            })
-                                            .into(farmerImage);
-                                    isImage = false;
-
+                                            @Override
+                                            public void onError(Exception e) {
+                                                // If even that fails, load from local path
+                                              //  loadFromLocal(path);
+                                            }
+                                        });
                             }
                         });
+            } else {
+             //   loadFromLocal(path);
             }
-            else {
-                if (!getActivity().isFinishing()) {
-                    Glide.with(getActivity())
-                            .load(path)
-                            .diskCacheStrategy(DiskCacheStrategy.NONE)
-                            .skipMemoryCache(true)
-                            .into(farmerImage);
-                }
-            }
-//            Glide.with(getActivity())
-//                    .load(Uri.parse("file://" + path))
-//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                    .skipMemoryCache(true)
-//                    .into(farmerImage);
         } else {
-            if (!getActivity().isFinishing()) {
-                Glide.with(getActivity())
-                        .load(path)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(true)
-                        .into(farmerImage);
-            }
+           // loadFromLocal(path);
         }
     }
+
+    private void loadFromLocal(String path) {
+        if (getActivity() != null && !getActivity().isFinishing()) {
+            Glide.with(getActivity())
+                    .load(new File(path))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .into(farmerImage);
+        }
+    }
+
 
     /**
      * Hides the soft keyboard
@@ -1093,7 +1093,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
 //        }
 //
 //        if (CommonUtils.isFromConversion()) {
-//        if (TextUtils.isEmpty(mCurrentPhotoPath)) {
+//        if (TextUtils.isEmpty( )) {
 //            UiUtils.showCustomToastMessage("Please Capture Photo", getActivity(), 1);
 //            return false;
 //        }
@@ -1121,7 +1121,7 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
         f_l_nameString = farmer_last_name.getText().toString();
         CommonConstants.farmerLastName = f_l_nameString;
         husbandString = husbandName.getText().toString();
-         motherString = motherName.getText().toString();
+        motherString = motherName.getText().toString();
         if (motherName.getText().toString() == null || motherName.getText().toString().trim().isEmpty()) {
 
             motherString = "";

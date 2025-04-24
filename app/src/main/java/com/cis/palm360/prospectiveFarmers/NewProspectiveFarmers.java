@@ -1,13 +1,14 @@
 package com.cis.palm360.prospectiveFarmers;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.cis.palm360.R;
@@ -79,7 +80,7 @@ public class NewProspectiveFarmers extends OilPalmBaseActivity {
 //                .skipMemoryCache(true)
 //                .error(R.mipmap.ic_launcher)
 //                .into(userImage);
-        Picasso.with(this)
+        Picasso.get()
                 .load(imageUrl)
                 .error(R.mipmap.ic_launcher)
                 .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
@@ -90,7 +91,7 @@ public class NewProspectiveFarmers extends OilPalmBaseActivity {
                     }
 
                     @Override
-                    public void onError() {
+                    public void onError(Exception e) {
                         if (!isFinishing()) {
                             ApplicationThread.uiPost(LOG_TAG, "loading image", new Runnable() {
                                 @Override

@@ -3,8 +3,6 @@ package com.cis.palm360.areaextension;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +11,14 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.fragment.app.DialogFragment;
+
 import com.cis.palm360.R;
 import com.cis.palm360.common.CommonConstants;
 import com.cis.palm360.dbmodels.Referrals;
 import com.cis.palm360.utils.UiUtils;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 
 //Used to fill the Referral Details
 public class  ReferralsDialogFragment extends DialogFragment {

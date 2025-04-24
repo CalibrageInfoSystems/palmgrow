@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_edittext"
-            android:hint="Search by name or mobile number or farmer code"
+            android:hint="Search by name or mobile number or Growercode"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:padding="6dp"
             android:textColor="@color/action_color"
@@ -55,7 +55,7 @@
 
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/closedcrop_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -63,7 +63,7 @@
         android:divider="@color/gray"
         android:dividerHeight="2px">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_edittext"
-            android:hint="Search by name or mobile number or farmer code"
+            android:hint="Search by name or mobile number or Growercode"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:padding="6dp"
             android:textColor="@color/action_color"
@@ -53,7 +53,7 @@
 
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/closedharvest_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,7 +62,7 @@
 
         android:dividerHeight="2px">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 
     <TextView

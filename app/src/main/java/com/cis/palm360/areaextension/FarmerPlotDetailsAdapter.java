@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.Log;
@@ -55,7 +56,7 @@ public class FarmerPlotDetailsAdapter extends SelectableAdapter<FarmerPlotDetail
         this.showArrow = showArrow;
     }
 
-    @Override
+
     public PlotDetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(layoutResourceId, null);
@@ -64,15 +65,14 @@ public class FarmerPlotDetailsAdapter extends SelectableAdapter<FarmerPlotDetail
     }
 
     @SuppressLint("SetTextI18n")
-    @Override
     public void onBindViewHolder(final PlotDetailsViewHolder holder, final int position) {
 
         plotdetailsObj = plotlist.get(position);
 
-        holder.tvplotId.setText("Plot Code : " + plotdetailsObj.getPlotID());
+        holder.tvplotId.setText("Field Code : " + plotdetailsObj.getPlotID());
 
         if (!TextUtils.isEmpty(plotdetailsObj.getPlotLandMark())) {
-            holder.tvlandmark.setText("Plot LandMark : " + plotdetailsObj.getPlotLandMark());
+            holder.tvlandmark.setText("Field LandMark : " + plotdetailsObj.getPlotLandMark());
             holder.tvlandmark.setVisibility(View.VISIBLE);
         } else {
             holder.tvlandmark.setVisibility(View.GONE);
@@ -88,12 +88,12 @@ public class FarmerPlotDetailsAdapter extends SelectableAdapter<FarmerPlotDetail
 
             holder.tvplotarea.setText("Total Palm Area : " + plotdetailsObj.getTotalPalm() + " Ha");
         } else {
-            holder.tvplotarea.setText("Total Plot Area : " + plotdetailsObj.getPlotArea() + " Ha");
+            holder.tvplotarea.setText("Total Field Area : " + plotdetailsObj.getPlotArea() + " Ha");
         }
 
-        holder.tvplotvillage.setText("Plot Village : " + plotdetailsObj.getVillageName());
+        holder.tvplotvillage.setText("Field Village : " + plotdetailsObj.getVillageName());
         if (!TextUtils.isEmpty(plotdetailsObj.getSurveyNumber()) && !plotdetailsObj.getSurveyNumber().equalsIgnoreCase("null")) {
-            holder.tvplotsurveynumber.setText("Plot SurveyNumber : " + plotdetailsObj.getSurveyNumber());
+            holder.tvplotsurveynumber.setText("Field SurveyNumber : " + plotdetailsObj.getSurveyNumber());
         } else {
             holder.tvplotsurveynumber.setVisibility(View.GONE);
 
@@ -313,7 +313,6 @@ public class FarmerPlotDetailsAdapter extends SelectableAdapter<FarmerPlotDetail
         }
     }
 
-    @Override
     public int getItemCount() {
         return plotlist.size();
     }

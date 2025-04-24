@@ -1,5 +1,9 @@
 package com.cis.palm360.common;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 /**
  * Created by siva on 06/07/17.
  */
@@ -29,8 +33,9 @@ public class OilPalmException extends Exception
         super(message, cause);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public OilPalmException(String message, Throwable cause,
-                           boolean enableSuppression, boolean writableStackTrace) {
+                            boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

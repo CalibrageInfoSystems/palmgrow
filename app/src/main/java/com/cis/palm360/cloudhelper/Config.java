@@ -6,18 +6,19 @@ import com.cis.palm360.BuildConfig;
 
 public class Config {
     public static final boolean DEVELOPER_MODE = false;
+    public static String live_url = "http://182.18.157.215/Palm360/API/api"; //Local test
 
- public static String live_url = "http://182.18.157.215/3FSmartPalm_Nursery/API/api"; //Local test
+ //public static String live_url = "http://182.18.157.215/3FSmartPalm_Nursery/API/api"; //Local test
 
     //local URl
     public static void initialize() {
         if (BuildConfig.BUILD_TYPE.equalsIgnoreCase("release")) {
 
-live_url = "http://182.18.157.215/3FSmartPalm_Nursery/API/api"; //local test
+live_url = "http://182.18.157.215/Palm360/API/api"; //local test
 
         } else {
 
- live_url = "http://182.18.157.215/3FSmartPalm_Nursery/API/api"; //localtest
+ live_url = "http://182.18.157.215/Palm360/API/api"; //localtest
 
         }
     }

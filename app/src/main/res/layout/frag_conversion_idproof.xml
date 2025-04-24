@@ -81,7 +81,7 @@
                 android:layout_below="@+id/headerLL"
                 android:background="@color/colorPrimary" />
         </LinearLayout>
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/oldidRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,8 +89,8 @@
 
             android:visibility="gone">
 
-        </android.support.v7.widget.RecyclerView>
-        <android.support.v7.widget.RecyclerView
+        </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/idProofsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
 
             android:visibility="gone">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
 
         <Button
@@ -115,7 +115,6 @@
             style="@style/textbasic_title_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/geotag"
             android:gravity="center"
             android:padding="10dp"
             android:text=""

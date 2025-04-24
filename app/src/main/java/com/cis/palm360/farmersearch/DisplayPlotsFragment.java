@@ -6,9 +6,6 @@ import android.graphics.Rect;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +15,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.ViewmapsActivity;
@@ -252,7 +253,7 @@ public class DisplayPlotsFragment extends DialogFragment implements FarmerPlotDe
     @Override
     public void onItemClicked(int position, View view) {
         if (view.getId() == R.id.ivb_plot_location_cropcollection) {
-            UiUtils.showCustomToastMessage("This Plot  on Google Map", getActivity(), 1);
+            UiUtils.showCustomToastMessage("This Field  on Google Map", getActivity(), 1);
 
         } else {
             CommonConstants.PLOT_CODE = plotDetailsObjArrayList.get(position).getPlotID();

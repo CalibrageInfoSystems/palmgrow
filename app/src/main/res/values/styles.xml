@@ -222,7 +222,6 @@
         <item name="android:singleLine">false</item>
         <item name="android:textColor">@color/header_txt</item>
         <item name="android:textSize">20dp</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">Roboto_Regular</item>
     </style>
 

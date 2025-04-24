@@ -3,10 +3,7 @@ package com.cis.palm360.areaextension;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -19,6 +16,11 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.cis.palm360.R;
 import com.cis.palm360.common.CommonConstants;
@@ -37,12 +39,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 
 //to take conversion potential score
-public class ConversionPotentialFragment extends Fragment  {
+public class ConversionPotentialFragment extends Fragment {
 
     private static final String LOG_TAG = ConversionPotentialFragment.class.getName();
 

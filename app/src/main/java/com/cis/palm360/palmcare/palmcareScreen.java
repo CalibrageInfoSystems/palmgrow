@@ -1,10 +1,7 @@
 package com.cis.palm360.palmcare;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -14,6 +11,10 @@ import com.cis.palm360.common.CommonConstants;
 import com.cis.palm360.farmersearch.SearchFarmerScreen;
 
 import static com.cis.palm360.common.CommonUiUtils.resetPrevRegData;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class palmcareScreen extends AppCompatActivity {
     private LinearLayout docropMaintenanceRel,closecropMaintenanceRel,doharvestingRel,closeharvestingRel,notvisitedplotsRel;

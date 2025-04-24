@@ -2,17 +2,18 @@ package com.cis.palm360.alerts;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.ApplicationThread;
@@ -33,7 +34,7 @@ import java.util.Locale;
 
 //Display Alerts Screen
 
-public class AlertsDisplayScreen extends AppCompatActivity  {
+public class AlertsDisplayScreen extends AppCompatActivity {
 
     public static final int LIMIT = 30;
     public static final int TYPE_PLOT_FOLLOWUP = 1;

@@ -99,18 +99,19 @@ public class ViewCurrentComplaintFragment extends BaseFragment {
         if (null != complaintRepository) {
             final String imageUrl = CommonUtils.getImageUrl(complaintRepository);
 
-            Picasso.with(getActivity())
+            Picasso.get()
                     .load(imageUrl)
                     .networkPolicy(NetworkPolicy.OFFLINE)
                     .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
                     .into(imageViewToUpdate, new Callback() {
+
                         @Override
                         public void onSuccess() {
 
                         }
 
                         @Override
-                        public void onError() {
+                        public void onError(Exception e) {
                             if (!getActivity().isFinishing()) {
                                 Glide.with(getActivity())
                                         .load(path)

@@ -9,9 +9,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.cis.palm360.BuildConfig;
 import com.cis.palm360.R;
@@ -179,7 +180,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                 imageUrl = savedPictureData.getPicturelocation();
                 File f = new File(imageUrl);
                 Log.d("farmerimageUrl",imageUrl + "");
-                Picasso.with(UploadImagesNew.this)
+                Picasso.get()
                         .load(f)
                         .into(farmerimage, new Callback() {
                             @Override
@@ -190,6 +191,11 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                             }
 
                             @Override
+                            public void onError(Exception e) {
+
+                            }
+
+
                             public void onError() {
                                 farmerimage.setImageDrawable(ContextCompat.getDrawable(UploadImagesNew.this, R.mipmap.ic_launcher));
                                 //farmerimage.setEnabled(true);
@@ -203,7 +209,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                 imageUrl = CommonUtils.getImageUrl(savedPictureData);
                 Log.d("farmerstorageimageUrl",imageUrl + "");
                 if (imageUrl != null) {
-                    Picasso.with(UploadImagesNew.this)
+                    Picasso.get()
                             .load(imageUrl)
                             .into(farmerimage, new Callback() {
                                 @Override
@@ -215,7 +221,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                                 }
 
                                 @Override
-                                public void onError() {
+                                public void onError(Exception e) {
                                     farmerimage.setImageDrawable(ContextCompat.getDrawable(UploadImagesNew.this, R.mipmap.ic_launcher));
                                     //farmerimage.setEnabled(true);
                                     farmerimageexists = false;
@@ -242,7 +248,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                 bankimageUrl = farmerBankdetails.getFilelocation();
                 File f = new File(bankimageUrl);
                 Log.d("bankimageUrl",bankimageUrl + "");
-                Picasso.with(UploadImagesNew.this)
+                Picasso.get()
                         .load(f)
                         .into(bankpassbookimage, new Callback() {
                             @Override
@@ -253,7 +259,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                             }
 
                             @Override
-                            public void onError() {
+                            public void onError(Exception e) {
                                 bankpassbookimage.setImageDrawable(ContextCompat.getDrawable(UploadImagesNew.this, R.mipmap.ic_launcher));
                                 // bankpassbookimage.setEnabled(true);
                                 bankimageexists = false;
@@ -263,7 +269,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
             }else{
                 bankimageUrl = CommonUtils.getImageUrl(farmerBankdetails);
                 Log.d("bankimageUrl",bankimageUrl + "");
-                Picasso.with(UploadImagesNew.this)
+                Picasso.get()
                         .load(bankimageUrl)
                         .into(bankpassbookimage, new Callback() {
                             @Override
@@ -274,7 +280,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                             }
 
                             @Override
-                            public void onError() {
+                            public void onError(Exception e) {
                                 bankpassbookimage.setImageDrawable(ContextCompat.getDrawable(UploadImagesNew.this, R.mipmap.ic_launcher));
                                 //bankpassbookimage.setEnabled(true);
                                 bankimageexists = false;
@@ -299,7 +305,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                 idproofimageUrl = idproofdetails.getFileLocation();
                 File f = new File(idproofimageUrl);
                 Log.d("idproofimageUrl",idproofimageUrl + "");
-                Picasso.with(UploadImagesNew.this)
+                Picasso.get()
                         .load(f)
                         .into(idproofimage, new Callback() {
                             @Override
@@ -310,7 +316,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                             }
 
                             @Override
-                            public void onError() {
+                            public void onError(Exception e) {
                                 idproofimage.setImageDrawable(ContextCompat.getDrawable(UploadImagesNew.this, R.mipmap.ic_launcher));
                                 //idproofimage.setEnabled(true);
                                 idproofimageexists = false;
@@ -321,7 +327,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                 idproofimageUrl = CommonUtils.getIdproofImageUrl(idproofdetails);
                 Log.d("location", "notcontainsstorage");
                 Log.d("idproofimageUrl",idproofimageUrl + "");
-                Picasso.with(UploadImagesNew.this)
+                Picasso.get()
                         .load(idproofimageUrl)
                         .into(idproofimage, new Callback() {
                             @Override
@@ -332,7 +338,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                             }
 
                             @Override
-                            public void onError() {
+                            public void onError(Exception e) {
                                 idproofimage.setImageDrawable(ContextCompat.getDrawable(UploadImagesNew.this, R.mipmap.ic_launcher));
                                 //idproofimage.setEnabled(true);
                                 idproofimageexists = false;
@@ -750,6 +756,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case CAMERA_REQUEST: {
                 if (resultCode == RESULT_OK) {
@@ -758,7 +765,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     mCurrentPhotoPath = null;
                     farmerimage.setImageDrawable(getDrawable(R.mipmap.ic_launcher));
                 }
@@ -771,7 +778,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     IdPhotoPath = null;
                     idproofimage.setImageDrawable(getDrawable(R.mipmap.ic_launcher));
                 }
@@ -784,7 +791,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else {
+                } else {
                     passbookimagepath = null;
                     bankpassbookimage.setImageDrawable(getDrawable(R.mipmap.ic_launcher));
                 }
@@ -796,15 +803,15 @@ public class UploadImagesNew extends OilPalmBaseActivity {
         // switch
 
         if (requestCode == LAUNCH_SECOND_ACTIVITY) {
-            if(resultCode == UploadImagesNew.RESULT_OK){
-                String result=data.getStringExtra("result");
+            if (resultCode == UploadImagesNew.RESULT_OK) {
+                String result = data.getStringExtra("result");
                 Log.d("result", result);
 
                 recoveryfarmerexists = dataAccessHandler.getOnlyOneIntValueFromDb(Queries.getInstance().getIsRecoveryfarmerexists(selectedfarmercode));
 
-                if (recoveryfarmerexists == 0){
+                if (recoveryfarmerexists == 0) {
                     addrecoveryfarmers.setText("Add Recovery Farmer");
-                }else{
+                } else {
                     addrecoveryfarmers.setText("View Recovery Farmers");
                 }
             }

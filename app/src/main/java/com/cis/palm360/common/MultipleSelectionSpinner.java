@@ -3,7 +3,6 @@ package com.cis.palm360.common;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -15,6 +14,8 @@ import java.util.LinkedList;
 import java.util.List;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.appcompat.widget.AppCompatSpinner;
 
 
 public class MultipleSelectionSpinner extends AppCompatSpinner implements DialogInterface.OnMultiChoiceClickListener {

@@ -1,13 +1,14 @@
 package com.cis.palm360.conversion;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.database.DataAccessHandler;
@@ -40,7 +41,7 @@ public class IdentifyProofsListAdapter extends RecyclerView.Adapter<IdentifyProo
     @Override
     public IdentifyProofsListAdapter.MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View bookingView = inflater.inflate(R.layout.adapteridproof, null);
+        View bookingView = inflater.inflate(R.layout.adapter_id_proof, null);
         MyHolder myHolder = new MyHolder(bookingView);
         return myHolder;
     }

@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
+
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -45,6 +43,10 @@ import letsrock.areaviewlib.GPSCoordinate;
 import static com.cis.palm360.areacalculator.FieldCalculatorActivity.firstFourCoordinates;
 import static com.cis.palm360.areacalculator.FieldCalculatorActivity.recordedBoundries;
 import static com.cis.palm360.areacalculator.FieldCalculatorActivity.totalBoundries;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 
 //To preview the taken Geo Boundaries
 public class PreViewAreaCalScreen extends OilPalmBaseActivity {
@@ -197,7 +199,7 @@ public class PreViewAreaCalScreen extends OilPalmBaseActivity {
         try {
             updateGpsData(data);
         } catch (Exception e) {
-            Log.pushExceptionToCrashlytics(new OilPalmException(e.getMessage()));
+            //Log.pushExceptionToCrashlytics(new OilPalmException(e.getMessage()));
             UiUtils.showCustomToastMessage("Retake The Geo Boundaries", PreViewAreaCalScreen.this, 1);
 
             e.printStackTrace();

@@ -1,4 +1,4 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
@@ -97,7 +97,7 @@
                         style="@style/header_h1_text_title_list_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Farmer Code                  : "
+                        android:text="GrowerCode                  : "
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -121,7 +121,7 @@
                         style="@style/header_h1_text_title_list_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Farmer Name                : "
+                        android:text="GrowerName                : "
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -290,4 +290,4 @@
         </RelativeLayout>
     </LinearLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

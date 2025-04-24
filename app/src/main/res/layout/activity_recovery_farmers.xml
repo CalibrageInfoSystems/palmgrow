@@ -40,7 +40,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/header_txt"
                         android:textSize="16sp"
-                        android:text="Main Farmer Code"
+                        android:text="Main GrowerCode"
                         />
 
                     <TextView
@@ -69,7 +69,7 @@
                         android:textStyle="bold"
                         android:textColor="@color/header_txt"
                         android:textSize="16sp"
-                        android:text="Main Farmer Name"
+                        android:text="Main GrowerName"
                         />
 
                     <TextView
@@ -283,14 +283,14 @@
                     </Button>
 
                 </LinearLayout>
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recoveryfarmerslist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     android:layout_marginTop="2dp">
 
-                </android.support.v7.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

@@ -8,9 +8,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -59,6 +56,10 @@ import static android.app.Activity.RESULT_OK;
 import static com.cis.palm360.common.CommonUtils.isFromConversion;
 import static com.cis.palm360.common.CommonUtils.isFromCropMaintenance;
 import static com.cis.palm360.common.CommonUtils.isFromFollowUp;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by skasam on 1/9/2017.

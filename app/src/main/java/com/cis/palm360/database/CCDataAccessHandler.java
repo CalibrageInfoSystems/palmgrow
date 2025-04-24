@@ -61,7 +61,7 @@ public class CCDataAccessHandler {
         }
 
 
-        Log.v(LOG_TAG, "Query for getting plots related to farmer "+query);
+        Log.v(LOG_TAG, "Query for getting plots related to Grower"+query);
         try {
             cursor = mDatabase.rawQuery(query, null);
             if (cursor != null && cursor.moveToFirst()) {

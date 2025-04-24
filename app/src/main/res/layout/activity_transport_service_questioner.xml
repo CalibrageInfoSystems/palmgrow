@@ -39,7 +39,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Farmer Selection"
+                        android:text="GrowerSelection"
                         android:textColor="@color/header_txt"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -68,7 +68,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Does Farmer have own vehicle to transport FFB"
+                        android:text="Does Growerhave own vehicle to transport FFB"
                         android:textColor="@color/header_txt"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -250,7 +250,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Do Farmer currently rent his vehicle to others"
+                            android:text="Do Growercurrently rent his vehicle to others"
                             android:textColor="@color/header_txt"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -314,7 +314,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="How Farmer transport FFB to Factory"
+                            android:text="How Growertransport FFB to Factory"
                             android:textColor="@color/header_txt"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -1057,7 +1057,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Is the Farmer facing any problems in hiring vehicle for transporting FFB to CC/Factory"
+                            android:text="Is the Growerfacing any problems in hiring vehicle for transporting FFB to CC/Factory"
                             android:textColor="@color/header_txt"
                             android:textSize="20sp"
                             android:textStyle="bold" />

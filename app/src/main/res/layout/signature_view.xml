@@ -53,18 +53,13 @@
         <com.cis.palm360.common.SignatureView
             xmlns:sign="http://schemas.android.com/apk/res-auto"
             android:id="@+id/signature_view"
-
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/spinner_bg"
-            sign:backgroundColor="#ffffff"
-            sign:enableSignature="true"
-            sign:penColor="#000000"
-
-            sign:penSize="5dp" />
+            sign:backgroundColor="#ffffff" />
     </LinearLayout>
 
 

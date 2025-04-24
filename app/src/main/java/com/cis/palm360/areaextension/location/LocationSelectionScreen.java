@@ -3,10 +3,6 @@ package com.cis.palm360.areaextension.location;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.View;
@@ -18,6 +14,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.cis.palm360.R;
 import com.cis.palm360.areaextension.RegistrationFlowScreen;
 import com.cis.palm360.common.CommonConstants;
@@ -26,10 +26,6 @@ import com.cis.palm360.database.DataAccessHandler;
 import com.cis.palm360.database.Queries;
 
 import java.util.LinkedHashMap;
-
-/**
- * A simple {@link Fragment} subclass.
- */
 
 //For Selecting State/District/Mandal/Village
 public class LocationSelectionScreen extends AppCompatActivity {

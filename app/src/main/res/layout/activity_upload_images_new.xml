@@ -36,7 +36,7 @@
                 android:textColor="@color/white"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                android:text="Upload Farmer Photo"
+                android:text="Upload GrowerPhoto"
                 android:background="@color/green"/>
 
             <LinearLayout
@@ -66,7 +66,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/header_txt"
                             android:textSize="16sp"
-                            android:text="Farmer Code"
+                            android:text="GrowerCode"
                             />
 
                         <TextView
@@ -95,7 +95,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/header_txt"
                             android:textSize="16sp"
-                            android:text="Farmer Name"/>
+                            android:text="GrowerName"/>
 
                         <TextView
                             android:id="@+id/farmername"
@@ -176,7 +176,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/header_txt"
                             android:textSize="16sp"
-                            android:text="Farmer Village"/>
+                            android:text="GrowerVillage"/>
 
                         <TextView
                             android:id="@+id/farmerviallge"
@@ -203,7 +203,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/header_txt"
                             android:textSize="16sp"
-                            android:text="Farmer Mandal"/>
+                            android:text="GrowerMandal"/>
 
                         <TextView
                             android:id="@+id/farmermandal"

@@ -5,13 +5,11 @@
     android:id="@+id/content_farmers_details_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.cis.palm360.collectioncenter.FarmersDetailsScreen">
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/nextBtn">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -255,14 +253,14 @@
                 android:orientation="horizontal">
 
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/lv_farmerplotdetails"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:divider="@color/gray"
                     android:dividerHeight="1px">
 
-                </android.support.v7.widget.RecyclerView>
+                </androidx.recyclerview.widget.RecyclerView>
             </RelativeLayout>
 
         </LinearLayout>

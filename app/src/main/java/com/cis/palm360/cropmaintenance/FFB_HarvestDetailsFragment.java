@@ -5,11 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +39,12 @@ import java.util.Locale;
 import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getKey;
 import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getvalueFromHashMap;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+
 
 //Used to enter Harvest Details during crop maintenance
 public class FFB_HarvestDetailsFragment extends Fragment implements View.OnClickListener {
@@ -66,7 +67,7 @@ public class FFB_HarvestDetailsFragment extends Fragment implements View.OnClick
     private UpdateUiListener updateUiListener;
     private  String Fincmonth;
     private static int Fincyear;
-    private  Toolbar toolbar;
+    private Toolbar toolbar;
     private ActionBar actionBar;
 
     private Button historyBtn;
@@ -434,8 +435,7 @@ public class FFB_HarvestDetailsFragment extends Fragment implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.saveBtn:
+            if (v.getId() == R.id.saveBtn){
                 if (validateFields()) {
                     mHarvest = new Harvest();
                     mHarvest.setYieldperhactor(TextUtils.isEmpty(yieldPerHactorStr) ? 0 : Double.parseDouble(yieldPerHactorStr));
@@ -455,7 +455,6 @@ public class FFB_HarvestDetailsFragment extends Fragment implements View.OnClick
                     updateUiListener.updateUserInterface(0);
                 }
                 CommonUtilsNavigation.hideKeyBoard(getActivity());
-                break;
         }
     }
 

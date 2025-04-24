@@ -4,9 +4,6 @@ import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -14,6 +11,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.ApplicationThread;
@@ -352,15 +353,9 @@ public class RefreshSyncActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
-            case R.id.btsynctoserver:
+        int id = v.getId();
 
-//                List<UserSync> traList = (List<UserSync>)dataAccessHandler.getUserSyncData(Queries.getInstance().countOfTraSync());
-//                Log.v("@@@MM","trasize"+traList.size());
-//                if(traList.size()==0){
-//                    Log.v("@@@MM","mas");
-//                    addUserTraSyncDetails();
-//                }
+            if (id == R.id.btsynctoserver) {
 
                 if (CommonUtils.isNetworkAvailable(RefreshSyncActivity.this)) {
 
@@ -379,7 +374,7 @@ public class RefreshSyncActivity extends AppCompatActivity implements View.OnCli
                                             UiUtils.showCustomToastMessage("Successfully data sent to server", RefreshSyncActivity.this, 0);
                                             ProgressBar.hideProgressBar();
                                             btnsend.setVisibility(View.VISIBLE);
-                                          //  dataAccessHandler.updateUserSync();
+                                            //  dataAccessHandler.updateUserSync();
                                         }
 
                                     }
@@ -404,9 +399,9 @@ public class RefreshSyncActivity extends AppCompatActivity implements View.OnCli
                 }
 
 
-                break;
+            }
 
-            case R.id.btnmastersync:
+            if (id == R.id.btnmastersync) {
 
                 if (CommonUtils.isNetworkAvailable(RefreshSyncActivity.this)) {
                     DataSyncHelper.performMasterSync(this, false, new ApplicationThread.OnComplete() {
@@ -421,7 +416,7 @@ public class RefreshSyncActivity extends AppCompatActivity implements View.OnCli
                                     List<UserSync> userSyncList = (List<UserSync>) dataAccessHandler.getUserSyncData(Queries.getInstance().countOfSync(CommonConstants.USER_ID));
 
                                     if (userSyncList.size() == 0) {
-                                        if(Integer.parseInt(CommonConstants.USER_ID) != 12345) {
+                                        if (Integer.parseInt(CommonConstants.USER_ID) != 12345) {
                                             Log.v("@@@MM", "mas");
                                             addUserMasSyncDetails();
                                         }
@@ -453,13 +448,10 @@ public class RefreshSyncActivity extends AppCompatActivity implements View.OnCli
                 } else {
                     UiUtils.showCustomToastMessage("Please check network connection", RefreshSyncActivity.this, 1);
                 }
-                break;
-            case R.id.btcopydatabase:
+            }
+            if (id == R.id.btcopydatabase) {
                 showAlertDialog();
-                break;
-            default:
-                break;
-        }
+            }
 
     }
 
@@ -697,6 +689,7 @@ public class RefreshSyncActivity extends AppCompatActivity implements View.OnCli
                             Log.v(LOG_TAG, "delete table" + s);
                         }
                     }
+
                     FragmentManager fm = getSupportFragmentManager();
                     ProgressDialogFragment progressDialogFragment = new ProgressDialogFragment();
                     progressDialogFragment.show(fm, "progress dialog fragment");

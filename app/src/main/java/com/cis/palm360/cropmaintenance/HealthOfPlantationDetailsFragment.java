@@ -13,13 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -62,6 +55,14 @@ import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getKey;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 
 //Health of Plantation Screen, used to enter plantation health details during crop maintenance
@@ -377,8 +378,9 @@ public class HealthOfPlantationDetailsFragment extends Fragment implements View.
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.saveBtn:
+        int id = v.getId();
+
+            if (id == R.id.saveBtn) {
 
                 if (validateFields()) {
                     savePictureData();
@@ -400,16 +402,17 @@ public class HealthOfPlantationDetailsFragment extends Fragment implements View.
                     mHealthplantation.setSpearleafId(Integer.parseInt(getKey(spearLeafDataMap, spearLeafSpin.getSelectedItem().toString())));
                     mHealthplantation.setPlantationstatetypeid(113);
 
-                    mHealthplantation.setNoOfFlorescene(Integer.parseInt(FloresceneEd.getText().length()>0?FloresceneEd.getText().toString():"0"));
-                    mHealthplantation.setNoOfBuches(Integer.parseInt(BuchesEd.getText().length()>0?BuchesEd.getText().toString():"0"));
-                    mHealthplantation.setBunchWeight(Integer.parseInt(BuchesWeightEd.getText().length()>0?BuchesWeightEd.getText().toString():"0"));
+                    mHealthplantation.setNoOfFlorescene(Integer.parseInt(FloresceneEd.getText().length() > 0 ? FloresceneEd.getText().toString() : "0"));
+                    mHealthplantation.setNoOfBuches(Integer.parseInt(BuchesEd.getText().length() > 0 ? BuchesEd.getText().toString() : "0"));
+                    mHealthplantation.setBunchWeight(Integer.parseInt(BuchesWeightEd.getText().length() > 0 ? BuchesWeightEd.getText().toString() : "0"));
                     mHealthplantation.setTyingofLeaves(TyingofLeavesSpin.getSelectedItemPosition() == 1 ? 1 : 0);
                     calculateRating();
 
                 }
                 CommonUtilsNavigation.hideKeyBoard(getActivity());
-                break;
-            case R.id.sec_rel:
+            }
+
+            if (id == R.id.sec_rel) {
 //                CommonUtils.profilePic(getActivity());
                 if (android.os.Build.VERSION.SDK_INT >= 29) {
                     locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -438,13 +441,12 @@ public class HealthOfPlantationDetailsFragment extends Fragment implements View.
                             PERMISSIONS_STORAGE,
                             REQUEST_CAM_PERMISSIONS
                     );
-                }
-                else {
+                } else {
                     // CommonUtils.profilePic(getActivity());
                     dispatchTakePictureIntent(CAMERA_REQUEST);
                 }
-                break;
-        }
+            }
+
     }
 
     private void getLocationDetails() {
@@ -492,23 +494,25 @@ public class HealthOfPlantationDetailsFragment extends Fragment implements View.
         if (photoFiles != null) {
             Uri uri = Uri.fromFile(photoFiles);
             if (uri != null) {
-                Picasso.with(getActivity()).load(uri).into(profile_pic, new Callback() {
+                Picasso.get()
+                        .load(uri).into(profile_pic, new Callback() {
                     @Override
                     public void onSuccess() {
 
                     }
 
                     @Override
-                    public void onError() {
-//                        renderImage();
+                    public void onError(Exception e) {
+
                     }
+
                 });
             }
         }
     }
 
     public void renderImage(String imageUrl, ImageView imageView) {
-        Picasso.with(getActivity())
+        Picasso.get()
                 .load(imageUrl)
                 .into(imageView, new Callback() {
                     @Override
@@ -517,6 +521,11 @@ public class HealthOfPlantationDetailsFragment extends Fragment implements View.
                     }
 
                     @Override
+                    public void onError(Exception e) {
+
+                    }
+
+
                     public void onError() {
 
                     }

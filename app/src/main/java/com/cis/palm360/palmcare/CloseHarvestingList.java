@@ -1,12 +1,7 @@
 package com.cis.palm360.palmcare;
 
 import android.app.Dialog;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -18,6 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.ApplicationThread;
@@ -32,17 +33,20 @@ import com.cis.palm360.service.ApiService;
 import com.cis.palm360.service.ServiceFactory;
 import com.cis.palm360.utils.UiUtils;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 public class CloseHarvestingList extends AppCompatActivity implements ClosedHarvestDetailsAdapter.ButtonClickListener {
     private ActionBar actionBar;
@@ -224,13 +228,10 @@ public class CloseHarvestingList extends AppCompatActivity implements ClosedHarv
 
         private void sendotpbyharvestingcode(String harvestCode) {
             ApiService service = ServiceFactory.createRetrofitService(this, ApiService.class);
-            mSubscription = service.getFormerOTP(APIConstantURL.SendOTPForHarvestorVisit +"/"+harvestCode)
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<OtpResponceModel>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
+            service.getFormerOTP(APIConstantURL.SendOTPForHarvestorVisit +"/"+harvestCode)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<OtpResponceModel>() {
 
                         @Override
                         public void onError(Throwable e) {
@@ -246,6 +247,16 @@ public class CloseHarvestingList extends AppCompatActivity implements ClosedHarv
                                 e.printStackTrace();
                             }
 
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+
+                        @Override
+                        public void onSubscribe(Disposable d) {
 
                         }
 
@@ -315,13 +326,10 @@ public class CloseHarvestingList extends AppCompatActivity implements ClosedHarv
 
     private void closedbyharvesting(String harvestcode, String PIN) {
         ApiService service = ServiceFactory.createRetrofitService(this, ApiService.class);
-        mSubscription = service.getFormerOTP(APIConstantURL.VerifyForHarvestorOTP + harvestcode + "/"+PIN)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<OtpResponceModel>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
+        service.getFormerOTP(APIConstantURL.VerifyForHarvestorOTP + harvestcode + "/"+PIN)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<OtpResponceModel>() {
 
                     @Override
                     public void onError(Throwable e) {
@@ -337,6 +345,16 @@ public class CloseHarvestingList extends AppCompatActivity implements ClosedHarv
                             e.printStackTrace();
                         }
 
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
                     }
 

@@ -4,15 +4,16 @@ package com.cis.palm360.cropmaintenance;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.cis.palm360.R;
 import com.cis.palm360.areaextension.UpdateUiListener;
@@ -33,7 +34,7 @@ public class BankDetailsFragment extends Fragment {
     private UpdateUiListener updateUiListener;
     private FarmerBank farmerBank = null;
     private ActionBar actionBar;
-    private  Toolbar toolbar;
+    private Toolbar toolbar;
 
     public BankDetailsFragment() {
 

@@ -181,9 +181,9 @@ public class HttpClient {
                     final String postResponse = EntityUtils.toString(response.getEntity(), "UTF-8");
 
                     palm3FoilDatabase.insertErrorLogs(CommonConstants.SyncTableName,postResponse);
-                    Log.pushLogToCrashlytics(url+"\n"+jsonObject.toString());
-                    Log.pushLogToCrashlytics(postResponse);
-                    Log.pushExceptionToCrashlytics(new OilPalmException(postResponse));
+//                    Log.pushLogToCrashlytics(url+"\n"+jsonObject.toString());
+//                    Log.pushLogToCrashlytics(postResponse);
+//                    Log.pushExceptionToCrashlytics(new OilPalmException(postResponse));
                     if (null != onComplete) onComplete.execute(false, postResponse, postResponse);
 
 
@@ -243,9 +243,9 @@ public class HttpClient {
                 if (null != onComplete) onComplete.execute(true, postResponse, null);
             } else {
                 final String postResponse = org.apache.http.util.EntityUtils.toString(response.getEntity(), "UTF-8");
-                Log.pushLogToCrashlytics(url+"\n"+jsonObject.toString());
-                Log.pushLogToCrashlytics(postResponse);
-                Log.pushExceptionToCrashlytics(new OilPalmException(postResponse));
+//                Log.pushLogToCrashlytics(url+"\n"+jsonObject.toString());
+//                Log.pushLogToCrashlytics(postResponse);
+                //Log.pushExceptionToCrashlytics(new OilPalmException(postResponse));
                 if (null != onComplete) onComplete.execute(false, postResponse, postResponse);
             }
         } catch(Exception e) {

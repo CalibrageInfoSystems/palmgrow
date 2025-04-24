@@ -19,7 +19,7 @@
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search by name or mobile number or farmer code"
+            android:hint="Search by name or mobile number or Growercode"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:padding="6dp"
             android:textSize="16sp" />
@@ -36,7 +36,7 @@
     </RelativeLayout>
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/farmersRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

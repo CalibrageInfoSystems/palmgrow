@@ -1,4 +1,4 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
@@ -31,8 +31,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:padding="4dp"
-                android:text="PlotId"
+                android:paddingTop="4dp"
+                android:text="FieldId"
                 android:textSize="16dp"/>
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="Plot Village"
+                android:text="Field Village"
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"/>
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="Plot LandMark"
+                android:text="Field LandMark"
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"/>
 
@@ -64,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="Plot Area"
+                android:text="Field Area"
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"/>
 
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="Plot survey number"
+                android:text="Field survey number"
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"/>
 
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="Plot DOP"
+                android:text="Field DOP"
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"/>
 
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="Plot VistCount"
+                android:text="Field VistCount"
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"/>
 
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="Plot LatestDate"
+                android:text="Field LatestDate"
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"/>
 
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:singleLine="true"
-                android:text="Plot LatestDate"
+                android:text="Field LatestDate"
                 android:layout_marginTop="10dp"
                 android:textSize="16dp"/>
 
@@ -160,4 +160,4 @@
             android:src="@mipmap/geo_tag" />
 
     </RelativeLayout>
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

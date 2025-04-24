@@ -1,9 +1,10 @@
 package com.cis.palm360.kras;
 
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.cis.palm360.R;
 import com.cis.palm360.dbmodels.AnnualTagetsKRA;
@@ -22,12 +23,12 @@ public class KrasItemHeaderViewBinder extends ViewBinder<KraItemHeader, KrasItem
     }
 
     @Override
-    public void bindView(StickyHeaderViewAdapter adapter, ViewHolder holder, int position, final KraItemHeader entity, final AppCompatActivity activity) {
+    public void bindView(StickyHeaderViewAdapter adapter, ViewHolder holder, int position, KraItemHeader entity, AppCompatActivity activity) {
         List<AnnualTagetsKRA> krasDataToDisplays = entity.getKraData();
         holder.tvPrefix.setText(krasDataToDisplays.get(0).getKraCode() + "-" + krasDataToDisplays.get(0).getKraName());
         holder.annualTargetTxt.setText(""+krasDataToDisplays.get(0).getAnnualTarget()+ " " + krasDataToDisplays.get(0).getUom());
         holder.annualAchievedTargetTxt.setText(""+krasDataToDisplays.get(0).getAchievedTarget()+ " " + krasDataToDisplays.get(0).getUom());
-}
+    }
 
     @Override
     public int getItemLayoutId(StickyHeaderViewAdapter adapter) {

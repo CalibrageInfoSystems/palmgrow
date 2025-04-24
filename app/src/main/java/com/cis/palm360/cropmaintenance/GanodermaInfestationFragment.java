@@ -13,12 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -32,6 +26,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.Fragment;
 
 import com.cis.palm360.BuildConfig;
 import com.cis.palm360.R;
@@ -147,13 +148,19 @@ public class GanodermaInfestationFragment extends Fragment implements View.OnCli
         if (photoFiles != null) {
             Uri uri = Uri.fromFile(photoFiles);
             if (uri != null) {
-                Picasso.with(getActivity()).load(uri).into(ganodermaImageView, new Callback() {
+                Picasso.get()
+                        .load(uri).into(ganodermaImageView, new Callback() {
                     @Override
                     public void onSuccess() {
 
                     }
 
                     @Override
+                    public void onError(Exception e) {
+
+                    }
+
+
                     public void onError() {
 //                        renderImage();
                     }
@@ -302,39 +309,42 @@ public class GanodermaInfestationFragment extends Fragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.Ganodermasave:
 
-             if (validateFields()) {
-                  //  savePictureData();
-                ganoderma = new Ganoderma();
-                ganoderma.setYellowingOfLeaves(Integer.parseInt(yellowingOfLeavesTxt.getText().length() > 0 ? yellowingOfLeavesTxt.getText().toString():"0"));
-                ganoderma.setLeafDroopingAndDrying(Integer.parseInt(leafDroopingAndDryingTxt.getText().length() > 0 ? leafDroopingAndDryingTxt.getText().toString():"0"));
-                ganoderma.setBracketsIdentified(Integer.parseInt(bracketsIdentifiedTxt.getText().length() > 0 ? bracketsIdentifiedTxt.getText().toString():"0"));
-                ganoderma.setHoleOnTheStem(Integer.parseInt(holeOnTheStemTxt.getText().length() > 0 ? holeOnTheStemTxt.getText().toString():"0"));
-                ganoderma.setFallenPlants(Integer.parseInt(fallenPlantsTxt.getText().length() > 0 ? fallenPlantsTxt.getText().toString():"0"));
-                ganoderma.setTrichodermaApplied(trichodermaAppliedSpin.getSelectedItemPosition() == 1 ? 1 : 0);
-                ganoderma.setBioProductsUsed(otherBioProductsTxt.getText()+"");
-                ganoderma.setFileName("GanodermaImage");
-                 ganoderma.setFileLocation(mCurrentPhotoPath);
-                 ganoderma.setFileExtension(CommonConstants.JPEG_FILE_SUFFIX);
+        int id =v.getId();
+
+            if(id == R.id.Ganodermasave) {
+
+                if (validateFields()) {
+                    //  savePictureData();
+                    ganoderma = new Ganoderma();
+                    ganoderma.setYellowingOfLeaves(Integer.parseInt(yellowingOfLeavesTxt.getText().length() > 0 ? yellowingOfLeavesTxt.getText().toString() : "0"));
+                    ganoderma.setLeafDroopingAndDrying(Integer.parseInt(leafDroopingAndDryingTxt.getText().length() > 0 ? leafDroopingAndDryingTxt.getText().toString() : "0"));
+                    ganoderma.setBracketsIdentified(Integer.parseInt(bracketsIdentifiedTxt.getText().length() > 0 ? bracketsIdentifiedTxt.getText().toString() : "0"));
+                    ganoderma.setHoleOnTheStem(Integer.parseInt(holeOnTheStemTxt.getText().length() > 0 ? holeOnTheStemTxt.getText().toString() : "0"));
+                    ganoderma.setFallenPlants(Integer.parseInt(fallenPlantsTxt.getText().length() > 0 ? fallenPlantsTxt.getText().toString() : "0"));
+                    ganoderma.setTrichodermaApplied(trichodermaAppliedSpin.getSelectedItemPosition() == 1 ? 1 : 0);
+                    ganoderma.setBioProductsUsed(otherBioProductsTxt.getText() + "");
+                    ganoderma.setFileName("GanodermaImage");
+                    ganoderma.setFileLocation(mCurrentPhotoPath);
+                    ganoderma.setFileExtension(CommonConstants.JPEG_FILE_SUFFIX);
 
 //                ganoderma.setYellowingOfLeaves(Integer.parseInt(yellowingOfLeavesTxt.getText().length()>0?yellowingOfLeavesTxt.getText().toString():"0"));
 
-                 if (trichodermaAppliedSpin.getSelectedItemPosition() == 1) { // "Yes"
-                     ganoderma.setQuantityInLt(TextUtils.isEmpty(QuantityinltrTxt.getText().toString()) == true ? 0.0 : Double.parseDouble(QuantityinltrTxt.getText().toString()));
-                     ganoderma.setAppliedInAYear(Integer.parseInt(nooftimesappliedTxt.getText().length() > 0 ? nooftimesappliedTxt.getText().toString():"0"));
+                    if (trichodermaAppliedSpin.getSelectedItemPosition() == 1) { // "Yes"
+                        ganoderma.setQuantityInLt(TextUtils.isEmpty(QuantityinltrTxt.getText().toString()) == true ? 0.0 : Double.parseDouble(QuantityinltrTxt.getText().toString()));
+                        ganoderma.setAppliedInAYear(Integer.parseInt(nooftimesappliedTxt.getText().length() > 0 ? nooftimesappliedTxt.getText().toString() : "0"));
 
-                 }
-                 DataManager.getInstance().addData(DataManager.GANODERMA_DETAILS, ganoderma);
-                 getFragmentManager().popBackStack();
-             //    updateUiListener.updateUserInterface(0);
-                 if(updateUiListener!=null){
-                     updateUiListener.updateUserInterface(0);}
-             }
+                    }
+                    DataManager.getInstance().addData(DataManager.GANODERMA_DETAILS, ganoderma);
+                    getFragmentManager().popBackStack();
+                    //    updateUiListener.updateUserInterface(0);
+                    if (updateUiListener != null) {
+                        updateUiListener.updateUserInterface(0);
+                    }
+                }
                 CommonUtilsNavigation.hideKeyBoard(getActivity());
-                break;
-            case R.id.sec_rel:
+            }
+            if (id == R.id.sec_rel) {
 //                CommonUtils.profilePic(getActivity());
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (!CommonUtils.isPermissionAllowed(getActivity(), Manifest.permission.CAMERA))) {
                     android.util.Log.v(LOG_TAG, "Camera Permissions Not Granted");
@@ -347,8 +357,7 @@ public class GanodermaInfestationFragment extends Fragment implements View.OnCli
                     // CommonUtils.profilePic(getActivity());
                     dispatchTakePictureIntent(CAMERA_REQUEST);
                 }
-                break;
-        }
+            }
     }
 
     private boolean validateFields() {

@@ -1,8 +1,9 @@
 package com.cis.palm360.ExpandableListview;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;

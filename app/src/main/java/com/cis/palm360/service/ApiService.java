@@ -1,10 +1,12 @@
 package com.cis.palm360.service;
 
+//import android.database.Observable;
+
 import com.cis.palm360.palmcare.OtpResponceModel;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Url;
-import rx.Observable;
 
 public interface ApiService {
 

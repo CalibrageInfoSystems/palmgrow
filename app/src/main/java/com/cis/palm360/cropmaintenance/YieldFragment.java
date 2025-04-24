@@ -5,14 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +20,15 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.areaextension.UpdateUiListener;
@@ -337,7 +338,7 @@ public class YieldFragment extends Fragment implements View.OnClickListener, Pal
         });
 
 
-        LinkedHashMap obList = dataAccessHandler.getFarmerDetailsData(Queries.getInstance().getFilterFarmersWeedFly());
+//        LinkedHashMap obList = dataAccessHandler.getFarmerDetailsData(Queries.getInstance().getFilterFarmersWeedFly());
 
 
 //        farmerSpinner.setAdapter(CommonUtilsNavigation.adapterHasMap(getContext(),"Farmer",obList));
@@ -730,6 +731,16 @@ public class YieldFragment extends Fragment implements View.OnClickListener, Pal
 
     @Override
     public void onEditClicked(int position) {
+
+    }
+
+    @Override
+    public void loadComplete(int nbPages) {
+
+    }
+
+    @Override
+    public void onPageChanged(int page, int pageCount) {
 
     }
 

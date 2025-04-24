@@ -1,12 +1,13 @@
 package com.cis.palm360.transportservice;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.cis.palm360.R;
 
@@ -26,22 +27,19 @@ Button farmerBtn,vendorBtn;
 
     public void nextScreen(View view) {
 
-        switch (view.getId()) {
-            case R.id.farmerBtn:
+        int id = view.getId();
+
+            if (id == R.id.farmerBtn) {
                 TransportFarmerFragment transportFarmerFragment = new TransportFarmerFragment();
 
                 replaceFragment(transportFarmerFragment);
-                break;
-            case R.id.vendorBtn:
+            }
+
+            if (id == R.id.vendorBtn) {
                 TransportVendorFragment transportVendorFragment = new TransportVendorFragment();
 
                 replaceFragment(transportVendorFragment);
-                break;
-
-            default:
-                throw new IllegalStateException("Unexpected value: " + view.getId());
-        }
-
+            }
     }
 
     public void replaceFragment(Fragment fragment) {

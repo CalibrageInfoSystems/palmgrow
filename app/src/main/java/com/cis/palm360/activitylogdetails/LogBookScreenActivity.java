@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import androidx.appcompat.app.AppCompatActivity;
+
 
 import com.cis.palm360.R;
 import com.cis.palm360.areacalculator.LatLongListener;
@@ -78,11 +80,11 @@ public class LogBookScreenActivity extends OilPalmBaseActivity {
         setTile("Log Book");
         dataAccessHandler = new DataAccessHandler(this);
         palm3FoilDatabase = new Palm3FoilDatabase(this);
-        clientname = findViewById(R.id.clientname);
-        mobileNumber = findViewById(R.id.clientmobilenum);
-        location = findViewById(R.id.clientlocation);
-        details = findViewById(R.id.clientdetails);
-        save = findViewById(R.id.save);
+        clientname = parentView.findViewById(R.id.clientname);
+        mobileNumber = parentView.findViewById(R.id.clientmobilenum);
+        location = parentView.findViewById(R.id.clientlocation);
+        details = parentView.findViewById(R.id.clientdetails);
+        save = parentView.findViewById(R.id.save);
 
 
         if (android.os.Build.VERSION.SDK_INT >= 29) {

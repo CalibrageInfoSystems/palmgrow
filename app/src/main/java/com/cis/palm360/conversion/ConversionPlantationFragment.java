@@ -25,12 +25,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.FileProvider;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,6 +81,12 @@ import static com.cis.palm360.common.CommonUtils.isFromConversion;
 import static com.cis.palm360.common.CommonUtils.isFromCropMaintenance;
 import static com.cis.palm360.common.CommonUtils.isFromFollowUp;
 import static com.cis.palm360.farmersearch.DisplayPlotsFragment.getLocationProvider;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 //Used to enter number of saplings planted
@@ -875,7 +875,7 @@ public class ConversionPlantationFragment extends BaseFragment implements View.O
     private void loadImageFromStorage(final String path) {
         if (null != savedPictureData) {
             final String imageUrl = CommonUtils.getImageUrl(savedPictureData);
-            Picasso.with(getActivity())
+            Picasso.get()
                     .load(imageUrl)
                     .into(iv_plantaion, new Callback() {
                         @Override
@@ -884,6 +884,11 @@ public class ConversionPlantationFragment extends BaseFragment implements View.O
                         }
 
                         @Override
+                        public void onError(Exception e) {
+
+                        }
+
+
                         public void onError() {
                             if (null != getActivity() && !getActivity().isFinishing()) {
                                 Glide.with(getActivity())
@@ -1081,31 +1086,29 @@ public class ConversionPlantationFragment extends BaseFragment implements View.O
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()) {
-            case R.id.plantationSaveBtn:
+            if (v.getId() == R.id.plantationSaveBtn) {
                 //isComentRequired = false;
                 if (plantationList != null && !plantationList.isEmpty()) {
                     if (isPlotDataValid()) {
                         try {
                             savePictureData();
                         } catch (Exception e) {
-                            Log.pushExceptionToCrashlytics(LOG_TAG ,new OilPalmException("Method :saveConv_PictureData"+e),"Method :savePictureData");
+                            // Log.pushExceptionToCrashlytics(LOG_TAG ,new OilPalmException("Method :saveConv_PictureData"+e),"Method :savePictureData");
 
                             e.printStackTrace();
                         }
-                             Log.d(LOG_TAG,"Plantation Data adding to manager  ITEM COUNT :" +itemListDataAdapter.getSendlist().size());
+                        Log.d(LOG_TAG, "Plantation Data adding to manager  ITEM COUNT :" + itemListDataAdapter.getSendlist().size());
 
 
-                          // final array create and send
+                        // final array create and send
 
-                          List<Plantation> finalpalntationdata = itemListDataAdapter.getSendlist();
-                        for (Plantation item:finalpalntationdata
-                             ) {
+                        List<Plantation> finalpalntationdata = itemListDataAdapter.getSendlist();
+                        for (Plantation item : finalpalntationdata
+                        ) {
                             item.setMissingPlantsComments(reasonformissingsaplings.getText().toString());
                         }
 
-                            DataManager.getInstance().addData(DataManager.PLANTATION_CON_DATA, finalpalntationdata);
-
+                        DataManager.getInstance().addData(DataManager.PLANTATION_CON_DATA, finalpalntationdata);
 
 
                         Plot selectedPlot = (Plot) DataManager.getInstance().getDataFromManager(DataManager.PLOT_DETAILS);
@@ -1135,16 +1138,14 @@ public class ConversionPlantationFragment extends BaseFragment implements View.O
                         }
                         selectedPlot.setSwapingReasonId(Integer.parseInt(CommonUtils.getKeyFromValue(reasonDataMap, reasonSpin.getSelectedItem().toString())));
                         DataManager.getInstance().addData(DataManager.PLOT_DETAILS, selectedPlot);
-                       // Log.d("missingsaplingscount", missingsaplings.getText().toString()  + "");
-                        Log.d("missingsaplingsreason", reasonformissingsaplings.getText().toString()  + "");
+                        // Log.d("missingsaplingscount", missingsaplings.getText().toString()  + "");
+                        Log.d("missingsaplingsreason", reasonformissingsaplings.getText().toString() + "");
                         updateUiListener.updateUserInterface(0);
                         getFragmentManager().popBackStack();
                     }
                 } else {
-                    UiUtils.showCustomToastMessage("Please enter sapling data"+plantationList.size(), getActivity(), 1);
+                    UiUtils.showCustomToastMessage("Please enter sapling data" + plantationList.size(), getActivity(), 1);
                 }
-                break;
-
         }
     }
 
@@ -1233,6 +1234,16 @@ public class ConversionPlantationFragment extends BaseFragment implements View.O
             palmDetailsList.setVisibility(View.GONE);
             recyclerItemsLayout.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void loadComplete(int nbPages) {
+
+    }
+
+    @Override
+    public void onPageChanged(int page, int pageCount) {
+
     }
 
     public void setUpdateUiListener(UpdateUiListener updateUiListener) {

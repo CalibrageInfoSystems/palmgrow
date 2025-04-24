@@ -6,15 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -36,6 +27,16 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.areacalculator.PreViewAreaCalScreen;
@@ -4485,7 +4486,7 @@ public class   PlotDetailsFragment extends Fragment implements MultiEntryDialogF
             return false;
         }
         if (TextUtils.isEmpty(CommonConstants.PLOT_CODE)) {
-            com.cis.palm360.cloudhelper.Log.pushLogToCrashlytics(PlotDetailsFragment.class.getSimpleName() + "\n" + CommonConstants.PLOT_CODE);
+         //   com.cis.palm360.cloudhelper.Log.pushLogToCrashlytics(PlotDetailsFragment.class.getSimpleName() + "\n" + CommonConstants.PLOT_CODE);
 
             CommonConstants.PLOT_CODE = dataAccessHandler.getGeneratedPlotId(Queries.getInstance().getMaxNumberForPlotQuery(financalYrDays), financalYrDays);
             UiUtils.showCustomToastMessage("Plot Code is Generated", getActivity(), 0);

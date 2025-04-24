@@ -1,12 +1,7 @@
 package com.cis.palm360.palmcare;
 
 import android.app.Dialog;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -18,6 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.cloudhelper.ApplicationThread;
@@ -32,17 +33,20 @@ import com.cis.palm360.service.ApiService;
 import com.cis.palm360.service.ServiceFactory;
 import com.cis.palm360.utils.UiUtils;
 
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import retrofit2.adapter.rxjava.HttpException;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.HttpException;
 
 public class ClosecropMaintenanceList extends AppCompatActivity implements ClosedcropDetailsAdapter.ButtonClickListener {
     private ActionBar actionBar;
@@ -270,13 +274,10 @@ public class ClosecropMaintenanceList extends AppCompatActivity implements Close
     private void closedbycropmaintancecode(String cropCode, String PIN) {
 
         ApiService service = ServiceFactory.createRetrofitService(this, ApiService.class);
-        mSubscription = service.getFormerOTP(APIConstantURL.VerifyCropMaintenanceOTP + cropCode + "/"+PIN)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<OtpResponceModel>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
+         service.getFormerOTP(APIConstantURL.VerifyCropMaintenanceOTP + cropCode + "/"+PIN)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<OtpResponceModel>() {
 
                     @Override
                     public void onError(Throwable e) {
@@ -292,6 +293,16 @@ public class ClosecropMaintenanceList extends AppCompatActivity implements Close
                             e.printStackTrace();
                         }
 
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
                     }
 
@@ -338,15 +349,13 @@ public class ClosecropMaintenanceList extends AppCompatActivity implements Close
 
     private void sendotpbycropmaintancecode(String cropCode) {
         ApiService service = ServiceFactory.createRetrofitService(this, ApiService.class);
-        mSubscription = service.getFormerOTP(APIConstantURL.SendOTPForCropMaintenance +"/"+cropCode)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<OtpResponceModel>() {
-                    @Override
-                    public void onCompleted() {
+         service.getFormerOTP(APIConstantURL.SendOTPForCropMaintenance +"/"+cropCode)
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(new Observer<OtpResponceModel>() {
 
-                    }
 
-                    @Override
+                     @Override
                     public void onError(Throwable e) {
                         if (e instanceof HttpException) {
                             ((HttpException) e).code();
@@ -364,6 +373,16 @@ public class ClosecropMaintenanceList extends AppCompatActivity implements Close
                     }
 
                     @Override
+                    public void onComplete() {
+
+                    }
+
+                     @Override
+                     public void onSubscribe(Disposable d) {
+
+                     }
+
+                     @Override
                     public void onNext(OtpResponceModel ResponceModel) {
 
                         if (ResponceModel.getIsSuccess()) {

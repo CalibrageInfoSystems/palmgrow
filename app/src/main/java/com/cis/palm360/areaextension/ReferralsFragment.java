@@ -3,13 +3,6 @@ package com.cis.palm360.areaextension;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +12,14 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.cis.palm360.R;
 import com.cis.palm360.common.CommonConstants;
@@ -33,7 +34,7 @@ import java.util.List;
 public class ReferralsFragment extends Fragment implements ReferralsDialogFragment.AddReferralInfoListener, ReferralsAdapter.OnCartChangedListener {
 
 
-    private android.support.v7.widget.RecyclerView referralsRecyclerView;
+    private RecyclerView referralsRecyclerView;
     private RelativeLayout addreferral, addreferralBottomView;
     private View rootView;
     private ActionBar actionBar;

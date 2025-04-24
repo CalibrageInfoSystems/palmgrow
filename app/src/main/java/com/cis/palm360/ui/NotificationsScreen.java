@@ -1,11 +1,6 @@
 package com.cis.palm360.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
 
@@ -23,6 +18,12 @@ import java.util.List;
 
 import static com.cis.palm360.datasync.helpers.DataSyncHelper.refreshtableNamesList;
 import static com.cis.palm360.datasync.helpers.DataSyncHelper.refreshtransactionsDataMap;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 //Notifications Screen
 public class NotificationsScreen extends AppCompatActivity {
