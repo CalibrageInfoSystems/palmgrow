@@ -747,7 +747,7 @@ public class HarvestingActivity extends OilPalmBaseActivity {
         }
 
         if (farmeravailableinfield.getSelectedItemPosition() == 0) {
-            UiUtils.showCustomToastMessage("Please Select Farmer Available in Field", HarvestingActivity.this, 0);
+            UiUtils.showCustomToastMessage("Please Select Grower Available in Field", HarvestingActivity.this, 0);
             return false;
         }
         if (farmeravailableinfield.getSelectedItemPosition() == 2) {

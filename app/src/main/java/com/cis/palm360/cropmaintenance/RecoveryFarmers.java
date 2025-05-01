@@ -171,7 +171,7 @@ public class RecoveryFarmers extends OilPalmBaseActivity implements RecoveryFarm
                     a = null;
 
                 }else{
-                    UiUtils.showCustomToastMessage("Please select a Recovery Farmer", RecoveryFarmers.this, 1);
+                    UiUtils.showCustomToastMessage("Please select a Recovery Grower", RecoveryFarmers.this, 1);
                 }
             }
         });
@@ -189,7 +189,7 @@ public class RecoveryFarmers extends OilPalmBaseActivity implements RecoveryFarm
                     for(String name : list) {
                         if(s.add(name) == false){
                             System.out.println(name + "is duplicated");
-                            UiUtils.showCustomToastMessage("Same recovery farmer cannot be selected", RecoveryFarmers.this, 1);
+                            UiUtils.showCustomToastMessage("Same recovery frower cannot be selected", RecoveryFarmers.this, 1);
                             return;
                         }
                     }

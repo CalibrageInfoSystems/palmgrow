@@ -1,10 +1,15 @@
 package com.cis.palm360.cropmaintenance;
 
 
+import static com.cis.palm360.common.CommonUtils.spinnerSelect;
+import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.adapterSetFromHashmap;
+import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getKey;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,10 +23,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.barteksc.pdfviewer.PDFView;
-import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
-import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
-import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.cis.palm360.R;
 import com.cis.palm360.areaextension.UpdateUiListener;
 import com.cis.palm360.cloudhelper.Log;
@@ -34,6 +43,11 @@ import com.cis.palm360.database.Queries;
 import com.cis.palm360.datasync.helpers.DataManager;
 import com.cis.palm360.dbmodels.CropMaintenanceDocs;
 import com.cis.palm360.dbmodels.Disease;
+import com.github.barteksc.pdfviewer.PDFView;
+import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
+import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
+import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
+
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -41,19 +55,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
 
-import static com.cis.palm360.common.CommonUtils.spinnerSelect;
-import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.adapterSetFromHashmap;
-import static com.cis.palm360.cropmaintenance.CommonUtilsNavigation.getKey;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+/**
+ * A simple {@link Fragment} subclass.
+ */
 
 //Used to diseases found while crop maintenance visit
 public class DiseaseDetailsFragment extends Fragment implements View.OnClickListener, PalmDetailsEditListener, UpdateUiListener, OnPageChangeListener, OnLoadCompleteListener {
@@ -77,122 +84,67 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
     private LinkedHashMap uomDataMap, rcmnduomperDatamap;
     private EditText rcmndosageEdt;
     AdapterView.OnItemSelectedListener spinListener = new AdapterView.OnItemSelectedListener() {
+
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            int viewId = parent.getId();
 
-                if(view.getId() == R.id.diseaseNameSpin) {
-                    if (position == 0) {
-                        nameOfChemicalUsedSpin.setSelection(0);
-                        nameOfChemicalUsedSpin.setEnabled(false);
-                        percOfTreeSpin.setSelection(0);
-                        percOfTreeSpin.setEnabled(false);
-                        controlMeasureSpin.setSelection(0);
-                        controlMeasureSpin.setEnabled(false);
-                        nameOfChemicalUsedSpinRecmnd.setSelection(0);
-                        nameOfChemicalUsedSpinRecmnd.setEnabled(false);
-                        rcmndosageEdt.setEnabled(false);
-                        rcmnduomSpin.setSelection(0);
-                        rcmnduomSpin.setEnabled(false);
-                        rcmnduomperSpin.setSelection(0);
-                        rcmnduomperSpin.setEnabled(false);
-                        observationsEdt.setEnabled(false);
-                        observationsEdt.setText("");
-                        rcmndosageEdt.setText("");
-                        saveBtn.setEnabled(false);
-                        saveBtn.setAlpha(0.5f);
-                    }else if(position == 14){
-                        nameOfChemicalUsedSpin.setSelection(0);
-                        nameOfChemicalUsedSpin.setEnabled(false);
-                        percOfTreeSpin.setSelection(0);
-                        percOfTreeSpin.setEnabled(false);
-                        controlMeasureSpin.setSelection(0);
-                        controlMeasureSpin.setEnabled(false);
-                        nameOfChemicalUsedSpinRecmnd.setSelection(0);
-                        nameOfChemicalUsedSpinRecmnd.setEnabled(false);
-                        rcmndosageEdt.setEnabled(false);
-                        rcmnduomSpin.setSelection(0);
-                        rcmnduomSpin.setEnabled(false);
-                        rcmnduomperSpin.setSelection(0);
-                        rcmnduomperSpin.setEnabled(false);
-                        observationsEdt.setEnabled(true);
-                        observationsEdt.setText("");
-                        rcmndosageEdt.setText("");
-                        saveBtn.setEnabled(true);
-                        saveBtn.setAlpha(1.0f);
-
-                    }
-                    else {
-                        nameOfChemicalUsedSpin.setEnabled(true);
-                        nameOfChemicalUsedSpinRecmnd.setEnabled(true);
-                        controlMeasureSpin.setEnabled(true);
-                        rcmndosageEdt.setEnabled(true);
-                        percOfTreeSpin.setEnabled(true);
-                        rcmnduomSpin.setEnabled(true);
-                        rcmnduomperSpin.setEnabled(true);
-                        observationsEdt.setEnabled(true);
-                        saveBtn.setEnabled(true);
-                        saveBtn.setAlpha(1.0f);
-                    }
+            if (viewId == R.id.diseaseNameSpin) {
+                if (position == 0) {
+                    nameOfChemicalUsedSpin.setSelection(0);
+                    nameOfChemicalUsedSpin.setEnabled(false);
+                    percOfTreeSpin.setSelection(0);
+                    percOfTreeSpin.setEnabled(false);
+                    controlMeasureSpin.setSelection(0);
+                    controlMeasureSpin.setEnabled(false);
+                    nameOfChemicalUsedSpinRecmnd.setSelection(0);
+                    nameOfChemicalUsedSpinRecmnd.setEnabled(false);
+                    rcmndosageEdt.setEnabled(false);
+                    rcmnduomSpin.setSelection(0);
+                    rcmnduomSpin.setEnabled(false);
+                    rcmnduomperSpin.setSelection(0);
+                    rcmnduomperSpin.setEnabled(false);
+                    observationsEdt.setEnabled(false);
+                    observationsEdt.setText("");
+                    rcmndosageEdt.setText("");
+                    saveBtn.setEnabled(false);
+                    saveBtn.setAlpha(0.5f);
+                } else if (position == 14) {
+                    nameOfChemicalUsedSpin.setSelection(0);
+                    nameOfChemicalUsedSpin.setEnabled(false);
+                    percOfTreeSpin.setSelection(0);
+                    percOfTreeSpin.setEnabled(false);
+                    controlMeasureSpin.setSelection(0);
+                    controlMeasureSpin.setEnabled(false);
+                    nameOfChemicalUsedSpinRecmnd.setSelection(0);
+                    nameOfChemicalUsedSpinRecmnd.setEnabled(false);
+                    rcmndosageEdt.setEnabled(false);
+                    rcmnduomSpin.setSelection(0);
+                    rcmnduomSpin.setEnabled(false);
+                    rcmnduomperSpin.setSelection(0);
+                    rcmnduomperSpin.setEnabled(false);
+                    observationsEdt.setEnabled(true);
+                    observationsEdt.setText("");
+                    rcmndosageEdt.setText("");
+                    saveBtn.setEnabled(true);
+                    saveBtn.setAlpha(1.0f);
+                } else {
+                    nameOfChemicalUsedSpin.setEnabled(true);
+                    nameOfChemicalUsedSpinRecmnd.setEnabled(true);
+                    controlMeasureSpin.setEnabled(true);
+                    rcmndosageEdt.setEnabled(true);
+                    percOfTreeSpin.setEnabled(true);
+                    rcmnduomSpin.setEnabled(true);
+                    rcmnduomperSpin.setEnabled(true);
+                    observationsEdt.setEnabled(true);
+                    saveBtn.setEnabled(true);
+                    saveBtn.setAlpha(1.0f);
+                }
+            } else if (viewId == R.id.percOfTreeSpin) {
+                // Handle percOfTreeSpin selection if needed
             }
-//            {
-//
-//                case R.id.diseaseNameSpin:
-//                    if (position == 0) {
-//                        nameOfChemicalUsedSpin.setSelection(0);
-//                        nameOfChemicalUsedSpin.setEnabled(false);
-//                        percOfTreeSpin.setSelection(0);
-//                        percOfTreeSpin.setEnabled(false);
-//                        controlMeasureSpin.setSelection(0);
-//                        controlMeasureSpin.setEnabled(false);
-//                        nameOfChemicalUsedSpinRecmnd.setSelection(0);
-//                        nameOfChemicalUsedSpinRecmnd.setEnabled(false);
-//                        rcmndosageEdt.setEnabled(false);
-//                        rcmnduomSpin.setSelection(0);
-//                        rcmnduomSpin.setEnabled(false);
-//                        rcmnduomperSpin.setSelection(0);
-//                        rcmnduomperSpin.setEnabled(false);
-//                        observationsEdt.setEnabled(false);
-//                        saveBtn.setEnabled(false);
-//                        saveBtn.setAlpha(0.5f);
-//                    }else if(position == 14){
-//                        nameOfChemicalUsedSpin.setSelection(0);
-//                        nameOfChemicalUsedSpin.setEnabled(false);
-//                        percOfTreeSpin.setSelection(0);
-//                        percOfTreeSpin.setEnabled(false);
-//                        controlMeasureSpin.setSelection(0);
-//                        controlMeasureSpin.setEnabled(false);
-//                        nameOfChemicalUsedSpinRecmnd.setSelection(0);
-//                        nameOfChemicalUsedSpinRecmnd.setEnabled(false);
-//                        rcmndosageEdt.setEnabled(false);
-//                        rcmnduomSpin.setSelection(0);
-//                        rcmnduomSpin.setEnabled(false);
-//                        rcmnduomperSpin.setSelection(0);
-//                        rcmnduomperSpin.setEnabled(false);
-//                        observationsEdt.setEnabled(true);
-//                        saveBtn.setEnabled(true);
-//                        saveBtn.setAlpha(1.0f);
-//
-//                    }
-//                    else {
-//                        nameOfChemicalUsedSpin.setEnabled(true);
-//                        nameOfChemicalUsedSpinRecmnd.setEnabled(true);
-//                        controlMeasureSpin.setEnabled(true);
-//                        rcmndosageEdt.setEnabled(true);
-//                        percOfTreeSpin.setEnabled(true);
-//                        rcmnduomSpin.setEnabled(true);
-//                        rcmnduomperSpin.setEnabled(true);
-//                        observationsEdt.setEnabled(true);
-//                        saveBtn.setEnabled(true);
-//                        saveBtn.setAlpha(1.0f);
-//                    }
-//
-//                    break;
-//                case R.id.percOfTreeSpin:
-//
-//
-//                    break;
-//            }
         }
+
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
@@ -330,15 +282,15 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
         complaintsBtn = (Button) rootView.findViewById(R.id.complaintsBtn);
         complaintsBtn.setEnabled(false);
         complaintsBtn.setVisibility(View.GONE);
-       // complaintsBtn.setVisibility((CommonUiUtils.isComplaintsDataEntered()) ? View.GONE : View.VISIBLE);
+        // complaintsBtn.setVisibility((CommonUiUtils.isComplaintsDataEntered()) ? View.GONE : View.VISIBLE);
         complaintsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putBoolean(CommonConstants.KEY_NEW_COMPLAINT, true);
                 ComplaintDetailsFragment complaintDetailsFragment = new ComplaintDetailsFragment();
-				complaintDetailsFragment.setArguments(dataBundle);
-				complaintDetailsFragment.setUpdateUiListener(DiseaseDetailsFragment.this);
+                complaintDetailsFragment.setArguments(dataBundle);
+                complaintDetailsFragment.setUpdateUiListener(DiseaseDetailsFragment.this);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .add(android.R.id.content, complaintDetailsFragment).addToBackStack(null)
                         .commit();
@@ -349,15 +301,15 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
 
         if (cropMaintenanceDocs != null){
 
-        fileToDownLoad = new File(CommonUtils.get3FFileRootPath() + "3F_CMDocs/" + cropMaintenanceDocs.getFileName() + cropMaintenanceDocs.getFileExtension());
+            fileToDownLoad = new File(CommonUtils.get3FFileRootPath() + "3F_CMDocs/" + cropMaintenanceDocs.getFileName() + cropMaintenanceDocs.getFileExtension());
 
-        if (null != fileToDownLoad && fileToDownLoad.exists()) {
+            if (null != fileToDownLoad && fileToDownLoad.exists()) {
 
-            diseasepdfBtn.setVisibility(View.VISIBLE);
+                diseasepdfBtn.setVisibility(View.VISIBLE);
 
-        }else{
-            diseasepdfBtn.setVisibility(View.GONE);
-        }
+            }else{
+                diseasepdfBtn.setVisibility(View.GONE);
+            }
 
         }
 
@@ -461,16 +413,16 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
         // controlMeasureMap=dataAccessHandler.getGenericData(Queries.getInstance().getLookUpData(""));
 
 
-        diseaseNameSpin.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "Disease Name", diseaseNameDataMap));
-        nameOfChemicalUsedSpin.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "Name of chemical", chemicalNameDataMap));
+        diseaseNameSpin.setAdapter(adapterSetFromHashmap(getActivity(), "Disease Name", diseaseNameDataMap));
+        nameOfChemicalUsedSpin.setAdapter(adapterSetFromHashmap(getActivity(), "Name of chemical", chemicalNameDataMap));
         nameOfChemicalUsedSpinRecmnd.setAdapter(adapterSetFromHashmap(getActivity(), "Name of Chemical", chemicalNameDataMap));
-        percOfTreeSpin.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "Percentage of Tree", percentageMap));
+        percOfTreeSpin.setAdapter(adapterSetFromHashmap(getActivity(), "Percentage of Tree", percentageMap));
         //  controlMeasureSpin.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "Control Measure", controlMeasureMap));
 
         uomDataMap = dataAccessHandler.getGenericData(Queries.getInstance().getUOM());
-        rcmnduomSpin.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "UOM", uomDataMap));
+        rcmnduomSpin.setAdapter(adapterSetFromHashmap(getActivity(), "UOM", uomDataMap));
         rcmnduomperDatamap = dataAccessHandler.getGenericData(Queries.getInstance().getUOMper());
-        rcmnduomperSpin.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "UOM Per", rcmnduomperDatamap));
+        rcmnduomperSpin.setAdapter(adapterSetFromHashmap(getActivity(), "UOM Per", rcmnduomperDatamap));
 
         historyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -535,7 +487,7 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
 
         LinearLayout mainLL = (LinearLayout) dialog.findViewById(R.id.diseasemainlyt);
         RecyclerView recyclerView = dialog.findViewById(R.id.DiseaseRecyclerView);
-      TextView norecords = (TextView) dialog.findViewById(R.id.diseasenorecord_tv);
+        TextView norecords = (TextView) dialog.findViewById(R.id.diseasenorecord_tv);
 
         String lastVisitCode = dataAccessHandler.getOnlyOneValueFromDb(Queries.getInstance().getLatestCropMaintanaceHistoryCode(CommonConstants.PLOT_CODE));
         diseaselastvisitdatamap = (ArrayList<Disease>) dataAccessHandler.getDiseaseData(Queries.getInstance().getRecommndCropMaintenanceHistoryData(lastVisitCode, DatabaseKeys.TABLE_DISEASE), 1);
@@ -565,8 +517,84 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
     }
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.saveBtn) {
+            String selectedDiseaseName = diseaseNameSpin.getSelectedItem().toString();
 
-            if (v.getId() == R.id.saveBtn) {
+            boolean isDuplicate = false;
+            for (Disease existingModel : mDiseaseModelArray) {
+                if (existingModel.getDiseaseid() == Integer.parseInt(getKey(diseaseNameDataMap, selectedDiseaseName))) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+
+            if (isDuplicate) {
+                Toast.makeText(getContext(), "Selected Disease already added. Please select a different Disease", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Disease mDiseaseModel = new Disease();
+
+            if (selectedDiseaseName.equals("No Diseases")) {
+                if (validateUI1()) {
+                    mDiseaseModel.setDiseaseid(diseaseNameSpin.getSelectedItemPosition() == 0 ? null : Integer.parseInt(getKey(diseaseNameDataMap, diseaseNameSpin.getSelectedItem().toString())));
+//                    mDiseaseModel.setDiseaseid(null);
+                    mDiseaseModel.setComments(observationsEdt.getText().toString());
+                    mDiseaseModel.setCreateddate(CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
+                    mDiseaseModelArray.add(mDiseaseModel);
+                    ratingList.add('A');
+                    resetFields();
+                    DataManager.getInstance().addData(DataManager.DISEASE_DETAILS, mDiseaseModelArray);
+                    DataManager.getInstance().addData("RATING_LIST_disease", ratingList);
+                    diseaseDataAdapter.notifyDataSetChanged();
+                    updateUiListener.updateUserInterface(0);
+                }
+            } else {
+                if (validateUI()) {
+                    mDiseaseModel.setDiseaseid(Integer.parseInt(getKey(diseaseNameDataMap, selectedDiseaseName)));
+                    mDiseaseModel.setChemicalid(getSelectedId(chemicalNameDataMap, nameOfChemicalUsedSpin));
+                    mDiseaseModel.setPercTreesId(Integer.parseInt(getKey(percentageMap, percOfTreeSpin.getSelectedItem().toString())));
+                    mDiseaseModel.setComments(observationsEdt.getText().toString());
+                    mDiseaseModel.setCreateddate(CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
+                    mDiseaseModel.setRecommendFertilizerProviderId(getSelectedId(chemicalNameDataMap, nameOfChemicalUsedSpinRecmnd));
+                    mDiseaseModel.setRecommendUOMId(getSelectedId(uomDataMap, rcmnduomSpin));
+                    mDiseaseModel.setRecommendedUOMId(getSelectedId(rcmnduomperDatamap, rcmnduomperSpin));
+                    mDiseaseModel.setRecommendDosage(TextUtils.isEmpty(rcmndosageEdt.getText()) ? 0.0 : Double.parseDouble(rcmndosageEdt.getText().toString()));
+                    mDiseaseModel.setIsControlMeasure(controlMeasureSpin.getSelectedItemPosition() == 1 ? 1 : 0);
+
+                    mDiseaseModelArray.add(mDiseaseModel);
+                    addingValues();
+                    resetFields();
+                    DataManager.getInstance().addData(DataManager.DISEASE_DETAILS, mDiseaseModelArray);
+                    diseaseDataAdapter.notifyDataSetChanged();
+                    updateUiListener.updateUserInterface(0);
+                }
+            }
+
+            CommonUtilsNavigation.hideKeyBoard(getActivity());
+        }
+    }
+
+    private Integer getSelectedId(Map<String, String> dataMap, Spinner spinner) {
+        return spinner.getSelectedItemPosition() == 0 ? null : Integer.parseInt(getKey((LinkedHashMap<String, String>) dataMap, spinner.getSelectedItem().toString()));
+    }
+
+    private void resetFields() {
+        diseaseNameSpin.setSelection(0);
+        nameOfChemicalUsedSpin.setSelection(0);
+        percOfTreeSpin.setSelection(0);
+        controlMeasureSpin.setSelection(0);
+        nameOfChemicalUsedSpinRecmnd.setSelection(0);
+        rcmnduomSpin.setSelection(0);
+        rcmnduomperSpin.setSelection(0);
+        rcmndosageEdt.setText("");
+        observationsEdt.setText("");
+    }
+
+/*    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.saveBtn:
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
                 String selectedDiseaseName = diseaseNameSpin.getSelectedItem().toString();
 
@@ -575,6 +603,7 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
                 for (Disease existingModel : mDiseaseModelArray) {
                     if (existingModel.getDiseaseid() == Integer.parseInt(getKey(diseaseNameDataMap, selectedDiseaseName))) {
                         isDuplicate = true;
+                        break;
                     }
                 }
 
@@ -620,14 +649,12 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
                         mDiseaseModelArray.add(mDiseaseModel);
                         addingValues();
                         diseaseNameSpin.setSelection(0);
-                        nameOfChemicalUsedSpin.setSelection(0);
                         nameOfChemicalUsedSpinRecmnd.setSelection(0);
                         percOfTreeSpin.setSelection(0);
                         controlMeasureSpin.setSelection(0);
                         rcmnduomSpin.setSelection(0);
                         rcmnduomperSpin.setSelection(0);
                         rcmndosageEdt.setText("");
-                        observationsEdt.setText("");
                         DataManager.getInstance().addData(DataManager.DISEASE_DETAILS, mDiseaseModelArray);
 
                         diseaseDataAdapter.notifyDataSetChanged();
@@ -636,6 +663,7 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
                     }
                 }
                 CommonUtilsNavigation.hideKeyBoard(getActivity());
+                break;
 //            case R.id.historyBtn:
 //                CropMaintainanceHistoryFragment newFragment = new CropMaintainanceHistoryFragment();
 //                Bundle bundle = new Bundle();
@@ -646,7 +674,7 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
 //                break;
 
         }
-    }
+    }*/
 //    @Override
 //    public void onClick(View v) {
 //        switch (v.getId()) {
@@ -768,7 +796,7 @@ public class DiseaseDetailsFragment extends Fragment implements View.OnClickList
             }
             mDiseaseModelArray.remove(position);
             ratingList.remove(position);
-        //    mDiseaseModelArray.remove(position);
+            //    mDiseaseModelArray.remove(position);
         } else {
             Log.w("onEditClicked", "mDiseaseModelArray is empty or position out of bounds");
         }

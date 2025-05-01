@@ -402,7 +402,7 @@
     </string-array>
     
     <string-array name="conversionPotential_Score">
-        <item>---SelectPotentialScore---</item>
+        <item>---Select Potential Score---</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

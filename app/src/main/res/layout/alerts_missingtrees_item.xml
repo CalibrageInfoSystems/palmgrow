@@ -42,7 +42,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Plot Code"
+                        android:text="Field Code"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -75,7 +75,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="GrowerCode"
+                        android:text="Grower Code"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -108,7 +108,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Growername"
+                        android:text="Grower name"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -142,7 +142,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Plot mandal"
+                        android:text="Field mandal"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -176,7 +176,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:text="Plot village"
+                        android:text="Field village"
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView

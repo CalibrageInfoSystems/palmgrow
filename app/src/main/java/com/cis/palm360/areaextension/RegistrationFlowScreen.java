@@ -106,7 +106,7 @@ public class RegistrationFlowScreen extends OilPalmBaseActivity implements Updat
                 if (CommonConstants.FARMER_CODE.equalsIgnoreCase(savedPlot.getFarmercode())){
                     CommonConstants.FARMER_CODE = savedFarmerData.getCode();
                 }else {
-                    UiUtils.showCustomToastMessage( "Farmer Code IS Not Matches", RegistrationFlowScreen.this, 1);
+                    UiUtils.showCustomToastMessage( "Grower Code IS Not Matches", RegistrationFlowScreen.this, 1);
                     finish();
                 }
             }
@@ -227,15 +227,15 @@ public class RegistrationFlowScreen extends OilPalmBaseActivity implements Updat
 
             if (id == R.id.finishBtn) {
                 if (CommonUiUtils.checkforIdentityDetails(this)) {
-                    UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please provide Aadhaar details.", RegistrationFlowScreen.this, 1);
+                    UiUtils.showCustomToastMessage("Grower is Ready To Convert Yes So Please provide Aadhaar details.", RegistrationFlowScreen.this, 1);
                 } else if (CommonUiUtils.checkBankDetails(this)) {
-                    UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please Take BankDetails", RegistrationFlowScreen.this, 1);
+                    UiUtils.showCustomToastMessage("Grower is Ready To Convert Yes So Please Take BankDetails", RegistrationFlowScreen.this, 1);
                 } else if (CommonUiUtils.checkForGeoTag(this)) {
-                    UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please Take GeoTag", RegistrationFlowScreen.this, 1);
+                    UiUtils.showCustomToastMessage("Grower is Ready To Convert Yes So Please Take GeoTag", RegistrationFlowScreen.this, 1);
                 } else if (CommonUiUtils.checkForWaterSoilPowerDetails(this)) {
-                    UiUtils.showCustomToastMessage("Farmer is Ready To Convert Yes So Please Take Water Soil Power Details", RegistrationFlowScreen.this, 1);
+                    UiUtils.showCustomToastMessage("Grower is Ready To Convert Yes So Please Take Water Soil Power Details", RegistrationFlowScreen.this, 1);
                 } else if (CommonUiUtils.checkHorticultureAndLandType(this)) {
-                    UiUtils.showCustomToastMessage("Farmer is Ready To Convert , So Please Select  Land Type in Plot Details Screen", RegistrationFlowScreen.this, 1);
+                    UiUtils.showCustomToastMessage("Grower is Ready To Convert , So Please Select  Land Type in Plot Details Screen", RegistrationFlowScreen.this, 1);
                 } else {
                     ProgressBar.showProgressBar(RegistrationFlowScreen.this, "Please wait data is Inserting in DataBase.....");
 

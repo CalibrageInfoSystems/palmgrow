@@ -227,7 +227,7 @@ public class ConversionPotentialFragment extends Fragment {
                             //Log.d("ReadyconvertValueyes", farmerReadytoConverSpin.getSelectedItemPosition() +"Yes"+ farmerReadytoConverSpin_value);
                             saveConversionData();
                         }else {
-                            UiUtils.showCustomToastMessage("Please Take Farmer Photo  ",getActivity(),1);
+                            UiUtils.showCustomToastMessage("Please Take Grower Photo  ",getActivity(),1);
                         }
                     }else {
                         if (potentialscoreSpin.getSelectedItemPosition() == 10){
@@ -265,7 +265,12 @@ public class ConversionPotentialFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
+
                 farmerReadytoConverSpin_value = farmerReadytoConverSpin.getSelectedItem().toString();
+       /*         potentialscoreSpin.setSelection(0);
+                harverstmonthofcurrentcropEdit.setText("");
+                expectedmonthofshowing.setText("");
+                commentsEdit.setText("");*/
                 if(farmerReadytoConverSpin_value.equalsIgnoreCase("Yes"))
                 {
                     expectedmonthshowing_LL.setVisibility(View.VISIBLE);
@@ -278,10 +283,11 @@ public class ConversionPotentialFragment extends Fragment {
                     potentialscoreSpin.setEnabled(true);
                     expectedmonthshowing_LL.setVisibility(View.GONE);
 
-                    if (bindData){
+                 if (bindData){
 
                     }else {
                         potentialscoreSpin.setSelection(0);
+
                     }
                 }
             }
@@ -354,7 +360,7 @@ public class ConversionPotentialFragment extends Fragment {
 //            return false;
 //        }
         if (CommonUtils.isEmptySpinner(farmerReadytoConverSpin)) {
-            UiUtils.showCustomToastMessage("Please Select Farmer Is Ready To Convert or Not", getActivity(), 1);
+            UiUtils.showCustomToastMessage("Please Select Grower Is Ready To Convert or Not", getActivity(), 1);
             return false;
         }
 

@@ -228,7 +228,7 @@ public class ComplaintDetailsFragment extends Fragment implements View.OnClickLi
         commentsEdt = (EditText) rootView.findViewById(R.id.complaintCommentsEdt);
         sec_rel = (RelativeLayout) rootView.findViewById(R.id.sec_rel);
         secondImageRel = (RelativeLayout) rootView.findViewById(R.id.secondImageRel);
-        saveBtn = (Button) rootView.findViewById(R.id.saveBtn);
+        saveBtn = (Button) rootView.findViewById(R.id.complaintssaveBtn);
         profile_pic = (ImageView) rootView.findViewById(R.id.farmer_image);
         secondImageRelImage = (ImageView) rootView.findViewById(R.id.secondImageRelImage);
         farmer_audio1 = (ImageView) rootView.findViewById(R.id.farmer_audio1);
@@ -246,7 +246,7 @@ public class ComplaintDetailsFragment extends Fragment implements View.OnClickLi
 
     //Setting the Screen with data & on click listeners
     private void setViews() {
-        saveBtn.setOnClickListener(this);
+      saveBtn.setOnClickListener(this);
         sec_rel.setOnClickListener(this);
         secondImageRel.setOnClickListener(this);
         farmer_audio1.setOnClickListener(this);

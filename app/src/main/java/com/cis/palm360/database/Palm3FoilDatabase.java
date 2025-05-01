@@ -26,27 +26,31 @@ import java.sql.SQLException;
 public class Palm3FoilDatabase extends SQLiteOpenHelper {
 
     public static final String LOG_TAG = Palm3FoilDatabase.class.getName();
-    // TODO NEED TO SET VESION 30 for LIVE
-//    public final static int DATA_VERSION = 30;
-    // public final static int DATA_VERSION = 31;//Changed on 25th Nov 2021
-   // public final static int DATA_VERSION = 33; //Changed on 11th Aug june 2023
-    //public final static int DATA_VERSION = 34; //Changed on 16th oct 2023
-    public final static int DATA_VERSION = 37; //Changed on 12th Nov 2024
-//    public final static int DATA_VERSION = 28;
+    public final static int DATA_VERSION = 37; // Changed on 12th Nov 2024
     private final static String DATABASE_NAME = "3foilpalm.sqlite";
-    public static String Lock = "dblock";
+    public static final String Lock = "dblock";
+
     private static Palm3FoilDatabase palm3FoilDatabase;
-    private static String DB_PATH;
     private static SQLiteDatabase mSqLiteDatabase = null;
-    private Context mContext;
-    File rootDirectory;
+    private static String DB_PATH;
+    private static String FULL_DB_PATH;
+
+    private final Context mContext;
 
     public Palm3FoilDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATA_VERSION);
         this.mContext = context;
+
         File dbDirectory = new File(CommonUtils.get3FFileRootPath() + "3F_Database");
+        if (!dbDirectory.exists()) {
+            boolean created = dbDirectory.mkdirs();
+            Log.d(LOG_TAG, "DB directory created: " + created);
+        }
+
         DB_PATH = dbDirectory.getAbsolutePath() + File.separator;
-        Log.v("The Database Path", DB_PATH);
+        FULL_DB_PATH = DB_PATH + DATABASE_NAME;
+
+        Log.v("The Database Path", FULL_DB_PATH);
     }
 
     public static synchronized Palm3FoilDatabase getPalm3FoilDatabase(Context context) {
@@ -56,15 +60,12 @@ public class Palm3FoilDatabase extends SQLiteOpenHelper {
             }
             return palm3FoilDatabase;
         }
-
     }
 
     public static SQLiteDatabase openDataBaseNew() throws SQLException {
-        // Open the database
-        if (mSqLiteDatabase == null) {
-            mSqLiteDatabase = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.CREATE_IF_NECESSARY | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
-        } else if (!mSqLiteDatabase.isOpen()) {
-            mSqLiteDatabase = SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.CREATE_IF_NECESSARY | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
+        if (mSqLiteDatabase == null || !mSqLiteDatabase.isOpen()) {
+            mSqLiteDatabase = SQLiteDatabase.openDatabase(FULL_DB_PATH, null,
+                    SQLiteDatabase.OPEN_READWRITE | SQLiteDatabase.CREATE_IF_NECESSARY | SQLiteDatabase.NO_LOCALIZED_COLLATORS);
         }
         return mSqLiteDatabase;
     }
@@ -73,7 +74,6 @@ public class Palm3FoilDatabase extends SQLiteOpenHelper {
         InputStream in = new FileInputStream(src);
         OutputStream out = new FileOutputStream(dst);
 
-        // Transfer bytes from in to out
         byte[] buf = new byte[1024];
         int len;
         while ((len = in.read(buf)) > 0) {
@@ -83,39 +83,46 @@ public class Palm3FoilDatabase extends SQLiteOpenHelper {
         out.close();
     }
 
-    /* create an empty database if data base is not existed */
     public void createDataBase() throws IOException {
-        boolean dbExist = checkDataBase();
-
-        if (dbExist) {
-            //do nothing - database already exist
-        } else {
+        if (!checkDataBase()) {
             try {
-                copyDataBase();
+                copyDataBase(); // You may need to define this or clarify if you're copying from assets
                 Log.v("dbcopied:::", "true");
-            } catch (SQLiteException ex) {
-                ex.printStackTrace();
-                throw new Error("Error copying database");
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 throw new Error("Error copying database");
             }
+
             try {
-                openDataBase();
-            } catch (SQLiteException ex) {
-                ex.printStackTrace();
-                throw new Error("Error opening database");
+                openDataBaseNew();
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new Error("Error opening database");
             }
         }
-
     }
 
-    /* checking the data base is existed or not */
-    /* return true if existed else return false */
     private boolean checkDataBase() {
+        SQLiteDatabase checkDB = null;
+        try {
+            Log.e("DB Check Path", FULL_DB_PATH);
+            checkDB = SQLiteDatabase.openDatabase(FULL_DB_PATH, null, SQLiteDatabase.OPEN_READONLY);
+        } catch (SQLiteException e) {
+            Log.w(LOG_TAG, "Database does not exist yet.");
+        }
+
+        if (checkDB != null) {
+            checkDB.close();
+            return true;
+        }
+
+        return false;
+    }
+
+
+
+
+    /*  private boolean checkDataBase() {
         boolean dataBaseExisted = false;
         try {
             String check_Path = DB_PATH + DATABASE_NAME;
@@ -126,7 +133,7 @@ public class Palm3FoilDatabase extends SQLiteOpenHelper {
         }
         return mSqLiteDatabase != null;
     }
-
+*/
     private void copyFile(InputStream in, OutputStream out) throws IOException {
         byte[] buffer = new byte[1024];
         int read;

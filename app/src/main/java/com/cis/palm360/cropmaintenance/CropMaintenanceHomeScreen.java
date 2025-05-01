@@ -179,7 +179,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
 //                    UiUtils.showCustomToastMessage("Farmer Code Matches", CropMaintenanceHomeScreen.this, 0);
                     CommonConstants.FARMER_CODE = savedFarmerData.getCode();
                 }else {
-                    UiUtils.showCustomToastMessage( "Farmer Code IS Not Matches", CropMaintenanceHomeScreen.this, 1);
+                    UiUtils.showCustomToastMessage( "Grower Code IS Not Matches", CropMaintenanceHomeScreen.this, 1);
                     finish();
                 }
             }
@@ -442,7 +442,7 @@ public class CropMaintenanceHomeScreen extends OilPalmBaseActivity implements Ty
                     if (DisplayPlotsFragment.plotCode.equalsIgnoreCase(enteredPlot.getCode())) {
 
                         if (!isFarmerMandatoryDataEntered()) {
-                            UiUtils.showCustomToastMessage("Please Enter Mandatory Data For Farmer Income/ Guardian", CropMaintenanceHomeScreen.this, 0);
+                            UiUtils.showCustomToastMessage("Please Enter Mandatory Data For Grower Income/ Guardian", CropMaintenanceHomeScreen.this, 0);
                         } else if (!issecondpreviousFYWhiteFly() && CommonConstants.CURRENT_TREE > 0) {
                             UiUtils.showCustomToastMessage("Please Enter White Fly Data For" + secondpreviousFYStr + "Year", CropMaintenanceHomeScreen.this, 0);
                         } else if (!ispreviousFYWhiteFly() && CommonConstants.CURRENT_TREE > 0) {

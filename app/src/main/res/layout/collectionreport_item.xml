@@ -97,7 +97,7 @@
                         style="@style/header_h1_text_title_list_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="GrowerCode                  : "
+                        android:text="Grower Code                  : "
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView
@@ -145,7 +145,7 @@
                         style="@style/header_h1_text_title_list_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Plot Codes                     : "
+                        android:text="Field Codes                     : "
                         android:textColor="@color/text_dark_gray" />
 
                     <TextView

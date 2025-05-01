@@ -97,8 +97,8 @@ public class MainLoginScreen extends AppCompatActivity {
                     getApplicationContext().startService(new Intent(this, FalogService.class));
                 }
             }
-            userID.setText(userDetails.getUserName());
-            passwordEdit.setText(userDetails.getPassword());
+            userID.setText(" "+userDetails.getUserName());
+            passwordEdit.setText(" "+userDetails.getPassword());
 
             List userVillages = dataAccessHandler.getSingleListData(Queries.getInstance().getUserVillages(userDetails.getId()));
             DataManager.getInstance().addData(USER_DETAILS, userDetails);

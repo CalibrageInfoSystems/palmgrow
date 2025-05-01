@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.cis.palm360.database.Palm3FoilDatabase;
 import com.google.android.gms.maps.model.LatLng;
 import com.cis.palm360.FaLogTracking.LocationTracker;
 import com.cis.palm360.alerts.AlertsPlotInfo;
@@ -121,6 +122,7 @@ import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -273,13 +275,13 @@ public class DataAccessHandler<T> {
         contentValues.put("UpdatedByUserId",  CommonConstants.USER_ID);
 
         // contentValues.put("Date",CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
-       // contentValues.put("CreatedDate", CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
+        // contentValues.put("CreatedDate", CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
         contentValues.put("UpdatedDate", CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
 
         mDatabase.update("UserSync",contentValues,"DATE(CreatedDate) = DATE('now') AND UserId = '" + CommonConstants.USER_ID +"' AND App = '3fMainApp'",null);
 
         // mDatabase.update("UserSync",contentValues,"ServerUpdatedStatus='0'",null);
-       // mDatabase.update("UserSync", contentValues, null, null);
+        // mDatabase.update("UserSync", contentValues, null, null);
         Log.v("@@@MM", "Updating");
     }
 
@@ -297,7 +299,7 @@ public class DataAccessHandler<T> {
         mDatabase.update("UserSync",contentValues,"DATE(CreatedDate) = DATE('now') AND UserId = '" + CommonConstants.USER_ID +"' AND App = '3fMainApp'",null);
 
         // mDatabase.update("UserSync",contentValues,"ServerUpdatedStatus='0'",null);
-       // mDatabase.update("UserSync", contentValues, null, null);
+        // mDatabase.update("UserSync", contentValues, null, null);
         Log.v("@@@MM", "Updating");
     }
 
@@ -309,18 +311,18 @@ public class DataAccessHandler<T> {
         contentValues.put("UpdatedByUserId",  CommonConstants.USER_ID);
 
         //contentValues.put("Date",CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
-       // contentValues.put("CreatedDate", CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
+        // contentValues.put("CreatedDate", CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
         contentValues.put("UpdatedDate", CommonUtils.getcurrentDateTime(CommonConstants.DATE_FORMAT_DDMMYYYY_HHMMSS));
 
         mDatabase.update("UserSync",contentValues,"DATE(CreatedDate) = DATE('now') AND UserId = '" + CommonConstants.USER_ID +"' AND App = '3fMainApp'",null);
 
 
         // mDatabase.update("UserSync",contentValues,"ServerUpdatedStatus='0'",null);
-       // mDatabase.update("UserSync", contentValues, null, null);
+        // mDatabase.update("UserSync", contentValues, null, null);
         Log.v("@@@MM", "Updating");
     }
 
-//Get two values from db using query
+    //Get two values from db using query
     public String getTwoValues(final String query) {
         Log.v(LOG_TAG, "@@@ Generic Query " + query);
         String mGenericData = "";
@@ -1201,8 +1203,8 @@ f
         List<BasicHarvestorDetails> harvestorDetails = new ArrayList<>();
         Cursor cursor = null;
         String query = null;
-            query = Queries.getInstance().getFilterBasedHarvestors(key);
-          Log.v("@@@query", "1");
+        query = Queries.getInstance().getFilterBasedHarvestors(key);
+        Log.v("@@@query", "1");
 
 
         Log.v(LOG_TAG, "Query for getting farmers " + query);
@@ -2328,7 +2330,7 @@ f
                     mPlantation.setServerUpdatedStatus(cursor.getInt(13));
                     mPlantation.setReasonTypeId(cursor.getInt(14));
                     mPlantation.setGFReceiptNumber(cursor.getString(15));
-                   mPlantation.setSaplingsplanted((cursor.getInt(16) == 0) ? 0 : cursor.getInt(16));
+                    mPlantation.setSaplingsplanted((cursor.getInt(16) == 0) ? 0 : cursor.getInt(16));
                     //mPlantation.setSaplingsplanted(cursor.getInt(16));
                     mPlantation.setMissingPlantsComments((cursor.getString(17)));
                     if (type == 1) {
@@ -2770,7 +2772,7 @@ f
         return villageArrayList;
     }
 
-//get plantation data
+    //get plantation data
     public T getPlantationData(final String query, final int type) {
         Plantation mPlantation = null;
         List<Plantation> mPlantationList = new ArrayList<>();
@@ -2850,7 +2852,7 @@ f
         return (T) ((type == 0) ? mPlotLandlord : mPlotLandlordList);
     }
 
-//get crop maintenance history data
+    //get crop maintenance history data
     public T getCropMaintanceHistoryData(final String query, final int type) {
         CropMaintenanceHistory cropMaintenanceHistory = null;
         List<CropMaintenanceHistory> maintenanceHistoryList = new ArrayList<>();
@@ -3177,7 +3179,7 @@ f
         return (T) ((type == 0) ? mFertilizer : mFertilizerList);
     }
 
-//get fertilizer previous quater details
+    //get fertilizer previous quater details
     public T getFertilizerPrevQtrdtls(final String query, final int type) {
         Fertilizer mFertilizer = null;
         List<Fertilizer> mFertilizerList = new ArrayList<>();
@@ -3590,7 +3592,7 @@ f
             if (cursor != null && cursor.moveToFirst()) {
                 do {
                     ganoderma = new GanodermaRefresh();
-                //    ganoderma.setId(cursor.getInt(cursor.getColumnIndex("Id")));
+                    //    ganoderma.setId(cursor.getInt(cursor.getColumnIndex("Id")));
                     ganoderma.setCropMaintenanceCode(cursor.getString(cursor.getColumnIndex("CropMaintenanceCode")));
                     ganoderma.setYellowingOfLeaves(cursor.getInt(cursor.getColumnIndex("YellowingOfLeaves")));
                     ganoderma.setLeafDroopingAndDrying(cursor.getInt(cursor.getColumnIndex("LeafDroopingAndDrying")));
@@ -4029,7 +4031,7 @@ f
         return activityLogs;
     }
 
-//get FAlog loglongs
+    //get FAlog loglongs
     public String getFalogLatLongs(final String query) {
         Log.v(LOG_TAG, "@@@ Generic Query " + query);
         String latlongData = "";
@@ -4145,7 +4147,7 @@ f
         return (T) ((type == 0) ? complaints : complaintsList);
     }
 
-//get complaint repo
+    //get complaint repo
     public T getComplaintRepository(final String query, int type) {
         List<ComplaintRepository> complaintRepositories = new ArrayList<>();
         Cursor cursor = null;
@@ -5328,7 +5330,7 @@ f
                     plotGapFillingDetails = new PlotGapFillingDetails();
 
                     // Populate the model with all fields
-                 //   plotGapFillingDetails.setId(cursor.getInt(0));
+                    //   plotGapFillingDetails.setId(cursor.getInt(0));
 
 
 
@@ -5360,7 +5362,7 @@ f
                     plotGapFillingDetails.setShApprovedComments(cursor.getString(26));
                     plotGapFillingDetails.setServerUpdatedStatus(cursor.getInt(27));
                     plotGapFillingDetails.setCmApprovedComments(cursor.getString(28));
-                 //   plotGapFillingDetails.setServerUpdatedStatus(cursor.getInt(29));
+                    //   plotGapFillingDetails.setServerUpdatedStatus(cursor.getInt(29));
 
                     if (type == 1) {
                         plotGapFillingList.add(plotGapFillingDetails);
@@ -5453,7 +5455,7 @@ f
         return (T) ((type == 0) ? plotinformation : plotinfoList);
     }
 
-//    public ArrayList<PlotInfo> getplotinfoDataa(final String query) {
+    //    public ArrayList<PlotInfo> getplotinfoDataa(final String query) {
 //        ArrayList<PlotInfo> plotinformation = new ArrayList<>();
 //        Cursor cursor = null;
 //        Log.v(LOG_TAG, "Query for getting farmers " + query);
@@ -5504,28 +5506,28 @@ f
 //        }
 //        return plotinformation;
 //    }
-public void deleteData(String tableName, String whereCondition, final ApplicationThread.OnComplete<String> onComplete) {
+    public void deleteData(String tableName, String whereCondition, final ApplicationThread.OnComplete<String> onComplete) {
 
-    try {
+        try {
 
-        int rowsDeleted = mDatabase.delete(tableName, whereCondition, null);
+            int rowsDeleted = mDatabase.delete(tableName, whereCondition, null);
 
-        if (rowsDeleted > 0) {
-            Log.v(LOG_TAG, "@@@ Records deleted successfully from " + tableName);
-            onComplete.execute(true, "Success", "Records deleted successfully");
-        } else {
-            Log.e(LOG_TAG, "@@@ No records found to delete in " + tableName);
-            onComplete.execute(false, "No records found", "No records matched the condition");
-        }
-    } catch (Exception e) {
-        Log.e(LOG_TAG, "@@@ Error while deleting records from " + tableName, e);
-        onComplete.execute(false, "Error", e.getMessage());
-    } finally {
-        if (mDatabase != null && mDatabase.isOpen()) {
-      //      mDatabase.close();
+            if (rowsDeleted > 0) {
+                Log.v(LOG_TAG, "@@@ Records deleted successfully from " + tableName);
+                onComplete.execute(true, "Success", "Records deleted successfully");
+            } else {
+                Log.e(LOG_TAG, "@@@ No records found to delete in " + tableName);
+                onComplete.execute(false, "No records found", "No records matched the condition");
+            }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "@@@ Error while deleting records from " + tableName, e);
+            onComplete.execute(false, "Error", e.getMessage());
+        } finally {
+            if (mDatabase != null && mDatabase.isOpen()) {
+                //      mDatabase.close();
+            }
         }
     }
-}
 
 
 }

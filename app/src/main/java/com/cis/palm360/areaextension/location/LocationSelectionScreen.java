@@ -52,7 +52,7 @@ public class LocationSelectionScreen extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        actionBar.setTitle("Farmer Residential location");
+        actionBar.setTitle("Grower Residential location");
 
         CommonUtils.currentActivity = LocationSelectionScreen.this;
         dataAccessHandler = new DataAccessHandler(LocationSelectionScreen.this);

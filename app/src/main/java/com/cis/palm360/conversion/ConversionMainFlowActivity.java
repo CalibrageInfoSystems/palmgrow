@@ -323,9 +323,9 @@ public class ConversionMainFlowActivity extends OilPalmBaseActivity implements U
         if (null != DataManager.getInstance().getDataFromManager(DataManager.PLANTATION_CON_DATA)) {
             plantationdetailsBtn.setBackgroundColor(getResources().getColor(R.color.green_dark));
         }
-        if (null != DataManager.getInstance().getDataFromManager(DataManager.PLOT_GEO_BOUNDARIES)) {
-            plotGeoTagBtn.setBackgroundColor(getResources().getColor(R.color.green_dark));
-        }
+/*        if (null != DataManager.getInstance().getDataFromManager(DataManager.PLOT_GEO_BOUNDARIES)) {
+            plotGeoTagBtn.setBackgroundColor(getResources().getColor(R.color.green_dark)); TODO
+        }*/
 
         if (ConversionDigitalContractFragment.isContractAgreed) {
             digitalcontractBtn.setBackgroundColor(getResources().getColor(R.color.green_dark));

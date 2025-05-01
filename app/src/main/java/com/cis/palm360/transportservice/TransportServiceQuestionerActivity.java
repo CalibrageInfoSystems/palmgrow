@@ -532,7 +532,7 @@ public class TransportServiceQuestionerActivity extends AppCompatActivity {
 
     private boolean validation() {
         if (farmerSelectionAns.getText().toString().length() == 0) {
-            Toast.makeText(this, "Please Farmer Name", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please Grower Name", Toast.LENGTH_LONG).show();
             return false;
 
         }

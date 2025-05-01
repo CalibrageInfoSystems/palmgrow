@@ -424,7 +424,7 @@ public class UploadImagesNew extends OilPalmBaseActivity {
                         dispatchTakePictureIntent(CAMERA_REQUEST);
                     }
                 }else{
-                    Toast.makeText(UploadImagesNew.this, "Farmer image already exists,can't upload a new one", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadImagesNew.this, "Grower image already exists,can't upload a new one", Toast.LENGTH_SHORT).show();
                 }
 
 

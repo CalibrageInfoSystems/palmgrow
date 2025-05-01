@@ -31,7 +31,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
-                    android:text="GrowerCode"
+                    android:text="Grower Code"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/viewmain_recieve_farmercode"
@@ -76,7 +76,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
-                    android:text="GrowerCode"
+                    android:text="Grower Code"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/view_recieve_farmercode"
@@ -103,7 +103,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
-                    android:text="GrowerName"
+                    android:text="Grower Name"
                     android:textStyle="bold" />
                 <TextView
                     android:id="@+id/view_recieve_farmername"

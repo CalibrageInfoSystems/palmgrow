@@ -51,7 +51,7 @@ public class RecoveryFarmerAdapter extends RecyclerView.Adapter<RecoveryFarmerAd
 
         a = holder.getAdapterPosition() + 1;
 
-        holder.staticnum.setText("Recovery Farmer (" + a + ")");
+        holder.staticnum.setText("Recovery Grower (" + a + ")");
 
         holder.imgdelete.setOnClickListener(new View.OnClickListener() {
             @Override

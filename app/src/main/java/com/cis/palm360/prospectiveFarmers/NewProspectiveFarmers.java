@@ -61,7 +61,7 @@ public class NewProspectiveFarmers extends OilPalmBaseActivity {
         savedPictureData= dataAccessHandler.getSelectedFileRepository(Queries.getInstance().getSelectedFileRepositoryQuery(selectedFarmer.getCode(), 193));
 
         if (selectedFarmer == null) {
-            UiUtils.showCustomToastMessage("Proper farmer data not found", this, 1);
+            UiUtils.showCustomToastMessage("Proper grower data not found", this, 1);
             return;
         }
 

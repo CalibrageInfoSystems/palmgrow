@@ -524,7 +524,7 @@ public class Queries {
     public String getFarmersDataForWithOffsetLimit(String seachKey, int offset, int limit) {
         return "select f.Code, f.FirstName, f.MiddleName, f.LastName, f.GuardianName,\n" +
                 "s.Name as StateName,\n" +
-                "f.ContactNumber, f.MobileNumber, v.Name as VillageName, fileRep.FileLocation, fileRep.FileName, fileRep.FileExtension \n" +
+                "f.ContactNumber, f.MobileNumber, v.Name, fileRep.FileLocation, fileRep.FileName, fileRep.FileExtension \n" +
                 "from Farmer f \n" +
                 "left join Village v on f.VillageId = v.Id\n" +
                 "left join State s on f.StateId = s.Id\n" +

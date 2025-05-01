@@ -11,7 +11,7 @@
         android:id="@+id/duplicate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Duplicate Farmers"
+        android:text="Duplicate Growers"
         android:textSize="25sp"
         android:gravity="center"
         android:layout_margin="5dp"

@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="0.5"
-                    android:text="Plot Code"
+                    android:text="Field Code"
                     style="@style/header_h1_text_title_list_item"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_weight="0.5"
-                    android:text="GrowerCode"
+                    android:text="Grower Code"
                     style="@style/header_h1_text_title_list_item"
                     android:textColor="@color/black"
                     android:textStyle="bold" />

@@ -68,7 +68,7 @@ public class ViewRecoveryFarmerAdapter extends RecyclerView.Adapter<ViewRecovery
 
         a = holder.getAdapterPosition() + 1;
 
-        holder.view_staticnum.setText("Recovery Farmer (" + a + ")");
+        holder.view_staticnum.setText("Recovery Grower (" + a + ")");
         //holder.view_staticnum.setText("Recovery Farmer (" + holder.getPosition() + ")");
 
         holder.view_recieve_farmercode.setText(" :  "+ recoveryfarmers_arrayList.get(i).getRecoveryFarmerCode());

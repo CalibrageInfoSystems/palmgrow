@@ -55,7 +55,7 @@ public class CommonUiUtils {
                 && (DataManager.getInstance().getDataFromManager(DataManager.FARMER_BANK_DETAILS) != null || farmerBankRecordExisted)
                 && DataManager.getInstance().getDataFromManager(DataManager.PLANTATION_CON_DATA) != null
                 //&& DataManager.getInstance().getDataFromManager(DataManager.PLOT_GEO_TAG) != null
-                && DataManager.getInstance().getDataFromManager(DataManager.PLOT_GEO_BOUNDARIES) != null
+//                && DataManager.getInstance().getDataFromManager(DataManager.PLOT_GEO_BOUNDARIES) != null
                 && ConversionDigitalContractFragment.isContractAgreed;
     }
 

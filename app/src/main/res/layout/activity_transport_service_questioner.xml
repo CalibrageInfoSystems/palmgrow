@@ -275,7 +275,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Will you be willing to rent vehicle to other farmers through 3F Oil Palm"
+                            android:text="Will you be willing to rent vehicle to other Growers through Palm 360"
                             android:textColor="@color/header_txt"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -443,7 +443,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:hint="Plot1 Village"
+                            android:hint="Field1 Village"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -708,7 +708,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:hint="Plot1 Village"
+                            android:hint="Field1 Village"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -1273,7 +1273,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Any other services company can provide to farmers"
+                            android:text="Any other services company can provide to growers"
                             android:textColor="@color/header_txt"
                             android:textSize="20sp"
                             android:textStyle="bold" />

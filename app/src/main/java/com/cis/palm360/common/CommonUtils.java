@@ -880,9 +880,9 @@ public class CommonUtils {
  //return deviceId;
 //        return "f42807d71bb918c7";
         //return "351558072968326";// KA User(AnandGoud)
-//return "358525086163783"; //AR & CH State User(Roja)
+return "358525086163783"; //AR & CH State User(Roja)
 //return  "9feb311d3675d000";
-return "351558072434071"; //NikHil
+//return "351558072434071"; //NikHil
       //return "87846711fe3fac40"; //Assam User
      // return "8c36dbcb47dcef24"; //Live Data issue
 

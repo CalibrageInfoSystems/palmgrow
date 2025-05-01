@@ -251,7 +251,7 @@
                                 android:id="@+id/pf_farmers_logo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/prospective_plots" />
+                                android:src="@drawable/prospectiveplots" />
                         </LinearLayout>
                     </LinearLayout>
 

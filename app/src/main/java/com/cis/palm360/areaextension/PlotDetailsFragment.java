@@ -4271,7 +4271,7 @@ public class   PlotDetailsFragment extends Fragment implements MultiEntryDialogF
 
 
         landTypeMap = dataAccessHandler.getGenericData(Queries.getInstance().getTypeCdDmtComplaintsTypeData("53"));
-        ArrayAdapter<String> landTypeSpinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, CommonUtils.fromMap(landTypeMap, "LandType"));
+        ArrayAdapter<String> landTypeSpinnerAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, CommonUtils.fromMap(landTypeMap, "Land Type"));
         landTypeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         landTypeSpn.setAdapter(landTypeSpinnerAdapter);
 

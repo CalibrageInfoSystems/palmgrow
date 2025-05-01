@@ -93,7 +93,7 @@ public class FarmerPlotDetailsAdapter extends SelectableAdapter<FarmerPlotDetail
 
         holder.tvplotvillage.setText("Field Village : " + plotdetailsObj.getVillageName());
         if (!TextUtils.isEmpty(plotdetailsObj.getSurveyNumber()) && !plotdetailsObj.getSurveyNumber().equalsIgnoreCase("null")) {
-            holder.tvplotsurveynumber.setText("Field SurveyNumber : " + plotdetailsObj.getSurveyNumber());
+            holder.tvplotsurveynumber.setText("Field Survey Number : " + plotdetailsObj.getSurveyNumber());
         } else {
             holder.tvplotsurveynumber.setVisibility(View.GONE);
 

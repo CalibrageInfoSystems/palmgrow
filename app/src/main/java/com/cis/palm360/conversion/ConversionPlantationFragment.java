@@ -329,7 +329,7 @@ public class ConversionPlantationFragment extends BaseFragment implements View.O
         cropSpin.setSelection(croppos);
 
         reasonDataMap = dataAccessHandler.getGenericData(Queries.getInstance().getLookUpData("3"));
-        reasonSpin.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(mContext, "SwapReasonName", reasonDataMap));
+        reasonSpin.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(mContext, "Swap Reason Name", reasonDataMap));
 
         varietyDataMap = dataAccessHandler.getGenericData(Queries.getInstance().getLookUpData("18"));
        // ArrayAdapter<String> adapterSet = new ArrayAdapter<>(mContext, android.R.layout.simple_spinner_item, CommonUtils.removeDuplicates(varietyDataMap, "varietyType"));

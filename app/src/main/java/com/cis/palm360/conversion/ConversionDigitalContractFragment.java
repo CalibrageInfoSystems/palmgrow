@@ -223,7 +223,7 @@ public class ConversionDigitalContractFragment extends BaseFragment implements O
 //        Log.d("fileextension",  digitalContract.getFileExtension()+"");
             fileToDownLoad = new File(CommonUtils.get3FFileRootPath() + "3F_DigitalContract/" + digitalContract.getFILENAME() + digitalContract.getFileExtension());
 
-            Log.d("fileToDownLoad", fileToDownLoad+"");
+            Log.d(" ", fileToDownLoad+"");
             // String strFileName = file.getName();
             // if (null != digitalContract) {
             //   fileToDownLoad = new File(rootDirectory + digitalContract.getFILENAME() + digitalContract.getFileExtension());

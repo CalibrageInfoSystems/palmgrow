@@ -109,8 +109,8 @@ public class SoilTypeFragment extends Fragment implements SoilTypeAdapter.OnCart
         typeofirrigationMap = dataAccessHandler.getGenericData(Queries.getInstance().getTypeCdDmtData("36"));
         plotPrioritizationMap = dataAccessHandler.getGenericData(Queries.getInstance().getTypeCdDmtData("37"));
 
-        soiltype.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "SoilType", soilTypeMap));
-        soilNatureType.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "SoilNatureType", soilNatureTypeMap));
+        soiltype.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "Soil Type", soilTypeMap));
+        soilNatureType.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "Soil Nature Type", soilNatureTypeMap));
         plotprioritizationSpin.setAdapter(CommonUtilsNavigation.adapterSetFromHashmap(getActivity(), "Prioritization", plotPrioritizationMap));
         selectedPosition = 0;
 

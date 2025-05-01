@@ -106,7 +106,7 @@
                     android:layout_weight="1.6"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:text="Plot Village"
+                    android:text="Field Village"
                     android:textSize="16dp" />
 
             </LinearLayout>
@@ -137,7 +137,7 @@
                     android:layout_weight="1.6"
                     android:gravity="center_vertical"
                     android:singleLine="true"
-                    android:text="Plot LandMark"
+                    android:text="Field LandMark"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -165,7 +165,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1.6"
                     android:gravity="center_vertical"
-                    android:text="Plot Crop"
+                    android:text="Field Crop"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -192,7 +192,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1.6"
                     android:singleLine="true"
-                    android:text="Plot Area"
+                    android:text="Field Area"
                     android:textSize="16dp" />
 
             </LinearLayout>
@@ -220,7 +220,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1.6"
                     android:singleLine="true"
-                    android:text="Plot Income"
+                    android:text="Field Income"
                     android:textSize="16dp" />
 
             </LinearLayout>
@@ -248,7 +248,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_weight="1.6"
                     android:singleLine="true"
-                    android:text="Plot Score"
+                    android:text="Field Score"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -260,7 +260,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:text="Plot Date"
+                android:text="Field Date"
                 android:textSize="16dp"
                 android:visibility="gone" />
 

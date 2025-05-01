@@ -26,7 +26,7 @@
                 android:layout_marginRight="10dp"
                 style="@style/basicBtnStyle"
                 android:padding="10dp"
-                android:text="Add Recovery Farmer"/>
+                android:text="Add Recovery Grower"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:textColor="@color/white"
                 android:textAlignment="center"
                 android:textStyle="bold"
-                android:text="Upload GrowerPhoto"
+                android:text="Upload Grower Photo"
                 android:background="@color/green"/>
 
             <LinearLayout
@@ -66,7 +66,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/header_txt"
                             android:textSize="16sp"
-                            android:text="GrowerCode"
+                            android:text="Grower Code"
                             />
 
                         <TextView
@@ -95,7 +95,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/header_txt"
                             android:textSize="16sp"
-                            android:text="GrowerName"/>
+                            android:text="Grower Name"/>
 
                         <TextView
                             android:id="@+id/farmername"
@@ -176,7 +176,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/header_txt"
                             android:textSize="16sp"
-                            android:text="GrowerVillage"/>
+                            android:text="Grower Village"/>
 
                         <TextView
                             android:id="@+id/farmerviallge"
@@ -203,7 +203,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/header_txt"
                             android:textSize="16sp"
-                            android:text="GrowerMandal"/>
+                            android:text="Grower Mandal"/>
 
                         <TextView
                             android:id="@+id/farmermandal"

@@ -38,7 +38,7 @@
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="Yield from the plot :" />
+                        android:text="Yield from the field :" />
 
                     <TextView
                         android:id="@+id/yieldfromplot"

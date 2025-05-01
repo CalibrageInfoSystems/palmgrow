@@ -88,6 +88,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -277,41 +278,38 @@ public class PersonalDetailsFragment extends Fragment implements RecyclerItemCli
             @Override
             public void afterTextChanged(Editable s) {
 
-                if (s.toString().length() >= 10)
-                {
-                    data = dataAccessHandler.getFarmerListforPersonalDetails(Queries.getInstance().getNumber(s.toString())) ;
+                if (s.toString().length() >= 10) {
+                    data = dataAccessHandler.getFarmerListforPersonalDetails(Queries.getInstance().getNumber(s.toString()));
+                    Log.e("data getFarmerListforPersonalDetails", data.size() + "");
 
-                    if(data.isEmpty())
-                    {
-
-                    }else
-                    {
+                    if (data.isEmpty()) {
+                        // Handle if no data found
+                    } else {
                         Dialog dialog = new Dialog(getActivity());
                         dialog.setCancelable(false);
                         dialog.setContentView(R.layout.alertdilog_famer_number);
-                        //  dialog.getWindow().setLayout(500,500);
 
-                        RecyclerView recyclerView =dialog.findViewById(R.id.recycler_alert_view);
-                        Button cancel =dialog.findViewById(R.id.button_farmer);
+                        RecyclerView recyclerView = dialog.findViewById(R.id.recycler_alert_view);
+                        Button cancel = dialog.findViewById(R.id.button_farmer);
                         TextView duplicateText = dialog.findViewById(R.id.duplicate);
 
                         duplicateText.setText("Duplicate Contact(s) Found");
 
-                        farmerViewDetailsAdapter = new FarmerViewDetailsAdapter(getActivity(),data);
+                        // Important: Set LayoutManager before setting adapter
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                        farmerViewDetailsAdapter = new FarmerViewDetailsAdapter(getActivity(), data);
                         recyclerView.setAdapter(farmerViewDetailsAdapter);
+
                         farmerViewDetailsAdapter.setDuplicateFarmers(PersonalDetailsFragment.this);
 
                         cancel.setOnClickListener(v -> {
                             dialog.dismiss();
                         });
 
-
                         dialog.show();
                     }
-
-
                 }
-
             }
         });
 

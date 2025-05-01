@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1.0"
-                android:text="Collection Plot"
+                android:text="Collection Field"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
@@ -288,7 +288,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1.0"
-                android:text="Plot Current Crop"
+                android:text="Field Current Crop"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
@@ -316,7 +316,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1.0"
-                android:text="Neighbour Plot"
+                android:text="Neighbour Field"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
@@ -398,7 +398,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1.0"
-                android:text="Plot Irrigation"
+                android:text="Field Irrigation"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
@@ -669,7 +669,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1.0"
-                android:text="Plot Gap Filling Details"
+                android:text="Field Gap Filling Details"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
@@ -835,7 +835,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1.0"
-                android:text="Recovery Farmers"
+                android:text="Recovery Growers"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 

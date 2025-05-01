@@ -684,7 +684,7 @@ public class TransportFarmerFragment extends Fragment {
 
     private boolean validation() {
         if (farmerSelectionAns.getText().toString().length() == 0) {
-            Toast.makeText(getContext(), "Please Farmer Name", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Please Grower Name", Toast.LENGTH_LONG).show();
             return false;
 
         }
@@ -773,7 +773,7 @@ public class TransportFarmerFragment extends Fragment {
                 return false;
 
             } else if (hiringVechileTransportAns.getText().toString().length() == 0) {
-                Toast.makeText(getContext(), "Please give Farmer facing any Problem", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Please give Grower facing any Problem", Toast.LENGTH_LONG).show();
                 return false;
 
             } else if (LabourType == 0) {

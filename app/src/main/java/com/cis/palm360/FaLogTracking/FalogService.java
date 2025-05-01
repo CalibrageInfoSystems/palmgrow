@@ -282,7 +282,7 @@ public class FalogService extends Service implements LocationListener {
 
         if (location != null) {
             // Check if latitude and longitude are empty or null
-            String selectedLatLong = dataAccessHandler.getFalogLatLongs(Queries.getInstance().queryVerifyFalogDistance(formattedDate));
+              String selectedLatLong = dataAccessHandler.getFalogLatLongs(Queries.getInstance().queryVerifyFalogDistance(formattedDate));
             if (TextUtils.isEmpty(selectedLatLong)) {
                 // No latitude and longitude entries found in the table, force insertion of a new record
                 if (location.getAccuracy() <= MAX_ACCURACY_THRESHOLD){

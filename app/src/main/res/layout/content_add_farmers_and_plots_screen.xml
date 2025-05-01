@@ -19,7 +19,7 @@
             android:id="@+id/et_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search by name or mobile number or Growercode"
+            android:hint="Search by name or mobile number or Grower code"
             android:inputType="textNoSuggestions|textVisiblePassword"
             android:padding="6dp"
             android:textSize="16sp" />

@@ -79,8 +79,16 @@
                         android:id="@+id/imageView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="GrowerCode"
+                        android:text="Grower Code"
                         />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Grower" />
+
                     <TextView
                         android:id="@+id/tvfarmercode"
                         android:layout_width="wrap_content"
@@ -99,7 +107,7 @@
                         android:id="@+id/imageView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="GrowerName"
+                        android:text="Grower Name"
                         />
                     <TextView
                         android:id="@+id/tvfarmername"
@@ -119,7 +127,7 @@
                         android:id="@+id/imageView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Plot Codes"
+                        android:text="Field Codes"
                         />
                     <TextView
                         android:id="@+id/tvplotcodes"
